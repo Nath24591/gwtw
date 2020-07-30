@@ -6,23 +6,14 @@
                 <div class=" col-md-8 col-sm-8 col-xs-12">
                     <div class="topbar-left">
                         <ul>
-                            <li><a href="#"><i class="fa fa-clock-o"></i> Live support</a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> info@loto3.com</a></li>
+                            <li><a href="#"><i class="fa fa-envelope"></i> info@gonewiththewin.co.uk</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="topbar-right">
                         <ul>
-                            <li><a href="#"><img src="img/icon/w1.png" alt="">English</a>
-                                <ul>
-                                    <li><a href="#"><img src="img/icon/w2.png" alt="">Deutsch</a>
-                                    <li><a href="#"><img src="img/icon/w3.png" alt="">Español</a>
-                                    <li><a href="#"><img src="img/icon/w4.png" alt="">Français</a>
-                                    <li><a href="#"><img src="img/icon/w5.png" alt="">العربية</a>
-                                </ul>
-                            </li>
-                            <li><a href="#"><img src="img/icon/login.png" alt="">Login</a>
+                            <li><a th:href="@{login}"><img th:src="@{/img/icon/login.png}" alt="">Login</a>
                         </ul>
                     </div>
                 </div>
@@ -39,7 +30,7 @@
                     <div class="logo">
                         <!-- Brand -->
                         <a class="navbar-brand " href="index.html">
-                            <img src="img/logo/logo.png" alt="">
+                            <img th:src="@{/img/logo/gwtwlogo.png}" alt="">
                         </a>
                     </div>
                     <!-- logo end -->
@@ -47,19 +38,14 @@
                 <div class="col-md-9 col-sm-9">
                     <div class="header-right-link">
                         <!-- search option end -->
-                        <a class="s-menu" href="login.html">Join now</a>
+                        <a class="s-menu" th:href="@{login.html}">Join now</a>
                     </div>
                     <!-- mainmenu start -->
                     <nav class="navbar navbar-default">
                         <div class="collapse navbar-collapse" id="navbar-example">
                             <div class="main-menu">
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li><a class="pages" href="index.html">Home</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index.html">Home 01</a></li>
-                                            <li><a href="index-2.html">Home 02</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a class="pages" href="index.html">Home</a></li>
                                     <li><a class="pages" href="about.html">About</a></li>
                                     <li><a class="pages" href="#">Results</a>
                                         <ul class="sub-menu">
@@ -108,16 +94,11 @@
                 <div class="col-md-12">
                     <div class="mobile-menu">
                         <div class="logo">
-                            <a href="index.html"><img src="img/logo/logo.png" alt="" /></a>
+                            <a href="index.html"><img th:src="@{/img/logo/gwtwlogo.png}" alt="" /></a>
                         </div>
                         <nav id="dropdown">
                             <ul>
-                                <li><a class="pages" href="index.html">Home</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index.html">Home 01</a></li>
-                                        <li><a href="index-2.html">Home 02</a></li>
-                                    </ul>
-                                </li>
+                                <li><a class="pages" href="index.html">Home</a></li>
                                 <li><a class="pages" href="about.html">About</a></li>
                                 <li><a class="pages" href="#">Results</a>
                                     <ul class="sub-menu">
