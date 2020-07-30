@@ -25,5 +25,10 @@ public class NavigationController {
     public String indexHTML() {
         return "index";
     }
-    
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
 }

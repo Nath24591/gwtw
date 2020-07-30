@@ -56,7 +56,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="topbar-right">
                         <ul>
-                            <li><a href="#"><img th:src="@{/img/icon/login.png}" alt="">Login</a>
+                            <li><a th:href="@{login}"><img th:src="@{/img/icon/login.png}" alt="">Login</a>
                         </ul>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                 <div class="col-md-9 col-sm-9">
                     <div class="header-right-link">
                         <!-- search option end -->
-                        <a class="s-menu" href="login.html">Join now</a>
+                        <a class="s-menu" th:href="@{login.html}">Join now</a>
                     </div>
                     <!-- mainmenu start -->
                     <nav class="navbar navbar-default">
