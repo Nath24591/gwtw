@@ -31,4 +31,9 @@ public class NavigationController {
         return "login";
     }
 
+    @RequestMapping("/signup")
+    public String register() {
+        return "signup";
+    }
+
 }
