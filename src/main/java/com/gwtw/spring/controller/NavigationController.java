@@ -1,15 +1,11 @@
 package com.gwtw.spring.controller;
 
-import com.gwtw.spring.domain.User;
+import com.gwtw.spring.DTO.UserDto;
 import com.gwtw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class NavigationController {
@@ -31,9 +27,10 @@ public class NavigationController {
         return "login";
     }
 
-    @RequestMapping("/signup")
-    public String register() {
-        return "signup";
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    public ModelAndView register(ModelAndView modelAndView) {
+        modelAndView.addObject("UserDto", new UserDto());
+        modelAndView.setViewName("signup");
+        return modelAndView;
     }
-
 }
