@@ -1,106 +1,124 @@
 <!doctype html>
 <html class="no-js" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<title>Signup - GWTW</title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Signup - GWTW</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<!-- favicon -->		
-		<link rel="shortcut icon" type="image/x-icon" href="img/logo/favicon.ico">
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo/favicon.ico">
 
-		<!-- all css here -->
+    <!-- all css here -->
 
-		<!-- bootstrap v3.3.6 css -->
-        <!-- bootstrap v3.3.6 css -->
-        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-        <!-- font-awesome css -->
-        <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
-        <!-- style css -->
-        <link rel="stylesheet" th:href="@{/css/style.css}">
-        <!-- responsive css -->
-        <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <!-- bootstrap v3.3.6 css -->
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <!-- style css -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- responsive css -->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
-        <!-- modernizr css -->
-        <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
-	</head>
-		<body data-spy="scroll" data-target="#navbar-example">
+    <!-- modernizr css -->
+    <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+</head>
+<body data-spy="scroll" data-target="#navbar-example">
+<div th:insert="fragments/header :: header"></div>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 
-		<!--[if lt IE 8]>
-			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-		<![endif]-->
-		
+<!-- Start Slider Area -->
+<div class="login-area area-padding fix">
+    <div class="login-overlay"></div>
+    <div class="table">
+        <div class="table-cell">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-12">
+                        <div class="login-form signup-form">
+                            <h4 class="login-title text-center">REGISTER</h4>
+                            <div th:if="${confirmationMessage}" class="alert alert-success"
+                                 role="alert" th:text=${confirmationMessage}></div>
 
-        <!-- Start Slider Area -->
-        <div class="login-area area-padding fix">
-            <div class="login-overlay"></div>
-            <div class="table">
-                <div class="table-cell">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-12">
-                                <div class="login-form signup-form">
-                                    <h4 class="login-title text-center">REGISTER</h4>
-                                    <div class="row">
-                                        <form id="contactForm" method="POST" action="contact.php" class="log-form">
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <input type="text" id="name" class="form-control" placeholder="Username" required data-error="Please enter your name">
-                                            </div>
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <input type="email" id="email" class="form-control" placeholder="Your Email" required data-error="Please enter your name">
-                                            </div>
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <input type="password" id="msg_subject" class="form-control" placeholder="Password" required data-error="Please enter your message subject">
-                                            </div>
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <input type="password" id="cmsg_subject" class="form-control" placeholder="Confirm Password" required data-error="Please enter your message subject">
-                                            </div>
-                                            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                                                <div class="check-group flexbox">
-                                                    <label class="check-box">
-                                                        <input type="checkbox" class="check-box-input" checked>
-                                                        <span class="remember-text">I agree terms & conditions</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                                                <button type="submit" id="submit" class="slide-btn login-btn">Signup</button>
-                                                <div id="msgSubmit" class="h3 text-center hidden"></div> 
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                                                <div class="clear"></div>
-                                                <div class="separetor text-center"><span>Or with signup</span></div>
-                                                <div class="sign-icon">
-                                                    <ul>
-                                                        <li><a class="facebook" href="#"><i class="fa fa-facebook-square"></i>Facebook</a></li>
-                                                        <li><a class="twitter" href="#"><i class="fa fa-twitter-square"></i>twitter</a></li>
-                                                        <li><a class="google" href="#"><i class="fa fa-google-plus-square"></i>google</a></li>
-                                                    </ul>
-                                                    <div class="acc-not">have an account?  <a th:href="@{login}">Login</a></div>
-                                                </div>
-                                            </div>
-                                        </form> 
+                            <div th:if="${errorMessage}"
+                                 class="alert alert-danger" role="alert"
+                                 th:text="${errorMessage}"></div>
+                            <div class="row">
+                                <form action="#" id="contactForm" method="POST" th:action="@{/signup}" th:object="${UserDto}" class="log-form">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="text" id="name" class="form-control" placeholder="Username" th:field="*{firstName}"
+                                               required data-error="Please enter your name">
                                     </div>
-                                </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="text" id="lastName" class="form-control" placeholder="Your Surname" th:field="*{lastName}"
+                                               required data-error="Please enter your name">
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="email" id="email" class="form-control" placeholder="Your Email" th:field="*{email}"
+                                               required data-error="Please enter your name">
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="password" id="msg_subject" class="form-control" th:field="*{password}"
+                                               placeholder="Password" required
+                                               data-error="Please enter your message subject">
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="password" id="cmsg_subject" class="form-control" th:field="*{matchingPassword}"
+                                               placeholder="Confirm Password" required
+                                               data-error="Please enter your message subject">
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                        <div class="check-group flexbox">
+                                            <label class="check-box">
+                                                <input type="checkbox" class="check-box-input" checked>
+                                                <span class="remember-text">I agree terms & conditions</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                        <button type="submit" id="submit" class="slide-btn login-btn">Signup</button>
+                                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                        <div class="clear"></div>
+                                        <div class="separetor text-center"><span>Or with signup</span></div>
+                                        <div class="sign-icon">
+                                            <ul>
+                                                <li><a class="facebook" href="#"><i class="fa fa-facebook-square"></i>Facebook</a>
+                                                </li>
+                                                <li><a class="twitter" href="#"><i class="fa fa-twitter-square"></i>twitter</a>
+                                                </li>
+                                                <li><a class="google" href="#"><i class="fa fa-google-plus-square"></i>google</a>
+                                                </li>
+                                            </ul>
+                                            <div class="acc-not">have an account? <a th:href="@{login}">Login</a></div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- End Slider Area -->
-		
-		<!-- all js here -->
+    </div>
+</div>
+<!-- End Slider Area -->
 
-		<!-- jquery latest version -->
-		<script src="js/vendor/jquery-1.12.4.min.js"></script>
-		<!-- bootstrap js -->
-		<script src="js/bootstrap.min.js"></script>
-		<!-- Form validator js -->
-		<script src="js/form-validator.min.js"></script>
-		<!-- plugins js -->
-		<script src="js/plugins.js"></script>
-	</body>
+<!-- all js here -->
+<!-- jquery latest version -->
+<script src="js/vendor/jquery-1.12.4.min.js"></script>
+<!-- bootstrap js -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Form validator js -->
+<script src="js/form-validator.min.js"></script>
+<!-- plugins js -->
+<script src="js/plugins.js"></script>
+</body>
 </html>
