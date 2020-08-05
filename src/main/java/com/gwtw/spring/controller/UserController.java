@@ -1,17 +1,18 @@
 package com.gwtw.spring.controller;
 
+import com.gwtw.spring.DTO.LoginDto;
 import com.gwtw.spring.DTO.UserDto;
+import com.gwtw.spring.PasswordUtils;
 import com.gwtw.spring.domain.User;
 import com.gwtw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gcp.data.datastore.core.DatastoreTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -23,7 +24,7 @@ public class UserController {
     UserRepository userRepository;
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ModelAndView processRegistrationForm(@ModelAttribute("UserDto")UserDto userDto, ModelAndView  modelAndView ) {
+    public ModelAndView processRegistrationForm(@ModelAttribute("UserDto")UserDto userDto, ModelAndView  modelAndView, HttpServletRequest request) {
         //Does user already have an account for this email?
         List<User> existingUsers = userRepository.getUsersByEmail(userDto.getEmail());
         if(existingUsers.size() > 0){
@@ -31,11 +32,55 @@ public class UserController {
             modelAndView.setViewName("signup");
             return modelAndView;
         }
+        HttpSession session = request.getSession();
+        session.setAttribute( "email" , userDto.getEmail());
+
+        // Generate Salt. The generated value can be stored in DB.
+        String salt = PasswordUtils.getSalt(30);
+        String encryptedPassword = PasswordUtils.generateSecurePassword(userDto.getPassword(), salt);
+
         modelAndView.addObject("UserDto", new UserDto());
-        modelAndView.addObject("confirmationMessage", "fanx");
+        modelAndView.addObject("confirmationMessage", "Thank you for signing up!");
         modelAndView.setViewName("signup");
-        User u = new User(null,userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getPassword());
+        User u = new User(null,userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), encryptedPassword, salt);
         this.datastoreTemplate.save(u);
         return modelAndView;
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ModelAndView processLoginForm(@ModelAttribute("LoginDto") LoginDto loginDto, ModelAndView  modelAndView, HttpServletRequest request) {
+        List<User> existingUsers = userRepository.getUsersByEmail(loginDto.getEmail());
+        HttpSession session = request.getSession();
+        if(existingUsers.size() > 0){
+            User user = existingUsers.get(0);
+
+            boolean passwordsMatch = PasswordUtils.verifyUserPassword(loginDto.getPassword(), user.getPassword(), user.getSalt());
+            //check password matches
+            if(passwordsMatch){
+                session.setAttribute("email", user.getEmail());
+                modelAndView.addObject("loggedIn", "true");
+                modelAndView.addObject("confirmationMessage", "Thank you for logging in!");
+                modelAndView.setViewName("login");
+                return modelAndView;
+            } else {
+                modelAndView.addObject("errorMessage", "Wrong email or password");
+                modelAndView.setViewName("login");
+                return modelAndView;
+            }
+        } else {
+            modelAndView.addObject("errorMessage", "Wrong email or password");
+            modelAndView.setViewName("login");
+            return modelAndView;
+        }
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView processLogout(ModelAndView  modelAndView, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("email");
+        modelAndView.addObject("LoginDto", new LoginDto());
+        modelAndView.setViewName("login");
+        return modelAndView;
+    }
+
 }

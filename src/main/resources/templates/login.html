@@ -41,14 +41,20 @@
                     <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-12">
                         <div class="login-form">
                             <h4 class="login-title text-center">LOGIN</h4>
+                            <div th:if="${confirmationMessage}" class="alert alert-success"
+                                 role="alert" th:text=${confirmationMessage}></div>
+
+                            <div th:if="${errorMessage}"
+                                 class="alert alert-danger" role="alert"
+                                 th:text="${errorMessage}"></div>
                             <div class="row">
-                                <form id="contactForm" method="POST" action="contact.php" class="log-form">
+                                <form id="contactForm" method="POST" th:action="@{/login}" th:object="${LoginDto}" class="log-form">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <input type="text" id="name" class="form-control" placeholder="Username"
-                                               required data-error="Please enter your name">
+                                        <input type="text" id="email" class="form-control" placeholder="Email" th:field="*{email}"
+                                               required data-error="Please enter your email">
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <input type="password" id="msg_subject" class="form-control"
+                                        <input type="password" id="msg_subject" class="form-control" th:field="*{password}"
                                                placeholder="Password" required
                                                data-error="Please enter your message subject">
                                     </div>

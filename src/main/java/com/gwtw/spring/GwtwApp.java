@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.gcp.data.datastore.core.DatastoreTemplate;
 import org.springframework.cloud.gcp.data.datastore.repository.config.EnableDatastoreRepositories;
-import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @EnableDatastoreRepositories

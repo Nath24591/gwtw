@@ -13,7 +13,8 @@
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="topbar-right">
                         <ul>
-                            <li><a th:href="@{login}"><img th:src="@{/img/icon/login.png}" alt="">Login</a>
+                            <li th:if="${loggedIn != null}"><a th:href="@{logout}"><img th:src="@{/img/icon/login.png}" alt="">Logout</a>
+                            <li th:if="${loggedIn == null}"><a th:href="@{login}"><img th:src="@{/img/icon/login.png}" alt="">Login</a>
                         </ul>
                     </div>
                 </div>
@@ -29,7 +30,7 @@
                 <div class="col-md-3 col-sm-3">
                     <div class="logo">
                         <!-- Brand -->
-                        <a class="navbar-brand " href="index.html">
+                        <a class="navbar-brand " href="/">
                             <img th:src="@{/img/logo/gwtwlogo.png}" alt="">
                         </a>
                     </div>
@@ -38,14 +39,13 @@
                 <div class="col-md-9 col-sm-9">
                     <div class="header-right-link">
                         <!-- search option end -->
-                        <a class="s-menu" th:href="@{login.html}">Join now</a>
                     </div>
                     <!-- mainmenu start -->
                     <nav class="navbar navbar-default">
                         <div class="collapse navbar-collapse" id="navbar-example">
                             <div class="main-menu">
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li><a class="pages" href="index.html">Home</a></li>
+                                    <li><a class="pages" href="/">Home</a></li>
                                     <li><a class="pages" href="about.html">About</a></li>
                                     <li><a class="pages" href="#">Results</a>
                                         <ul class="sub-menu">
@@ -53,12 +53,7 @@
                                             <li><a href="latest-win.html">Latest Winner</a></li>
                                         </ul>
                                     </li>
-                                    <li><a class="pages" href="#">Lottery</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="lottery.html">Lottery one</a></li>
-                                            <li><a href="lottery-2.html">Lottery Two</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a class="pages" href="/currentcomps">Live</a></li>
                                     <li><a class="pages" href="#">Pages</a>
                                         <ul class="sub-menu">
                                             <li><a href="affiliate.html">Affiliate</a></li>
@@ -94,11 +89,11 @@
                 <div class="col-md-12">
                     <div class="mobile-menu">
                         <div class="logo">
-                            <a href="index.html"><img th:src="@{/img/logo/gwtwlogo.png}" alt=""/></a>
+                            <a href="/"><img th:src="@{/img/logo/gwtwlogo.png}" alt=""/></a>
                         </div>
                         <nav id="dropdown">
                             <ul>
-                                <li><a class="pages" href="index.html">Home</a></li>
+                                <li><a class="pages" href="/">Home</a></li>
                                 <li><a class="pages" href="about.html">About</a></li>
                                 <li><a class="pages" href="#">Results</a>
                                     <ul class="sub-menu">
@@ -106,12 +101,7 @@
                                         <li><a href="latest-win.html">Latest Winner</a></li>
                                     </ul>
                                 </li>
-                                <li><a class="pages" href="#">Lottery</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="lottery.html">Lottery one</a></li>
-                                        <li><a href="lottery-2.html">Lottery Two</a></li>
-                                    </ul>
-                                </li>
+                                <li><a class="pages" href="/currentcomps">Live</a></li>
                                 <li><a class="pages" href="#">Pages</a>
                                     <ul class="sub-menu">
                                         <li><a href="affiliate.html">Affiliate</a></li>
