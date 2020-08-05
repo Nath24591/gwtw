@@ -19,6 +19,8 @@ public class User {
 
     private String salt;
 
+    private int isAdmin;
+
     public User() {
 
     }
@@ -30,6 +32,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.salt = salt;
+        this.isAdmin = 0;
     }
 
     public Long getId() {
@@ -78,5 +81,13 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public int getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }
