@@ -25,6 +25,9 @@ public class NavigationController {
         if(isUserLoggedIn(request)){
             modelAndView.addObject("loggedIn", "true");
         }
+        //get current competitions to list as "featured" on home page
+        List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
+        modelAndView.addObject("featuredCompetitions", competitionList);
         modelAndView.setViewName("index");
         return modelAndView;
     }

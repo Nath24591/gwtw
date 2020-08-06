@@ -144,73 +144,48 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="section-headline text-center">
                     <h3>Featured competitions</h3>
-                    <p>Check out out most popular competitions</p>
+                    <p>Check out our most popular competitions</p>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="ticket-content lettery-carousel">
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div th:each="competition: ${competitions}" class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="single-blog">
+                        <div class="blog-image">
+                            <a class="image-scale" href="#">
+                                <img src="img/blog/b1.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-category">
+                                <span th:text="${competition.heading}"></span>
+                            </div>
+                            <div class="blog-meta">
+                                        <span class="admin-type">
+                                            <i class="fas fa-pound-sign"></i>
+                                            <span th:text="${competition.price}"></span>
+                                        </span>
+                                <span class="comments-type">
+                                            <i class="fas fa-ticket-alt"></i>
+                                            <span th:text="${competition.remaining}"></span>
+                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div th:each="featuredCompetition: ${featuredCompetitions}" class="col-md-4 col-sm-4 col-xs-12">
                     <!-- fun_text  -->
                     <div class="single-ticket">
-                        <span class="ticket-rate">20CD</span>
+                        <span class="ticket-rate" th:text="${featuredCompetition.remaining}"></span>
                         <div class="ticket-image">
-                            <span class="win-price">Win price</span>
-                            <span class="win-money">$2000k</span>
+                            <span class="win-money" th:text="${featuredCompetition.heading}"></span>
                             <img th:src="@{/img/about/chips1.png}" alt="">
                         </div>
                         <div class="ticket-text">
-                            <h4 class="ticket-name">Winter Jackpot</h4>
-                            <span class="draw">Next Draw: 20 may 2020</span>
+                            <i class="fas fa-pound-sign" th:text="${featuredCompetition.price}"></i>
+                            <h4 class="ticket-name"></h4>
                             <a class="ticket-btn" href="#">Enter Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <!-- fun_text  -->
-                    <div class="single-ticket">
-                        <span class="ticket-rate">20CD</span>
-                        <div class="ticket-image">
-                            <span class="win-price">Win price</span>
-                            <span class="win-money">$5000k</span>
-                            <img th:src="@{/img/about/chips2.png}" alt="">
-                        </div>
-                        <div class="ticket-text">
-                            <h4 class="ticket-name">Las Vegas Lottery</h4>
-                            <span class="draw">Next Draw: 10 may 2020</span>
-                            <a class="ticket-btn" href="#">Play Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <!-- fun_text  -->
-                    <div class="single-ticket">
-                        <span class="ticket-rate">20CD</span>
-                        <div class="ticket-image">
-                            <span class="win-price">Win price</span>
-                            <span class="win-money">$8000k</span>
-                            <img th:src="@{/img/about/chips3.png}" alt="">
-                        </div>
-                        <div class="ticket-text">
-                            <h4 class="ticket-name">Powerball</h4>
-                            <span class="draw">Next Draw: 15 may 2020</span>
-                            <a class="ticket-btn" href="#">Play Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <!-- fun_text  -->
-                    <div class="single-ticket">
-                        <span class="ticket-rate">20CD</span>
-                        <div class="ticket-image">
-                            <span class="win-price">Win price</span>
-                            <span class="win-money">$8000k</span>
-                            <img th:src="@{/img/about/chips3.png}" alt="">
-                        </div>
-                        <div class="ticket-text">
-                            <h4 class="ticket-name">London Jackpot</h4>
-                            <span class="draw">Next Draw: 18 may 2020</span>
-                            <a class="ticket-btn" href="#">Play Now</a>
                         </div>
                     </div>
                 </div>
