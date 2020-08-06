@@ -19,6 +19,8 @@ public class Competition {
 
     private int remaining;
 
+    private int startingTickets;
+
     public Competition() {
 
     }
@@ -78,5 +80,13 @@ public class Competition {
 
     public void setRemaining(int remaining) {
         this.remaining = remaining;
+    }
+
+    public int getStartingTickets() {
+        return startingTickets;
+    }
+
+    public void setStartingTickets(int startingTickets) {
+        this.startingTickets = startingTickets;
     }
 }
