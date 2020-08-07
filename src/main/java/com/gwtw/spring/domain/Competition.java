@@ -1,6 +1,7 @@
 package com.gwtw.spring.domain;
 
 import org.springframework.cloud.gcp.data.datastore.core.mapping.Entity;
+import org.springframework.cloud.gcp.data.datastore.core.mapping.Unindexed;
 import org.springframework.data.annotation.Id;
 
 @Entity(name = "competitions")
@@ -9,6 +10,7 @@ public class Competition {
     @Id
     private Long id;
 
+    @Unindexed
     private String image;
 
     private String heading;

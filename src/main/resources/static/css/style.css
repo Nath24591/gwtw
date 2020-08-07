@@ -220,10 +220,10 @@ div#preloader {
     padding: 0.2em 0;
 }
 .area-padding{
-	padding: 100px 0px;
+	padding: 100px 0px 70px;
 }
 .area-padding-2{
-    padding: 100px 0px 70px;
+    padding: 35px 0px 70px;
 }
 .area-padding-3{
     padding: 70px 0px 100px;
@@ -661,7 +661,7 @@ div#preloader {
 /* 4.How to Area
 /*--------------------------------*/
 .how-to-area {
-    padding: 100px 0px 160px;
+    padding: 100px 0px 100px;
 }
 .all-how{
 	margin-bottom:60px;
@@ -1736,8 +1736,7 @@ div#preloader {
     top: -30px;
 }
 .auto-number {
-    margin-bottom: 30px;
-    border-bottom: 1px solid #666;
+    margin-bottom: 50px;
     padding-bottom: 30px;
 }
 .number-top {
@@ -1774,6 +1773,22 @@ div#preloader {
 .self-ticket li{
     display:inline-block;
 }
+
+.number-serial li a.active {
+    display: block;
+    color: #fff;
+    background: #1FC157;
+    border: 1px solid #1FC157;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin: 0px 1px;
+}
+
 .number-serial li.active a,
 .self-ticket li a {
     display: block;

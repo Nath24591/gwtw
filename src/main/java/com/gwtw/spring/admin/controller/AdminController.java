@@ -1,10 +1,13 @@
 package com.gwtw.spring.admin.controller;
 
+import com.google.cloud.Timestamp;
+import com.google.common.collect.Lists;
 import com.gwtw.spring.DTO.CompetitionDto;
 import com.gwtw.spring.DTO.LoginDto;
 import com.gwtw.spring.DTO.UserDto;
 import com.gwtw.spring.PasswordUtils;
 import com.gwtw.spring.domain.Competition;
+import com.gwtw.spring.domain.CompetitionTicket;
 import com.gwtw.spring.domain.User;
 import com.gwtw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -87,6 +91,21 @@ public class AdminController {
         modelAndView.setViewName("addCompetitions");
         Competition c = new Competition(null, competitionDto.getImage(), competitionDto.getHeading(), competitionDto.getDescription(), competitionDto.getPrice(), competitionDto.getStartingTickets(), competitionDto.getStartingTickets());
         this.datastoreTemplate.save(c);
+
+        LocalDateTime fifteenMinutesAgo = LocalDateTime.now().minusMinutes(15);
+        Timestamp timestamp = Timestamp.of(java.sql.Timestamp.valueOf(fifteenMinutesAgo));
+        String compId = String.valueOf(c.getId());
+        List<CompetitionTicket> competitionTickets = Lists.newArrayList();
+        int numberOfTickets = competitionDto.getStartingTickets();
+        for (int i = 1; i < numberOfTickets+1; i++) {
+            CompetitionTicket competitionTicket = new CompetitionTicket();
+            competitionTicket.setCompetitionId(compId);
+            competitionTicket.setTicket(i);
+            competitionTicket.setReservedTime(timestamp);
+            competitionTickets.add(competitionTicket);
+        }
+
+        datastoreTemplate.saveAll(competitionTickets);
         return modelAndView;
     }
 

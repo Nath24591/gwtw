@@ -1,0 +1,6 @@
+indexes:
+
+- kind: competition_tickets
+  properties:
+    - name: competitionId
+    - name: reservedTime

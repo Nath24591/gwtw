@@ -180,12 +180,12 @@
                         <span class="ticket-rate" th:text="${featuredCompetition.remaining}"></span>
                         <div class="ticket-image">
                             <span class="win-money" th:text="${featuredCompetition.heading}"></span>
-                            <img th:src="@{/img/about/chips1.png}" alt="">
+                            <img th:src="${featuredCompetition.image}" alt="">
                         </div>
                         <div class="ticket-text">
                             <i class="fas fa-pound-sign" th:text="${featuredCompetition.price}"></i>
                             <h4 class="ticket-name"></h4>
-                            <a class="ticket-btn" href="#">Enter Now</a>
+                            <a class="ticket-btn" th:href="@{'/comp?id=' + ${featuredCompetition.id}}">Enter Now</a>
                         </div>
                     </div>
                 </div>
@@ -303,7 +303,7 @@
                             <a class="footer-black-logo" href="#"><img th:src="@{/img/logo/gwtwlogo.png}" alt=""></a>
                         </div>
                         <p>
-                            Replacing a  maintains the amount of lines. When replacing a selection. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines.
+                            Our goal here at GoneWithTheWin is make great prizes available to everyone!
                         </p>
                         <div class="footer-icons">
                             <ul>

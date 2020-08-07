@@ -3,14 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<title>Current Competitions</title>
+		<title>Competition</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!-- favicon -->		
 		<link rel="shortcut icon" type="image/x-icon" href="img/logo/favicon.ico">
 
-        <!-- all css here -->
+		<!-- all css here -->
+
         <!-- bootstrap v3.3.6 css -->
         <!--    <link rel="stylesheet" th:href="css/bootstrap.min.css">-->
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -43,6 +44,8 @@
 
         <div id="preloader"></div>
         <div th:insert="fragments/header :: header"></div>
+        <!-- header end -->
+        <!-- Start Bottom Header -->
         <div class="page-area">
             <div class="breadcumb-overlay"></div>
             <div class="container">
@@ -50,78 +53,65 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="breadcrumb text-center">
                             <div class="section-headline text-center">
-                                <h3>Current Competitions</h3>
+                                <h3>Competition</h3>
                             </div>
                             <ul>
                                 <li class="home-bread">Home</li>
-                                <li>Live</li>
+                                <li>Competition</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Start Blog area -->
-        <div class="blog-area area-padding-2">
+        <!-- END Header -->
+        <!-- Start Number area -->
+        <div class="lottery-area area-padding-2">
             <div class="container">
-                <div class="row">
+                 <div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="section-headline text-center">
-                            <h3>Current Open Competitions</h3>
-                            <p>Check out all of our current competitions below!</p>
+							<h3 th:text="${comp.heading}">Prize name here</h3>
+							<p th:text="${comp.description}">Description of prize here</p>
 						</div>
 					</div>
 				</div>
-                <div class="row">
-                    <div class="blog-grid home-blog">
-                        <!-- Start single blog -->
-                        <div th:each="competition: ${competitions}" class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="single-blog">
-                                <div class="blog-image">
-                                    <a class="image-scale" href="#">
-                                        <img src="img/blog/b1.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="blog-content">
-                                    <div class="blog-category">
-                                       <span th:text="${competition.heading}"></span>
-                                    </div>
-                                    <div class="blog-meta">
-                                        <span class="admin-type">
-                                            <i class="fas fa-pound-sign"></i>
-                                            <span th:text="${competition.price}"></span>
-                                        </span>
-                                        <span class="comments-type">
-                                            <i class="fas fa-ticket-alt"></i>
-                                            <span th:text="${competition.remaining}"></span>
-                                         <div class="pull-right">
-                                            <a class="ticket-btn" th:href="@{'/comp?id=' + ${competition.id}}">Enter Now</a>
-                                        </div>
-                                        </span>
+                 <div class="row">
+                    <div class="lottery-content">
+                        <!-- Single Lottery area  -->
+                        <div class="col-md-12 col-sm-6 col-xs-12">
+                            <div class="single-lottery">
+                                <div class="auto-number">
+                                    <div class="text-center win-money">Select your tickets </div>
 
+                                <div class="number-all text-center">
+                                    <ul class="number-serial">
+                                        <li th:each="availableTicket: ${availableTickets}"><a href="#" class="select-num" th:text="${availableTicket.ticket}"></a></li>
+                                    </ul>
+                                </div>
+                                <div class="self-number">
+                                    <div class="self-ticket text-center">
+                                        <span>Your Selected Tickets :</span>
+                                        <ul id="selectedNumbers" class="self-number">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="lottery-top">
+                                    <span class="base-cost hidden" th:text="${comp.price}"></span>
+                                    <span class="win-money">£0.00</span>
+                                    <div class="buy-ticket-btn">
+                                        <a class="ticket-btn" href="#">Buy Now</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="blog-pagination">
-                                <ul class="pagination">
-                                   <li><a href="#">Prev</a></li>
-                                   <li class="active"><a href="#">1</a></li>
-                                   <li><a href="#">2</a></li>
-                                   <li><a href="#">3</a></li>
-                                   <li><a href="#">Next</a></li>
-                                </ul>
-                            </div>	
-                        </div>
+                        <!-- Single Lottery area  -->
                     </div>
                 </div>
-                <!-- End row -->
             </div>
         </div>
-        <!-- End Blog area -->
-<!-- Start Footer Area -->
+        <!-- End Number area -->
+ <!-- Start Footer Area -->
         <footer class="footer-1">
             <div class="footer-area">
                 <div class="container">
@@ -138,27 +128,27 @@
                                         <ul>
                                             <li>
                                                 <a href="#">
-                                                    <i class="fab fa-facebook"></i>
+                                                    <i class="fa fa-facebook"></i>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#">
-                                                    <i class="fab fa-twitter"></i>
+                                                    <i class="fa fa-twitter"></i>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#">
-                                                    <i class="fab fa-google"></i>
+                                                    <i class="fa fa-google"></i>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#">
-                                                    <i class="fab fa-pinterest"></i>
+                                                    <i class="fa fa-pinterest"></i>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#">
-                                                    <i class="fab fa-instagram"></i>
+                                                    <i class="fa fa-instagram"></i>
                                                 </a>
                                             </li>
                                         </ul>
@@ -218,28 +208,47 @@
                 </div>
             </div>
             <!-- Start Footer Bottom Area -->
+            <div class="footer-area-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="copyright">
+                                <p>
+                                    Copyright © 2020
+                                    <a href="#">LotoGame</a> All Rights Reserved
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Footer Bottom Area -->
         </footer>
+        <!-- End Footer Area -->
 		
 		<!-- all js here -->
 
-            <script th:src="@{/js/competitions.js}"></script>
-            <!-- jquery latest version -->
-            <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
-            <!-- bootstrap js -->
-            <script th:src="@{/js/bootstrap.min.js}"></script>
-            <!-- owl.carousel js -->
-            <script th:src="@{/js/owl.carousel.min.js}"></script>
-            <!-- magnific js -->
-            <script th:src="@{/js/magnific.min.js}"></script>
-            <!-- wow js -->
-            <script th:src="@{/js/wow.min.js}"></script>
-            <!-- meanmenu js -->
-            <script th:src="@{/js/jquery.meanmenu.js}"></script>
-            <!-- Form validator js -->
-            <script th:src="@{/js/form-validator.min.js}"></script>
-            <!-- plugins js -->
-            <script th:src="@{/js/plugins.js}"></script>
-            <!-- main js -->
-            <script th:src="@{/js/main.js}"></script>
+        <!-- jquery latest version -->
+        <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
+        <!-- bootstrap js -->
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <!-- owl.carousel js -->
+        <script th:src="@{/js/owl.carousel.min.js}"></script>
+        <!-- magnific js -->
+        <script th:src="@{/js/magnific.min.js}"></script>
+        <!-- wow js -->
+        <script th:src="@{/js/wow.min.js}"></script>
+        <!-- meanmenu js -->
+        <script th:src="@{/js/jquery.meanmenu.js}"></script>
+        <!-- Form validator js -->
+        <script th:src="@{/js/form-validator.min.js}"></script>
+        <!-- plugins js -->
+        <script th:src="@{/js/plugins.js}"></script>
+        <!-- main js -->
+        <script th:src="@{/js/main.js}"></script>
+        <!-- competition js -->
+        <script th:src="@{/js/competition.js}"></script>
+        <!-- competition js -->
+        <script th:src="@{/js/sweetalert.min.js}"></script>
 	</body>
 </html>

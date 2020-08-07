@@ -1,9 +1,12 @@
 package com.gwtw.spring.controller;
 
+import com.google.cloud.Timestamp;
 import com.gwtw.spring.DTO.LoginDto;
 import com.gwtw.spring.DTO.UserDto;
 import com.gwtw.spring.domain.Competition;
+import com.gwtw.spring.domain.CompetitionTicket;
 import com.gwtw.spring.repository.CompetitionRepository;
+import com.gwtw.spring.repository.CompetitionTicketRepository;
 import com.gwtw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -19,6 +26,8 @@ public class NavigationController {
 
     @Autowired
     CompetitionRepository competitionRepository;
+    @Autowired
+    CompetitionTicketRepository competitionTicketRepository;
 
     @RequestMapping("/")
     public ModelAndView index(ModelAndView modelAndView, HttpServletRequest request) {
@@ -32,13 +41,45 @@ public class NavigationController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(ModelAndView modelAndView, HttpServletRequest request) {
+    @RequestMapping("/faq")
+    public ModelAndView faq(ModelAndView modelAndView, HttpServletRequest request) {
         if(isUserLoggedIn(request)){
             modelAndView.addObject("loggedIn", "true");
         }
-        modelAndView.addObject("LoginDto", new LoginDto());
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("faq");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login(ModelAndView modelAndView, HttpServletRequest request) {
+        if(isUserLoggedIn(request)) {
+            modelAndView.addObject("loggedIn", "true");
+            List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
+            modelAndView.addObject("featuredCompetitions", competitionList);
+            modelAndView.setViewName("index");
+        } else {
+            modelAndView.addObject("LoginDto", new LoginDto());
+            modelAndView.setViewName("login");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/comp", method = RequestMethod.GET)
+    public ModelAndView singleComp(ModelAndView modelAndView, HttpServletRequest request,@RequestParam("id") String compId) {
+        //get competition using compId
+        if(isUserLoggedIn(request)){
+            modelAndView.addObject("loggedIn", "true");
+        }
+        Long compIdInt = Long.valueOf(compId);
+        Competition competition = competitionRepository.getCompetitionById(compIdInt);
+        modelAndView.addObject("comp", competition);
+        //Get available tickets
+        LocalDateTime currentTime = LocalDateTime.now().minusMinutes(15);
+        Timestamp timestamp = Timestamp.of(java.sql.Timestamp.valueOf(currentTime));
+        List<CompetitionTicket> availableTickets = competitionTicketRepository.getAllByCompetitionIdAndReservedTimeIsLessThan(compId, timestamp);
+        modelAndView.addObject("availableTickets", availableTickets);
+
+        modelAndView.setViewName("comp");
         return modelAndView;
     }
 
