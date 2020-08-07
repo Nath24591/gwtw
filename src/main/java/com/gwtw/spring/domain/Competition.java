@@ -25,12 +25,13 @@ public class Competition {
 
     }
 
-    public Competition(Long id,String image, String heading, String description, String price, int remaining) {
+    public Competition(Long id,String image, String heading, String description, String price, int startingTickets, int remaining) {
         this.id = id;
         this.heading = heading;
         this.description = description;
         this.image = image;
         this.price = price;
+        this.startingTickets = startingTickets;
         this.remaining = remaining;
     }
 

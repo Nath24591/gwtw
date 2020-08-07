@@ -1,10 +1,14 @@
 package com.gwtw.spring.admin.controller;
 
+import com.gwtw.spring.DTO.CompetitionDto;
 import com.gwtw.spring.DTO.LoginDto;
+import com.gwtw.spring.DTO.UserDto;
 import com.gwtw.spring.PasswordUtils;
+import com.gwtw.spring.domain.Competition;
 import com.gwtw.spring.domain.User;
 import com.gwtw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.gcp.data.datastore.core.DatastoreTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +21,8 @@ import java.util.List;
 
 @Controller
 public class AdminController {
-
+    @Autowired
+    DatastoreTemplate datastoreTemplate;
     @Autowired
     UserRepository userRepository;
 
@@ -58,6 +63,31 @@ public class AdminController {
             modelAndView.setViewName("adminLogin");
             return modelAndView;
         }
+    }
+
+    @RequestMapping("/addCompetitions")
+    public ModelAndView addCompetitions(ModelAndView modelAndView, HttpServletRequest request) {
+        //if an admin, set view to addCompetitions else set to admin login
+        if(isUserAdmin(request)){
+            modelAndView.addObject("CompetitionDto", new CompetitionDto());
+            modelAndView.setViewName("addCompetitions");
+        } else {
+            modelAndView.addObject("LoginDto", new LoginDto());
+            modelAndView.setViewName("adminLogin");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/addCompetitions", method = RequestMethod.POST)
+    public ModelAndView processRegistrationForm(@ModelAttribute("CompetitionDto") CompetitionDto competitionDto, ModelAndView  modelAndView, HttpServletRequest request) {
+        //Does user already have an account for this email?
+
+        modelAndView.addObject("CompetitionDto", new CompetitionDto());
+        modelAndView.addObject("confirmationMessage", "Competition Added!");
+        modelAndView.setViewName("addCompetitions");
+        Competition c = new Competition(null, competitionDto.getImage(), competitionDto.getHeading(), competitionDto.getDescription(), competitionDto.getPrice(), competitionDto.getStartingTickets(), competitionDto.getStartingTickets());
+        this.datastoreTemplate.save(c);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/adminLogout", method = RequestMethod.GET)
