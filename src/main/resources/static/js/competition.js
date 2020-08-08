@@ -67,6 +67,42 @@ $('.select-num').click( function() {
     return false;
 });
 
+function check_navigation_display(el) {
+    //accepts a jQuery object of the containing div as a parameter
+    if ($(el).find('ul').children('li').first().is(':visible')) {
+        $(el).children('.prev').hide();
+    } else {
+        $(el).children('.prev').show();
+    }
+
+    if ($(el).find('ul').children('li').last().is(':visible')) {
+        $(el).children('.next').hide();
+    } else {
+        $(el).children('.next').show();
+    }
+}
+
+$('.number-all').each(function () {
+    $(this).append('<a class="prev">prev</a> | <a class="next">next</a>');
+    $(this).find('ul li:gt(29)').hide();
+
+    check_navigation_display($(this));
+
+    $(this).find('.next').click(function () {
+        var last = $(this).siblings('ul').children('li:visible:last');
+        last.nextAll(':lt(30)').show();
+        last.next().prevAll().hide();
+        check_navigation_display($(this).closest('div'));
+    });
+
+    $(this).find('.prev').click(function () {
+        var first = $(this).siblings('ul').children('li:visible:first');
+        first.prevAll(':lt(30)').show();
+        first.prev().nextAll().hide();
+        check_navigation_display($(this).closest('div'));
+    });
+});
+
 function updateCost(baseCost) {
     let howManyActive = $('.active').length;
     let newValue = howManyActive * baseCost;
