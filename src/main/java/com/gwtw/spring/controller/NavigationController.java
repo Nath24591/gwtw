@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -77,6 +78,7 @@ public class NavigationController {
         LocalDateTime currentTime = LocalDateTime.now().minusMinutes(15);
         Timestamp timestamp = Timestamp.of(java.sql.Timestamp.valueOf(currentTime));
         List<CompetitionTicket> availableTickets = competitionTicketRepository.getAllByCompetitionIdAndReservedTimeIsLessThan(compId, timestamp);
+        availableTickets.sort(Comparator.comparingInt(CompetitionTicket::getTicket));
         modelAndView.addObject("availableTickets", availableTickets);
 
         modelAndView.setViewName("comp");

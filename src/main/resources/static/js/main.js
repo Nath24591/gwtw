@@ -81,7 +81,6 @@ windows.on('scroll', function() {
 ---------------------------- */
 	var lottery_carousel = $('.lettery-carousel');
 	lottery_carousel.owlCarousel({
-        loop:true,
         nav:true,		
         autoplay:false,
         dots:false,

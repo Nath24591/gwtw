@@ -150,30 +150,6 @@
         </div>
         <div class="row">
             <div class="ticket-content lettery-carousel">
-                <div th:each="competition: ${competitions}" class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="single-blog">
-                        <div class="blog-image">
-                            <a class="image-scale" href="#">
-                                <img src="img/blog/b1.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-category">
-                                <span th:text="${competition.heading}"></span>
-                            </div>
-                            <div class="blog-meta">
-                                        <span class="admin-type">
-                                            <i class="fas fa-pound-sign"></i>
-                                            <span th:text="${competition.price}"></span>
-                                        </span>
-                                <span class="comments-type">
-                                            <i class="fas fa-ticket-alt"></i>
-                                            <span th:text="${competition.remaining}"></span>
-                                        </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div th:each="featuredCompetition: ${featuredCompetitions}" class="col-md-4 col-sm-4 col-xs-12">
                     <!-- fun_text  -->
                     <div class="single-ticket">
