@@ -30,11 +30,13 @@
         <link rel="stylesheet" th:href="@{/css/magnific.min.css}">
         <!-- style css -->
         <link rel="stylesheet" th:href="@{/css/style.css}">
+        <link rel="stylesheet" th:href="@{/css/comp.css}">
         <!-- responsive css -->
         <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
         <!-- modernizr css -->
         <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+        <script th:src="@{https://js.stripe.com/v3/}"></script>
 	</head>
 		<body>
 
@@ -100,8 +102,24 @@
                                 <div class="lottery-top">
                                     <span class="base-cost hidden" th:text="${comp.price}"></span>
                                     <span class="win-money">£0.00</span>
+                                    <div class="text-center stripeDeviceSizing hidden">
+                                        <form id="payment-form">
+                                            <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+                                            <button id="submit">
+                                                <div class="spinner hidden" id="spinner"></div>
+                                                <span id="button-text">Pay</span>
+                                            </button>
+                                            <p id="card-error" role="alert"></p>
+                                            <p class="result-message hidden">
+                                                Payment succeeded, see the result in your
+                                                <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+                                            </p>
+                                        </form>
+                                    </div>
+
                                     <div class="buy-ticket-btn">
                                         <a class="ticket-btn" href="#">Buy Now</a>
+                                        <p class="buyText">Clicking buy now locks in your tickets for purchase.</p>
                                     </div>
                                 </div>
                             </div>

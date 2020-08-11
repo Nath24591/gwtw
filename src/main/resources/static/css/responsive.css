@@ -313,7 +313,7 @@
 
 /* small mobile :320px. */
 @media (max-width: 767px) {
-.container {width:300px}
+.container {width:400px}
 .logo {
     height: inherit;
     left: 10px;
