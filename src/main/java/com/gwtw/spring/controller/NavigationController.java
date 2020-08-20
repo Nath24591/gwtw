@@ -5,8 +5,10 @@ import com.gwtw.spring.DTO.LoginDto;
 import com.gwtw.spring.DTO.UserDto;
 import com.gwtw.spring.domain.Competition;
 import com.gwtw.spring.domain.CompetitionTicket;
+import com.gwtw.spring.domain.Question;
 import com.gwtw.spring.repository.CompetitionRepository;
 import com.gwtw.spring.repository.CompetitionTicketRepository;
+import com.gwtw.spring.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,8 @@ public class NavigationController {
     CompetitionRepository competitionRepository;
     @Autowired
     CompetitionTicketRepository competitionTicketRepository;
+    @Autowired
+    QuestionRepository questionRepository;
 
     @RequestMapping("/")
     public ModelAndView index(ModelAndView modelAndView, HttpServletRequest request) {
@@ -69,7 +73,9 @@ public class NavigationController {
         }
         Long compIdInt = Long.valueOf(compId);
         Competition competition = competitionRepository.getCompetitionById(compIdInt);
+        Question question = questionRepository.getQuestion();
         modelAndView.addObject("comp", competition);
+        modelAndView.addObject("question", question);
         //Get available tickets
         LocalDateTime currentTime = LocalDateTime.now().minusMinutes(15);
         Timestamp timestamp = Timestamp.of(java.sql.Timestamp.valueOf(currentTime));

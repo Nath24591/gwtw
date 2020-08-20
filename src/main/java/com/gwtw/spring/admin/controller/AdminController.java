@@ -4,10 +4,12 @@ import com.google.cloud.Timestamp;
 import com.google.common.collect.Lists;
 import com.gwtw.spring.DTO.CompetitionDto;
 import com.gwtw.spring.DTO.LoginDto;
+import com.gwtw.spring.DTO.QuestionDto;
 import com.gwtw.spring.DTO.UserDto;
 import com.gwtw.spring.PasswordUtils;
 import com.gwtw.spring.domain.Competition;
 import com.gwtw.spring.domain.CompetitionTicket;
+import com.gwtw.spring.domain.Question;
 import com.gwtw.spring.domain.User;
 import com.gwtw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AdminController {
@@ -106,6 +110,35 @@ public class AdminController {
         }
 
         datastoreTemplate.saveAll(competitionTickets);
+        return modelAndView;
+    }
+
+    @RequestMapping("/addQuestion")
+    public ModelAndView addQuestions(ModelAndView modelAndView, HttpServletRequest request) {
+        //if an admin, set view to addCompetitions else set to admin login
+        if(isUserAdmin(request)){
+            modelAndView.addObject("QuestionDto", new QuestionDto());
+            modelAndView.setViewName("addQuestion");
+        } else {
+            modelAndView.addObject("LoginDto", new LoginDto());
+            modelAndView.setViewName("adminLogin");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
+    public ModelAndView addQuestions(@ModelAttribute("QuestionDto") QuestionDto questionDto, ModelAndView  modelAndView) {
+        //Does user already have an account for this email?
+        modelAndView.addObject("QuestionDto", new QuestionDto());
+        modelAndView.addObject("confirmationMessage", "Question Added!");
+        modelAndView.setViewName("addQuestion");
+        Map<String, Boolean> answers = new HashMap<String, Boolean>();
+        answers.put(questionDto.getWrongAnswer1(), false);
+        answers.put(questionDto.getWrongAnswer2(), false);
+        answers.put(questionDto.getWrongAnswer3(), false);
+        answers.put(questionDto.getCorrectAnswer(), true);
+        Question q = new Question(null, questionDto.getQuestion(), answers );
+        this.datastoreTemplate.save(q);
         return modelAndView;
     }
 

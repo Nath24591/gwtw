@@ -1,273 +1,299 @@
 <!doctype html>
 <html class="no-js" lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<title>Competition</title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Competition</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<!-- favicon -->		
-		<link rel="shortcut icon" type="image/x-icon" href="img/logo/favicon.ico">
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo/favicon.ico">
 
-		<!-- all css here -->
+    <!-- all css here -->
 
-        <!-- bootstrap v3.3.6 css -->
-        <!--    <link rel="stylesheet" th:href="css/bootstrap.min.css">-->
-        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-        <!-- owl.carousel css -->
-        <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
-        <link rel="stylesheet" th:href="@{/css/owl.transitions.css}">
-        <!-- Animate css -->
-        <link rel="stylesheet" th:href="@{/css/animate.css}">
-        <!-- meanmenu css -->
-        <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
-        <!-- font-awesome css -->
-        <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
-        <link rel="stylesheet" th:href="@{/css/all.min.css}">
-        <link rel="stylesheet" th:href="@{/css/themify-icons.css}">
-        <!-- magnific css -->
-        <link rel="stylesheet" th:href="@{/css/magnific.min.css}">
-        <!-- style css -->
-        <link rel="stylesheet" th:href="@{/css/style.css}">
-        <link rel="stylesheet" th:href="@{/css/comp.css}">
-        <!-- responsive css -->
-        <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <!-- bootstrap v3.3.6 css -->
+    <!--    <link rel="stylesheet" th:href="css/bootstrap.min.css">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.transitions.css}">
+    <!-- Animate css -->
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/themify-icons.css}">
+    <!-- magnific css -->
+    <link rel="stylesheet" th:href="@{/css/magnific.min.css}">
+    <!-- style css -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/comp.css}">
+    <!-- responsive css -->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
-        <!-- modernizr css -->
-        <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
-        <script th:src="@{https://js.stripe.com/v3/}"></script>
-	</head>
-		<body>
+    <!-- modernizr css -->
+    <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+    <script th:src="@{https://js.stripe.com/v3/}"></script>
+    <!-- jquery latest version -->
+    <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
+    <!-- bootstrap js -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
 
-		<!--[if lt IE 8]>
-			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-		<![endif]-->
+</head>
+<body>
 
-        <div id="preloader"></div>
-        <div th:insert="fragments/header :: header"></div>
-        <!-- header end -->
-        <!-- Start Bottom Header -->
-        <div class="page-area">
-            <div class="breadcumb-overlay"></div>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div id="preloader"></div>
+<div th:insert="fragments/header :: header"></div>
+<!-- header end -->
+<!-- Start Bottom Header -->
+<div class="page-area">
+    <div class="breadcumb-overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcrumb text-center">
+                    <div class="section-headline text-center">
+                        <h3>Competition</h3>
+                    </div>
+                    <ul>
+                        <li class="home-bread">Home</li>
+                        <li>Competition</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="questionModalTitle">Competition Question</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-center" th:text="${question.question}"></h2>
+                    <div th:each="entry : ${question.answers}">
+                        <div class="radio" style="margin-left:50px;">
+                            <input type="radio" style="max-width: 20px;" class="custom-control-input text-center" name="answer" th:id="${entry.key}" th:value="${entry.value}">
+                            <label style="margin-top: 10px;" for="${entry.key}" th:text="${entry.key}"></label>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success answerClick" data-dismiss="modal">Submit Answer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Header -->
+<!-- Start Number area -->
+<div class="lottery-area area-padding-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-headline text-center">
+                    <h3 th:text="${comp.heading}"></h3>
+                    <img th:src="${comp.image}" alt="">
+                    <p th:text="${comp.description}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="lottery-content">
+                <!-- Single Lottery area  -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="single-lottery">
+                        <div class="auto-number">
+                            <div class="text-center win-money">Select your tickets </div>
+                            <div class="number-all text-center deviceSizing">
+                                <ul class="number-serial">
+                                    <li th:each="availableTicket: ${availableTickets}"><a href="#" class="select-num" th:text="${availableTicket.ticket}"></a></li>
+                                </ul>
+                            </div>
+                            <div class="self-number">
+                                <div class="self-ticket text-center">
+                                    <span>Your Selected Tickets :</span>
+                                    <ul id="selectedNumbers" class="self-number">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="lottery-top">
+                                <span class="base-cost hidden" th:text="${comp.price}"></span>
+                                <span class="win-money">£0.00</span>
+                                <div class="text-center stripeDeviceSizing hidden">
+                                    <form id="payment-form">
+                                        <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+                                        <button id="submit">
+                                            <div class="spinner hidden" id="spinner"></div>
+                                            <span id="button-text">Pay</span>
+                                        </button>
+                                        <p id="card-error" role="alert"></p>
+                                        <p class="result-message hidden">
+                                            Payment succeeded, see the result in your
+                                            <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+                                        </p>
+                                    </form>
+                                </div>
+
+                                <div class="hideButton">
+                                    <button type="button" class="buy-ticket-btn btn btn-success" style="max-width: 150px;" data-toggle="modal" data-target="#questionModal">Buy Now</button>
+                                    <p class="buyText">Clicking buy now locks in your tickets for purchase.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Lottery area  -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Number area -->
+    <!-- Start Footer Area -->
+    <footer class="footer-1">
+        <div class="footer-area">
+            <div class="container">
+                <div class="row"><div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="footer-content logo-footer">
+                        <div class="footer-head">
+                            <div class="footer-logo">
+                                <a class="footer-black-logo" href="#"><img src="img/logo/logo.png" alt=""></a>
+                            </div>
+                            <p>
+                                Replacing a  maintains the amount of lines. When replacing a selection. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines.
+                            </p>
+                            <div class="footer-icons">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-google"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-pinterest"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <!-- end single footer -->
+                    <div class="col-md-2 col-sm-3 col-xs-12">
+                        <div class="footer-content">
+                            <div class="footer-head">
+                                <h4>Lottery Name</h4>
+                                <ul class="footer-list">
+                                    <li><a href="#">Powerball</a></li>
+                                    <li><a href="#">London Jackpot</a></li>
+                                    <li><a href="#">Hunter Game</a></li>
+                                    <li><a href="#">Royal Casino</a></li>
+                                    <li><a href="#">Align fight</a></li>
+                                    <li><a href="#">Black night</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end single footer -->
+                    <div class="col-md-2 hidden-sm col-xs-12">
+                        <div class="footer-content">
+                            <div class="footer-head">
+                                <h4>Payments</h4>
+                                <ul class="footer-list">
+                                    <li><a href="#">Ripple coin</a></li>
+                                    <li><a href="#">Bitcoin</a></li>
+                                    <li><a href="#">Ethireum</a></li>
+                                    <li><a href="#">Light coin</a></li>
+                                    <li><a href="#">Coin base</a></li>
+                                    <li><a href="#">Skrill card</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end single footer -->
+                    <div class="col-md-2 col-sm-3 col-xs-12">
+                        <div class="footer-content last-content">
+                            <div class="footer-head">
+                                <h4>Support</h4>
+                                <ul class="footer-list">
+                                    <li><a href="#">Customer Care</a></li>
+                                    <li><a href="#">Live chat</a></li>
+                                    <li><a href="#">Notification</a></li>
+                                    <li><a href="#">Privacy</a></li>
+                                    <li><a href="#">Terms & Condition</a></li>
+                                    <li><a href="#">Contact us </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start Footer Bottom Area -->
+        <div class="footer-area-bottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="breadcrumb text-center">
-                            <div class="section-headline text-center">
-                                <h3>Competition</h3>
-                            </div>
-                            <ul>
-                                <li class="home-bread">Home</li>
-                                <li>Competition</li>
-                            </ul>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                            <p>
+                                Copyright © 2020
+                                <a href="#">LotoGame</a> All Rights Reserved
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- END Header -->
-        <!-- Start Number area -->
-        <div class="lottery-area area-padding-2">
-            <div class="container">
-                 <div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="section-headline text-center">
-							<h3 th:text="${comp.heading}"></h3>
-                            <img th:src="${comp.image}" alt="">
-							<p th:text="${comp.description}"></p>
-						</div>
-					</div>
-				</div>
-                 <div class="row">
-                    <div class="lottery-content">
-                        <!-- Single Lottery area  -->
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="single-lottery">
-                                <div class="auto-number">
-                                    <div class="text-center win-money">Select your tickets </div>
+        <!-- End Footer Bottom Area -->
+    </footer>
+    <!-- End Footer Area -->
 
-                                <div class="number-all text-center deviceSizing">
-                                    <ul class="number-serial">
-                                        <li th:each="availableTicket: ${availableTickets}"><a href="#" class="select-num" th:text="${availableTicket.ticket}"></a></li>
-                                    </ul>
-                                </div>
-                                <div class="self-number">
-                                    <div class="self-ticket text-center">
-                                        <span>Your Selected Tickets :</span>
-                                        <ul id="selectedNumbers" class="self-number">
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="lottery-top">
-                                    <span class="base-cost hidden" th:text="${comp.price}"></span>
-                                    <span class="win-money">£0.00</span>
-                                    <div class="text-center stripeDeviceSizing hidden">
-                                        <form id="payment-form">
-                                            <div id="card-element"><!--Stripe.js injects the Card Element--></div>
-                                            <button id="submit">
-                                                <div class="spinner hidden" id="spinner"></div>
-                                                <span id="button-text">Pay</span>
-                                            </button>
-                                            <p id="card-error" role="alert"></p>
-                                            <p class="result-message hidden">
-                                                Payment succeeded, see the result in your
-                                                <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
-                                            </p>
-                                        </form>
-                                    </div>
+    <!-- all js here -->
 
-                                    <div class="buy-ticket-btn">
-                                        <a class="ticket-btn" href="#">Buy Now</a>
-                                        <p class="buyText">Clicking buy now locks in your tickets for purchase.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Single Lottery area  -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Number area -->
- <!-- Start Footer Area -->
-        <footer class="footer-1">
-            <div class="footer-area">
-                <div class="container">
-                    <div class="row"><div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="footer-content logo-footer">
-                                <div class="footer-head">
-                                    <div class="footer-logo">
-                                    	<a class="footer-black-logo" href="#"><img src="img/logo/logo.png" alt=""></a>
-                                    </div>
-                                    <p>
-                                        Replacing a  maintains the amount of lines. When replacing a selection. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines.  
-                                    </p>
-                                    <div class="footer-icons">
-                                        <ul>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-facebook"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-google"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-pinterest"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-instagram"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end single footer -->
-                        <div class="col-md-2 col-sm-3 col-xs-12">
-                            <div class="footer-content">
-                                <div class="footer-head">
-                                    <h4>Lottery Name</h4>
-                                    <ul class="footer-list">
-                                        <li><a href="#">Powerball</a></li>
-                                        <li><a href="#">London Jackpot</a></li>
-                                        <li><a href="#">Hunter Game</a></li>
-                                        <li><a href="#">Royal Casino</a></li>
-                                        <li><a href="#">Align fight</a></li>
-                                        <li><a href="#">Black night</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end single footer -->
-                        <div class="col-md-2 hidden-sm col-xs-12">
-                            <div class="footer-content">
-                                <div class="footer-head">
-                                    <h4>Payments</h4>
-                                    <ul class="footer-list">
-                                        <li><a href="#">Ripple coin</a></li>
-                                        <li><a href="#">Bitcoin</a></li>
-                                        <li><a href="#">Ethireum</a></li>
-                                        <li><a href="#">Light coin</a></li>
-                                        <li><a href="#">Coin base</a></li>
-                                        <li><a href="#">Skrill card</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end single footer -->
-                        <div class="col-md-2 col-sm-3 col-xs-12">
-                             <div class="footer-content last-content">
-                                <div class="footer-head">
-                                    <h4>Support</h4>
-                                    <ul class="footer-list">
-                                        <li><a href="#">Customer Care</a></li>
-                                        <li><a href="#">Live chat</a></li>
-                                        <li><a href="#">Notification</a></li>
-                                        <li><a href="#">Privacy</a></li>
-                                        <li><a href="#">Terms & Condition</a></li>
-                                        <li><a href="#">Contact us </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Start Footer Bottom Area -->
-            <div class="footer-area-bottom">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="copyright">
-                                <p>
-                                    Copyright © 2020
-                                    <a href="#">LotoGame</a> All Rights Reserved
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Footer Bottom Area -->
-        </footer>
-        <!-- End Footer Area -->
-		
-		<!-- all js here -->
 
-        <!-- jquery latest version -->
-        <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
-        <!-- bootstrap js -->
-        <script th:src="@{/js/bootstrap.min.js}"></script>
-        <!-- owl.carousel js -->
-        <script th:src="@{/js/owl.carousel.min.js}"></script>
-        <!-- magnific js -->
-        <script th:src="@{/js/magnific.min.js}"></script>
-        <!-- wow js -->
-        <script th:src="@{/js/wow.min.js}"></script>
-        <!-- meanmenu js -->
-        <script th:src="@{/js/jquery.meanmenu.js}"></script>
-        <!-- Form validator js -->
-        <script th:src="@{/js/form-validator.min.js}"></script>
-        <!-- plugins js -->
-        <script th:src="@{/js/plugins.js}"></script>
-        <!-- main js -->
-        <script th:src="@{/js/main.js}"></script>
-        <!-- competition js -->
-        <script th:src="@{/js/competition.js}"></script>
-        <!-- competition js -->
-        <script th:src="@{/js/sweetalert.min.js}"></script>
-	</body>
+    <!-- owl.carousel js -->
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <!-- magnific js -->
+    <script th:src="@{/js/magnific.min.js}"></script>
+    <!-- wow js -->
+    <script th:src="@{/js/wow.min.js}"></script>
+    <!-- meanmenu js -->
+    <script th:src="@{/js/jquery.meanmenu.js}"></script>
+    <!-- Form validator js -->
+    <script th:src="@{/js/form-validator.min.js}"></script>
+    <!-- plugins js -->
+    <script th:src="@{/js/plugins.js}"></script>
+    <!-- main js -->
+    <script th:src="@{/js/main.js}"></script>
+    <!-- competition js -->
+    <script th:src="@{/js/competition.js}"></script>
+    <!-- competition js -->
+    <script th:src="@{/js/sweetalert.min.js}"></script>
+</body>
 </html>
