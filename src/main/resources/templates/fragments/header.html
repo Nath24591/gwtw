@@ -17,6 +17,7 @@
                             <li th:if="${loggedIn == null}"><a th:href="@{login}"><img th:src="@{/img/icon/login.png}" alt="">Login</a>
                         </ul>
                     </div>
+                    <input th:if="${loggedIn != null}" id="loggedIn" type="hidden" value="true">
                 </div>
             </div>
         </div>
