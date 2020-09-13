@@ -137,8 +137,6 @@ $(".answerClick").on('click', function() {
     }
 });
 $('.select-num').click( function() {
-
-    //TODO Ensure user is logged in before they select tickets
     if($("#loggedIn").length == 0){
         basicSwal("error", "Please log in or create an account before selecting tickets.");
         return false;
