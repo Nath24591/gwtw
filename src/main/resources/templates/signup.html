@@ -51,7 +51,7 @@
                             <div class="row">
                                 <form action="#" id="contactForm" method="POST" th:action="@{/signup}" th:object="${UserDto}" class="log-form">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <input type="text" id="name" class="form-control" placeholder="Your First name" th:field="*{firstName}"
+                                        <input type="text" id="name" class="form-control" placeholder="Your First Name" th:field="*{firstName}"
                                                required data-error="Please enter your name">
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -61,6 +61,14 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <input type="email" id="email" class="form-control" placeholder="Your Email" th:field="*{email}"
                                                required data-error="Please enter your name">
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="text" id="contact" class="form-control" placeholder="Your Number" th:field="*{contactNumber}"
+                                               required data-error="Please enter your contact number">
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="text" id="dob" class="form-control" placeholder="Your Date Of Birth" th:field="*{dateOfBirth}"
+                                               required data-error="Please enter your date of birth">
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <input type="password" id="msg_subject" class="form-control" th:field="*{password}"

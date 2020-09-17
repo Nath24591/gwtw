@@ -6,9 +6,11 @@ import com.gwtw.spring.DTO.UserDto;
 import com.gwtw.spring.domain.Competition;
 import com.gwtw.spring.domain.CompetitionTicket;
 import com.gwtw.spring.domain.Question;
+import com.gwtw.spring.domain.User;
 import com.gwtw.spring.repository.CompetitionRepository;
 import com.gwtw.spring.repository.CompetitionTicketRepository;
 import com.gwtw.spring.repository.QuestionRepository;
+import com.gwtw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,8 @@ import java.util.List;
 @Controller
 public class NavigationController {
 
+    @Autowired
+    UserRepository userRepository;
     @Autowired
     CompetitionRepository competitionRepository;
     @Autowired
@@ -51,6 +55,20 @@ public class NavigationController {
         return modelAndView;
     }
 
+    @RequestMapping("/myProfile")
+    public ModelAndView myProfile(ModelAndView modelAndView, HttpServletRequest request) {
+        if(isUserLoggedIn(request)){
+            modelAndView.addObject("loggedIn", "true");
+            User user = userRepository.getUsersByEmail(getEmail(request)).get(0);
+            modelAndView.addObject("username", user.getFirstName() + " " + user.getLastName());
+            modelAndView.addObject("email", user.getEmail());
+            modelAndView.addObject("contact", user.getContactNumber());
+            modelAndView.addObject("dob", user.getDateOfBirth());
+        }
+        modelAndView.setViewName("myProfile");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(ModelAndView modelAndView, HttpServletRequest request) {
         if(isUserLoggedIn(request)) {
@@ -70,6 +88,7 @@ public class NavigationController {
         //get competition using compId
         if(isUserLoggedIn(request)){
             modelAndView.addObject("loggedIn", "true");
+            modelAndView.addObject("loggedInEmail", getEmail(request));
         }
         Long compIdInt = Long.valueOf(compId);
         Competition competition = competitionRepository.getCompetitionById(compIdInt);
@@ -109,6 +128,11 @@ public class NavigationController {
 
         modelAndView.setViewName("currentcomps");
         return modelAndView;
+    }
+
+    private String getEmail(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return String.valueOf(session.getAttribute("email"));
     }
 
     private boolean isUserLoggedIn(HttpServletRequest request) {

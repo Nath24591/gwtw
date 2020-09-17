@@ -48,8 +48,9 @@ public class UserController {
 
         List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
         modelAndView.addObject("featuredCompetitions", competitionList);
+        modelAndView.addObject("loggedIn", "true");
         modelAndView.setViewName("index");
-        User u = new User(null,userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), encryptedPassword, salt);
+        User u = new User(null,userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getContactNumber(), userDto.getDateOfBirth(), encryptedPassword, salt);
         this.datastoreTemplate.save(u);
         return modelAndView;
     }
@@ -85,8 +86,7 @@ public class UserController {
     public ModelAndView processLogout(ModelAndView  modelAndView, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute("email");
-        modelAndView.addObject("LoginDto", new LoginDto());
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("index");
         return modelAndView;
     }
 

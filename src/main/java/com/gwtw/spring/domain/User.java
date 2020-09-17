@@ -17,6 +17,10 @@ public class User {
 
     private String password;
 
+    private String contactNumber;
+
+    private String dateOfBirth;
+
     private String salt;
 
     private int isAdmin;
@@ -25,11 +29,13 @@ public class User {
 
     }
 
-    public User(Long id,String firstName, String lastName, String email, String password, String salt) {
+    public User(Long id,String firstName, String lastName, String email, String contactNumber, String dateOfBirth, String password, String salt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.contactNumber = contactNumber;
+        this.dateOfBirth = dateOfBirth;
         this.password = password;
         this.salt = salt;
         this.isAdmin = 0;
@@ -89,5 +95,21 @@ public class User {
 
     public void setIsAdmin(int isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

@@ -10,11 +10,33 @@ public class UserDto {
     private String lastName;
 
     @NotNull
+    private String dateOfBirth;
+
+    @NotNull
+    private String contactNumber;
+
+    @NotNull
     private String password;
     private String matchingPassword;
 
     @NotNull
     private String email;
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
 
     public String getFirstName() {
         return firstName;

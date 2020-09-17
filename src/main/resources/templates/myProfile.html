@@ -1,14 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Current Competitions</title>
+    <title>My Profile</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/logo/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../static/img/logo/favicon.ico">
 
     <!-- bootstrap v3.3.6 css -->
     <!--    <link rel="stylesheet" th:href="css/bootstrap.min.css">-->
@@ -44,77 +44,57 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="breadcrumb text-center">
                     <div class="section-headline text-center">
-                        <h3>Current Competitions</h3>
+                        <h3>My Profile</h3>
                     </div>
                     <ul>
                         <li class="home-bread">Home</li>
-                        <li>Live</li>
+                        <li>My Profile</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Start Blog area -->
-<div class="blog-area area-padding-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="section-headline text-center">
-                    <h3>Current Open Competitions</h3>
-                    <p>Check out all of our current competitions below!</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="blog-grid home-blog">
-                <!-- Start single blog -->
-                <div th:each="competition: ${competitions}" class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-blog">
-                        <div class="blog-image">
-                            <a class="image-scale" href="#">
-                                <img src="img/blog/b1.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-category">
-                                <span th:text="${competition.heading}"></span>
-                            </div>
-                            <div class="blog-meta">
-                                        <span class="admin-type">
-                                            <i class="fas fa-pound-sign"></i>
-                                            <span th:text="${competition.price}"></span>
-                                        </span>
-                                <span class="comments-type">
-                                            <i class="fas fa-ticket-alt"></i>
-                                            <span th:text="${competition.remaining}"></span>
-                                         <div class="pull-right">
-                                            <a class="ticket-btn" th:href="@{'/comp?id=' + ${competition.id}}">Enter Now</a>
-                                        </div>
-                                        </span>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 watch-card">
+            <div class="listing-tab col-md-12">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+                    <li role="presentation"><a href="#entries" aria-controls="entries" role="tab" data-toggle="tab">My Competitions</a></li>
+                </ul>
 
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="profile">
+                        <div class="col-md-6">
+                        <p>
+                            <i class="fas fa-users fa-fw"></i>&nbsp;<span th:text="${username}"></span>
+                            <br />
+                            <i class="fas fa-envelope fa-fw"></i>&nbsp;<span th:text="${email}"></span>
+                            <br />
+                            <i class="fas fa-phone"></i>&nbsp;<span th:text="${contact}"></span>
+                            <br />
+                            <i class="fas fa-gift fa-fw"></i>&nbsp;<span th:text="${dob}"></span>
+                        </p>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="entries">
+                        <div class="related-artist">
+                            <h3>Related artist</h3>
+                            <div class="col-md-12">
+                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/vWtix2TtWGe9kffqnwdaMw/mq1.jpg" alt="" >Rihanna</div>
+                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/U6cE7pdJPc6DU2jSrKEsdQ/mq1.jpg" alt="" >Drake</div>
+                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/2-zLDHEP2rEkqwgutb2ctA/mq1.jpg" alt="" >Tyga</div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="blog-pagination">
-                        <ul class="pagination">
-                            <li><a href="#">Prev</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">Next</a></li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
-        <!-- End row -->
     </div>
 </div>
-<!-- End Blog area -->
 <!-- Start Footer Area -->
 <footer class="footer-1">
     <div class="footer-area">
@@ -123,7 +103,7 @@
                 <div class="footer-content logo-footer">
                     <div class="footer-head">
                         <div class="footer-logo">
-                            <a class="footer-black-logo" href="#"><img src="img/logo/logo.png" alt=""></a>
+                            <a class="footer-black-logo" href="#"><img src="../static/img/logo/logo.png" alt=""></a>
                         </div>
                         <p>
                             Replacing a  maintains the amount of lines. When replacing a selection. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines.
@@ -212,7 +192,23 @@
         </div>
     </div>
     <!-- Start Footer Bottom Area -->
+    <div class="footer-area-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="copyright">
+                        <p>
+                            Copyright © 2020
+                            <a href="#">LotoGame</a> All Rights Reserved
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Bottom Area -->
 </footer>
+<!-- End Footer Area -->
 
 <!-- all js here -->
 

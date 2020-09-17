@@ -93,6 +93,28 @@ $(".answerClick").on('click', function() {
                                 items: items
                             };
                             //TODO need to add the tickets to the user account
+                            let tempTickets = [];
+                            $('#selectedNumbers li').filter(function() {
+                                tempTickets.push($(this).text());
+                            });
+                            let object = {};
+                            object["tickets"] = tempTickets;
+                            object["email"] = $("#loggedInEmail").val();
+                            console.log("TicketObject");
+                            console.log(object);
+                            $.ajax({
+                                type: "PUT",
+                                contentType: "application/json",
+                                url: "/api/ticket/purchaseTickets/"+idParam,
+                                dataType: 'text',
+                                cache: false,
+                                timeout: 600000,
+                                data: JSON.stringify(object),
+                                complete: function (data) {
+                                    let baseCost = $(".base-cost").text();
+                                    updateCost(baseCost);
+                                }
+                            });
                             orderComplete(result.paymentIntent.id);
                         }
                     });
@@ -137,7 +159,7 @@ $(".answerClick").on('click', function() {
     }
 });
 $('.select-num').click( function() {
-    if($("#loggedIn").length == 0){
+    if($("#loggedIn").length === 0){
         basicSwal("error", "Please log in or create an account before selecting tickets.");
         return false;
     }
