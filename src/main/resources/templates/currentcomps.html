@@ -71,10 +71,8 @@
                 <!-- Start single blog -->
                 <div th:each="competition: ${competitions}" class="col-md-4 col-sm-6 col-xs-12">
                     <div class="single-blog">
-                        <div class="blog-image">
-                            <a class="image-scale" href="#">
-                                <img src="img/blog/b1.jpg" alt="">
-                            </a>
+                        <div class="ticket-image text-center">
+                            <img th:src="${competition.image}" alt="">
                         </div>
                         <div class="blog-content">
                             <div class="blog-category">
@@ -89,10 +87,10 @@
                                             <i class="fas fa-ticket-alt"></i>
                                             <span th:text="${competition.remaining}"></span>
                                          <div class="pull-right">
-                                            <a class="ticket-btn" th:href="@{'/comp?id=' + ${competition.id}}">Enter Now</a>
+                                            <a class="ticket-btn"
+                                               th:href="@{'/comp?id=' + ${competition.id}}">Enter Now</a>
                                         </div>
-                                        </span>
-
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -119,47 +117,51 @@
 <footer class="footer-1">
     <div class="footer-area">
         <div class="container">
-            <div class="row"><div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="footer-content logo-footer">
-                    <div class="footer-head">
-                        <div class="footer-logo">
-                            <a class="footer-black-logo" href="#"><img src="img/logo/logo.png" alt=""></a>
-                        </div>
-                        <p>
-                            Replacing a  maintains the amount of lines. When replacing a selection. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines.
-                        </p>
-                        <div class="footer-icons">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fab fa-google"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fab fa-pinterest"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="footer-content logo-footer">
+                        <div class="footer-head">
+                            <div class="footer-logo">
+                                <a class="footer-black-logo" href="#"><img src="img/logo/logo.png" alt=""></a>
+                            </div>
+                            <p>
+                                Replacing a maintains the amount of lines. When replacing a selection. help agencies to
+                                define their new business objectives and then create. Replacing a maintains the amount
+                                of lines. help agencies to define their new business objectives and then create.
+                                Replacing a maintains the amount of lines.
+                            </p>
+                            <div class="footer-icons">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-google"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-pinterest"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
                 <!-- end single footer -->
                 <div class="col-md-2 col-sm-3 col-xs-12">
                     <div class="footer-content">

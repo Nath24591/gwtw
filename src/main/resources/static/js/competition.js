@@ -92,7 +92,7 @@ $(".answerClick").on('click', function() {
                             let purchaseObject = {
                                 items: items
                             };
-                            //TODO need to add the tickets to the user account
+
                             let tempTickets = [];
                             $('#selectedNumbers li').filter(function() {
                                 tempTickets.push($(this).text());
@@ -100,8 +100,6 @@ $(".answerClick").on('click', function() {
                             let object = {};
                             object["tickets"] = tempTickets;
                             object["email"] = $("#loggedInEmail").val();
-                            console.log("TicketObject");
-                            console.log(object);
                             $.ajax({
                                 type: "PUT",
                                 contentType: "application/json",
@@ -121,7 +119,7 @@ $(".answerClick").on('click', function() {
             };
             /* ------- UI helpers ------- */
 // Shows a success message when the payment is complete
-            var orderComplete = function (paymentIntentId) {
+            let orderComplete = function (paymentIntentId) {
                 loading(false);
                 document
                     .querySelector(".result-message a")
@@ -130,6 +128,7 @@ $(".answerClick").on('click', function() {
                         "https://dashboard.stripe.com/test/payments/" + paymentIntentId
                     );
                 document.querySelector(".result-message").classList.remove("hidden");
+                $("#submit").attr("disabled", true);
                 document.querySelector("button").disabled = true;
             };
 // Show the customer the error from Stripe if their card fails to charge
