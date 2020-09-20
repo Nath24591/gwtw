@@ -92,6 +92,7 @@ public class TicketController {
             userTicket.setTicket(Integer.parseInt(ticketNum));
             userTicket.setOpen(1);
             userTicket.setWinning(0);
+            userTicket.setPurchasedTime(Timestamp.now());
             userTickets.add(userTicket);
             CompetitionTicket ticketToDelete = competitionTicketRepository.getCompetitionTicketByCompetitionIdAndTicket(id,Integer.parseInt(ticketNum));
             datastoreTemplate.delete(ticketToDelete);

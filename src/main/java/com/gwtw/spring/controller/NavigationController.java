@@ -1,16 +1,11 @@
 package com.gwtw.spring.controller;
 
 import com.google.cloud.Timestamp;
+import com.google.common.collect.Lists;
 import com.gwtw.spring.DTO.LoginDto;
 import com.gwtw.spring.DTO.UserDto;
-import com.gwtw.spring.domain.Competition;
-import com.gwtw.spring.domain.CompetitionTicket;
-import com.gwtw.spring.domain.Question;
-import com.gwtw.spring.domain.User;
-import com.gwtw.spring.repository.CompetitionRepository;
-import com.gwtw.spring.repository.CompetitionTicketRepository;
-import com.gwtw.spring.repository.QuestionRepository;
-import com.gwtw.spring.repository.UserRepository;
+import com.gwtw.spring.domain.*;
+import com.gwtw.spring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class NavigationController {
@@ -33,6 +27,8 @@ public class NavigationController {
     CompetitionTicketRepository competitionTicketRepository;
     @Autowired
     QuestionRepository questionRepository;
+    @Autowired
+    UserTicketRepository userTicketRepository;
 
     @RequestMapping("/")
     public ModelAndView index(ModelAndView modelAndView, HttpServletRequest request) {
@@ -59,12 +55,48 @@ public class NavigationController {
     public ModelAndView myProfile(ModelAndView modelAndView, HttpServletRequest request) {
         if(isUserLoggedIn(request)){
             modelAndView.addObject("loggedIn", "true");
+            //Profile stuff
             User user = userRepository.getUsersByEmail(getEmail(request)).get(0);
             modelAndView.addObject("firstName", user.getFirstName());
             modelAndView.addObject("lastName", user.getLastName());
             modelAndView.addObject("email", user.getEmail());
             modelAndView.addObject("contact", user.getContactNumber());
             modelAndView.addObject("dob", user.getDateOfBirth());
+            modelAndView.addObject("houseNumber", user.getHouseNumber());
+            modelAndView.addObject("streetName", user.getStreetName());
+            modelAndView.addObject("postcode", user.getPostcode());
+            //Entry stuff
+            List<UserTicket> userTickets = userTicketRepository.getAllByUserId(String.valueOf(user.getId()));
+            Map<String,ArrayList<Integer>> uniqueComps = new java.util.HashMap<>(Map.of());
+            List<Entry> entries = Lists.newArrayList();
+            for(UserTicket ticket : userTickets){
+                ArrayList<Integer> list;
+                if(uniqueComps.containsKey(ticket.getCompId())){
+                    // if the key has already been used,
+                    // we'll just grab the array list and add the value to it
+                    list = uniqueComps.get(ticket.getCompId());
+                    list.add(ticket.getTicket());
+                    list.sort(Comparator.naturalOrder());
+                } else {
+                    // if the key hasn't been used yet,
+                    // we'll create a new ArrayList<String> object, add the value
+                    // and put it in the array list with the new key
+                    list = new ArrayList<Integer>();
+                    list.add(ticket.getTicket());
+                    uniqueComps.put(ticket.getCompId(), list);
+                }
+            }
+
+            for(Map.Entry<String,ArrayList<Integer>> uniqueComp : uniqueComps.entrySet()){
+                Entry entry = new Entry();
+                Long compIdInt = Long.valueOf(uniqueComp.getKey());
+                Competition competition = competitionRepository.getCompetitionById(compIdInt);
+                entry.setCompId(uniqueComp.getKey());
+                entry.setCompName(competition.getHeading());
+                entry.setTickets(uniqueComp.getValue());
+                entries.add(entry);
+            }
+            modelAndView.addObject("userTickets", entries);
         }
         modelAndView.setViewName("myProfile");
         return modelAndView;

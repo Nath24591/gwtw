@@ -21,6 +21,12 @@ public class User {
 
     private String dateOfBirth;
 
+    private String houseNumber;
+
+    private String streetName;
+
+    private String postcode;
+
     private String salt;
 
     private int isAdmin;
@@ -29,14 +35,17 @@ public class User {
 
     }
 
-    public User(Long id,String firstName, String lastName, String email, String contactNumber, String dateOfBirth, String password, String salt) {
+    public User(Long id,String firstName, String lastName, String email, String contactNumber, String dateOfBirth, String houseNumber, String streetName, String postcode, String password, String salt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.contactNumber = contactNumber;
         this.dateOfBirth = dateOfBirth;
+        this.houseNumber = houseNumber;
         this.password = password;
+        this.streetName = streetName;
+        this.postcode = postcode;
         this.salt = salt;
         this.isAdmin = 0;
     }
@@ -111,5 +120,29 @@ public class User {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 }

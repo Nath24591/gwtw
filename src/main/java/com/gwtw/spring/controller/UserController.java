@@ -50,7 +50,7 @@ public class UserController {
         modelAndView.addObject("featuredCompetitions", competitionList);
         modelAndView.addObject("loggedIn", "true");
         modelAndView.setViewName("index");
-        User u = new User(null,userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getContactNumber(), userDto.getDateOfBirth(), encryptedPassword, salt);
+        User u = new User(null,userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getContactNumber(), userDto.getDateOfBirth(), userDto.getHouseNumber(), userDto.getStreetName(), userDto.getPostcode(), encryptedPassword, salt);
         this.datastoreTemplate.save(u);
         return modelAndView;
     }

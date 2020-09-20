@@ -16,6 +16,15 @@ public class UserDto {
     private String contactNumber;
 
     @NotNull
+    private String houseNumber;
+
+    @NotNull
+    private String streetName;
+
+    @NotNull
+    private String postcode;
+
+    @NotNull
     private String password;
     private String matchingPassword;
 
@@ -28,6 +37,30 @@ public class UserDto {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     public String getContactNumber() {

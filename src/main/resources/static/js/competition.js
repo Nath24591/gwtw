@@ -122,11 +122,7 @@ $(".answerClick").on('click', function() {
             let orderComplete = function (paymentIntentId) {
                 loading(false);
                 document
-                    .querySelector(".result-message a")
-                    .setAttribute(
-                        "href",
-                        "https://dashboard.stripe.com/test/payments/" + paymentIntentId
-                    );
+                    .querySelector(".result-message a");
                 document.querySelector(".result-message").classList.remove("hidden");
                 $("#submit").attr("disabled", true);
                 document.querySelector("button").disabled = true;

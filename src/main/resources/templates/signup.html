@@ -73,12 +73,25 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <input type="password" id="msg_subject" class="form-control" th:field="*{password}"
                                                placeholder="Password" required
-                                               data-error="Please enter your message subject">
+                                               data-error="Please enter your password">
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <input type="password" id="cmsg_subject" class="form-control" th:field="*{matchingPassword}"
                                                placeholder="Confirm Password" required
-                                               data-error="Please enter your message subject">
+                                               data-error="Please re-confirm your password">
+                                    </div>
+                                    <h3 class="login-title text-center">Address</h3>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="text" id="houseNumber" class="form-control" placeholder="Your House Number" th:field="*{houseNumber}"
+                                               required data-error="Please enter your house number">
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="text" id="streetName" class="form-control" placeholder="Your Street Name" th:field="*{streetName}"
+                                               required data-error="Please enter your street name">
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="text" id="postcode" class="form-control" placeholder="Your Postcode" th:field="*{postcode}"
+                                               required data-error="Please enter your postcode">
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                                         <div class="check-group flexbox">

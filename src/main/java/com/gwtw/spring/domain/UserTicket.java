@@ -1,5 +1,6 @@
 package com.gwtw.spring.domain;
 
+import com.google.cloud.Timestamp;
 import org.springframework.cloud.gcp.data.datastore.core.mapping.Entity;
 import org.springframework.data.annotation.Id;
 
@@ -17,6 +18,8 @@ public class UserTicket {
     private int open;
 
     private int winning;
+
+    private Timestamp purchasedTime;
 
     public Long getId() {
         return id;
@@ -64,5 +67,13 @@ public class UserTicket {
 
     public void setWinning(int winning) {
         this.winning = winning;
+    }
+
+    public Timestamp getPurchasedTime() {
+        return purchasedTime;
+    }
+
+    public void setPurchasedTime(Timestamp purchasedTime) {
+        this.purchasedTime = purchasedTime;
     }
 }
