@@ -56,40 +56,107 @@
     </div>
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3 watch-card">
-            <div class="listing-tab col-md-12">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" id="myTabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-                    <li role="presentation"><a href="#entries" aria-controls="entries" role="tab" data-toggle="tab">My Competitions</a></li>
-                </ul>
-
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="profile">
-                        <div class="col-md-6">
-                        <p>
-                            <i class="fas fa-users fa-fw"></i>&nbsp;<span th:text="${username}"></span>
-                            <br />
-                            <i class="fas fa-envelope fa-fw"></i>&nbsp;<span th:text="${email}"></span>
-                            <br />
-                            <i class="fas fa-phone"></i>&nbsp;<span th:text="${contact}"></span>
-                            <br />
-                            <i class="fas fa-gift fa-fw"></i>&nbsp;<span th:text="${dob}"></span>
-                        </p>
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="entries">
-                        <div class="related-artist">
-                            <h3>Related artist</h3>
-                            <div class="col-md-12">
-                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/vWtix2TtWGe9kffqnwdaMw/mq1.jpg" alt="" >Rihanna</div>
-                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/U6cE7pdJPc6DU2jSrKEsdQ/mq1.jpg" alt="" >Drake</div>
-                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/2-zLDHEP2rEkqwgutb2ctA/mq1.jpg" alt="" >Tyga</div>
+    <div class="row my-2">
+        <div class="col-lg-12 order-lg-2">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#entries" data-toggle="tab" class="nav-link">Entries</a>
+                </li>
+            </ul>
+            <div class="tab-content py-4">
+                <div class="tab-pane active" id="profile">
+                    <form role="form">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">First name</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" th:value="${firstName}" disabled>
                             </div>
                         </div>
-                    </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Last name</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" th:value="${lastName}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Email</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="email" th:value="${email}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Contact</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" th:value="${contact}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Address</label>
+                            <div class="col-lg-3">
+                                <input class="form-control" type="text" value="" placeholder="House number">
+                            </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" type="text" value="" placeholder="Street">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-6">
+                                <input class="form-control" type="text" value="" placeholder="City">
+                            </div>
+                            <div class="col-lg-3">
+                                <input class="form-control" type="text" value="" placeholder="Postcode">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Password</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="password" value="11111122333">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="password" value="11111122333">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-9">
+                                <input type="reset" class="btn btn-secondary" value="Cancel">
+                                <input type="button" class="btn btn-primary" value="Save Changes">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="entries">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="col-lg-4">
+                                    <span>compName here</span>
+                                </div>
+                                <div class="col-lg-8">
+                                    <span>entries here</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="col-lg-4">
+                                    <span>compName2 here</span>
+                                </div>
+                                <div class="col-lg-8">
+                                    <span>entries2 here</span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -103,10 +170,10 @@
                 <div class="footer-content logo-footer">
                     <div class="footer-head">
                         <div class="footer-logo">
-                            <a class="footer-black-logo" href="#"><img src="../static/img/logo/logo.png" alt=""></a>
+                            <a class="footer-black-logo" href="#"><img th:src="@{/img/logo/gwtwlogo.png}" alt=""></a>
                         </div>
                         <p>
-                            Replacing a  maintains the amount of lines. When replacing a selection. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines. help agencies to define their new business objectives and then create. Replacing a  maintains the amount of lines.
+                            Our goal here at GoneWithTheWin is make great prizes available to everyone!
                         </p>
                         <div class="footer-icons">
                             <ul>
@@ -141,36 +208,7 @@
                 </div>
             </div>
                 <!-- end single footer -->
-                <div class="col-md-2 col-sm-3 col-xs-12">
-                    <div class="footer-content">
-                        <div class="footer-head">
-                            <h4>Lottery Name</h4>
-                            <ul class="footer-list">
-                                <li><a href="#">Powerball</a></li>
-                                <li><a href="#">London Jackpot</a></li>
-                                <li><a href="#">Hunter Game</a></li>
-                                <li><a href="#">Royal Casino</a></li>
-                                <li><a href="#">Align fight</a></li>
-                                <li><a href="#">Black night</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- end single footer -->
-                <div class="col-md-2 hidden-sm col-xs-12">
-                    <div class="footer-content">
-                        <div class="footer-head">
-                            <h4>Payments</h4>
-                            <ul class="footer-list">
-                                <li><a href="#">Ripple coin</a></li>
-                                <li><a href="#">Bitcoin</a></li>
-                                <li><a href="#">Ethireum</a></li>
-                                <li><a href="#">Light coin</a></li>
-                                <li><a href="#">Coin base</a></li>
-                                <li><a href="#">Skrill card</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="col-md-3 col-sm-4 col-xs-12">
                 </div>
                 <!-- end single footer -->
                 <div class="col-md-2 col-sm-3 col-xs-12">
@@ -178,10 +216,9 @@
                         <div class="footer-head">
                             <h4>Support</h4>
                             <ul class="footer-list">
-                                <li><a href="#">Customer Care</a></li>
-                                <li><a href="#">Live chat</a></li>
-                                <li><a href="#">Notification</a></li>
-                                <li><a href="#">Privacy</a></li>
+                                <li><a href="/faq">FAQ</a></li>
+                                <li><a href="#">Support</a></li>
+                                <li><a href="#">Suggestions</a></li>
                                 <li><a href="#">Terms & Condition</a></li>
                                 <li><a href="#">Contact us </a></li>
                             </ul>
@@ -199,7 +236,7 @@
                     <div class="copyright">
                         <p>
                             Copyright © 2020
-                            <a href="#">LotoGame</a> All Rights Reserved
+                            <a href="#">GoneWithTheWin</a> All Rights Reserved
                         </p>
                     </div>
                 </div>
@@ -209,10 +246,7 @@
     <!-- End Footer Bottom Area -->
 </footer>
 <!-- End Footer Area -->
-
 <!-- all js here -->
-
-<script th:src="@{/js/competition.js}"></script>
 <!-- jquery latest version -->
 <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
 <!-- bootstrap js -->

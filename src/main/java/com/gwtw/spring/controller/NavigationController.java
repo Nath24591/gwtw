@@ -60,7 +60,8 @@ public class NavigationController {
         if(isUserLoggedIn(request)){
             modelAndView.addObject("loggedIn", "true");
             User user = userRepository.getUsersByEmail(getEmail(request)).get(0);
-            modelAndView.addObject("username", user.getFirstName() + " " + user.getLastName());
+            modelAndView.addObject("firstName", user.getFirstName());
+            modelAndView.addObject("lastName", user.getLastName());
             modelAndView.addObject("email", user.getEmail());
             modelAndView.addObject("contact", user.getContactNumber());
             modelAndView.addObject("dob", user.getDateOfBirth());
