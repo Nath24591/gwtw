@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import com.gwtw.spring.DTO.CompetitionDto;
 import com.gwtw.spring.DTO.LoginDto;
 import com.gwtw.spring.DTO.QuestionDto;
-import com.gwtw.spring.DTO.UserDto;
 import com.gwtw.spring.PasswordUtils;
 import com.gwtw.spring.domain.Competition;
 import com.gwtw.spring.domain.CompetitionTicket;

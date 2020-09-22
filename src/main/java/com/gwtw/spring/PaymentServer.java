@@ -1,7 +1,6 @@
 package com.gwtw.spring;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
@@ -13,11 +12,7 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
-import org.h2.util.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.gcp.data.datastore.core.DatastoreTemplate;
-import org.springframework.cloud.gcp.data.datastore.repository.config.EnableDatastoreRepositories;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;

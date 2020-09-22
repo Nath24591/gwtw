@@ -4,10 +4,8 @@ import com.google.cloud.Timestamp;
 import com.google.common.collect.Lists;
 import com.gwtw.spring.DTO.PurchaseTicketsDto;
 import com.gwtw.spring.DTO.TicketUpdateDto;
-import com.gwtw.spring.domain.Competition;
-import com.gwtw.spring.domain.CompetitionTicket;
-import com.gwtw.spring.domain.User;
-import com.gwtw.spring.domain.UserTicket;
+import com.gwtw.spring.controller.MailController;
+import com.gwtw.spring.domain.*;
 import com.gwtw.spring.repository.CompetitionRepository;
 import com.gwtw.spring.repository.CompetitionTicketRepository;
 import com.gwtw.spring.repository.UserRepository;
@@ -18,8 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/ticket")
@@ -33,6 +32,8 @@ public class TicketController {
     UserRepository userRepository;
     @Autowired
     DatastoreTemplate datastoreTemplate;
+    @Autowired
+    MailController mailController;
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -74,7 +75,7 @@ public class TicketController {
 
     @PutMapping(value = "/purchaseTickets/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> purchaseTickets(@PathVariable(value = "id") String id, @RequestBody PurchaseTicketsDto purchaseTicketsDto){
+    public ResponseEntity<String> purchaseTickets(@PathVariable(value = "id") String id, @RequestBody PurchaseTicketsDto purchaseTicketsDto) {
 
         String response = "";
         List<String> tickets = purchaseTicketsDto.getTickets();
@@ -98,7 +99,12 @@ public class TicketController {
             datastoreTemplate.delete(ticketToDelete);
         }
 
+        DecimalFormat df = new DecimalFormat("0.00");
+        double doubleCost = tickets.size() * Double.parseDouble(currentComp.getPrice());
+        String moneyString = df.format(doubleCost);
+
         datastoreTemplate.saveAll(userTickets);
+        mailController.createPurchaseConfirmationEmail(user.getEmail(), "Thank you for order", user.getFirstName(), currentComp.getHeading(), tickets.toString(), moneyString);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

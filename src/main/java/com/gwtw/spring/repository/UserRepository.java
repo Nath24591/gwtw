@@ -11,5 +11,7 @@ public interface UserRepository extends DatastoreRepository<User, Long> {
 
     List<User> getUsersByEmail(String email);
 
+    User getUserById(Long id);
+
 }
 

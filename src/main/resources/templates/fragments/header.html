@@ -10,7 +10,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-md-4 col-sm-4 col-xs-12 hidden-xs">
                     <div class="topbar-right">
                         <ul class="navbar-nav ml-auto ml-md-0">
                             <li class="nav-item dropdown">
@@ -84,6 +84,9 @@
                         </div>
                         <nav id="dropdown">
                             <ul>
+                                <li th:if="${loggedIn != null}"><a class="pages" href="/myProfile">Profile</a></li>
+                                <li th:if="${loggedIn != null}"><a class="pages" href="/logout">Logout</a></li>
+                                <li th:if="${loggedIn == null}"><a class="pages" href="/login">Login</a></li>
                                 <li><a class="pages" href="/">Home</a></li>
                                 <li><a class="pages" href="about.html">About</a></li>
                                 <li><a class="pages" href="#">Results</a>
@@ -93,24 +96,6 @@
                                     </ul>
                                 </li>
                                 <li><a class="pages" href="/currentcomps">Live</a></li>
-                                <li><a class="pages" href="#">Pages</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="affiliate.html">Affiliate</a></li>
-                                        <li><a href="faq.html">FAQ</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="signup.html">Signup</a></li>
-                                        <li><a href="error.html">Error</a></li>
-                                        <li><a href="terms.html">terms & Conditions</a></li>
-                                    </ul>
-                                </li>
-                                <li><a class="pages" href="#">Blog</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog.html">Blog grid</a></li>
-                                        <li><a href="blog-sidebar.html">Blog Sidebar</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">contacts</a></li>
                             </ul>
                         </nav>
                     </div>

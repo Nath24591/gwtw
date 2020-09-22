@@ -1,7 +1,6 @@
 package com.gwtw.spring.repository;
 
 import com.gwtw.spring.domain.Competition;
-import com.gwtw.spring.domain.CompetitionTicket;
 import org.springframework.cloud.gcp.data.datastore.repository.DatastoreRepository;
 import org.springframework.cloud.gcp.data.datastore.repository.query.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +14,8 @@ public interface CompetitionRepository extends DatastoreRepository<Competition, 
 
     @Query("SELECT * FROM competitions WHERE remaining > @remaining_val order by remaining desc limit 5")
     List<Competition> getCompetitionsForHomePage(@Param("remaining_val")int remaining);
+
+    Competition getCompetitionByRemainingIs(int remaining);
 
     Competition getCompetitionById(Long id);
 }

@@ -1,11 +1,9 @@
 package com.gwtw.spring.controller;
 
-import com.google.common.collect.Lists;
 import com.gwtw.spring.DTO.LoginDto;
 import com.gwtw.spring.DTO.UserDto;
 import com.gwtw.spring.PasswordUtils;
 import com.gwtw.spring.domain.Competition;
-import com.gwtw.spring.domain.CompetitionTicket;
 import com.gwtw.spring.domain.User;
 import com.gwtw.spring.repository.CompetitionRepository;
 import com.gwtw.spring.repository.UserRepository;
@@ -17,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,9 +26,11 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     CompetitionRepository competitionRepository;
+    @Autowired
+    MailController mailController;
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ModelAndView processRegistrationForm(@ModelAttribute("UserDto")UserDto userDto, ModelAndView  modelAndView, HttpServletRequest request) {
+    public ModelAndView processRegistrationForm(@ModelAttribute("UserDto")UserDto userDto, ModelAndView  modelAndView, HttpServletRequest request){
         //Does user already have an account for this email?
         List<User> existingUsers = userRepository.getUsersByEmail(userDto.getEmail());
         if(existingUsers.size() > 0) {
@@ -52,6 +51,7 @@ public class UserController {
         modelAndView.setViewName("index");
         User u = new User(null,userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getContactNumber(), userDto.getDateOfBirth(), userDto.getHouseNumber(), userDto.getStreetName(), userDto.getPostcode(), encryptedPassword, salt);
         this.datastoreTemplate.save(u);
+        mailController.createRegistrationEmail(u.getEmail(),"Thank you for registering", u.getFirstName());
         return modelAndView;
     }
 

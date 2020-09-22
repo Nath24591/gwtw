@@ -23,6 +23,8 @@ public class Competition {
 
     private int startingTickets;
 
+    private int open;
+
     public Competition() {
 
     }
@@ -35,6 +37,7 @@ public class Competition {
         this.price = price;
         this.startingTickets = startingTickets;
         this.remaining = remaining;
+        this.open = 1;
     }
 
     public Long getId() {
@@ -91,5 +94,13 @@ public class Competition {
 
     public void setStartingTickets(int startingTickets) {
         this.startingTickets = startingTickets;
+    }
+
+    public int getOpen() {
+        return open;
+    }
+
+    public void setOpen(int open) {
+        this.open = open;
     }
 }

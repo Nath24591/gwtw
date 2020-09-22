@@ -279,7 +279,7 @@ input:focus, textarea:focus, select:focus {
 	margin-right:0px;
 }
 .topbar-right {
-    float: right;
+    float: right !important;
 }
 .topbar-right ul li {
     display: inline-block;
