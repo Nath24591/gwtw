@@ -2573,6 +2573,14 @@ span.terms-text {
     height: 50px;
     font-size: 16px;
 }
+
+td.details-control {
+    background: url('../img/icon/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../img/icon/details_close.png') no-repeat center center;
+}
 .slide-btn.login-btn:hover{
     background: transparent;
     color:#1FC157;

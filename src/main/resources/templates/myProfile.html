@@ -31,6 +31,10 @@
     <!-- responsive css -->
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
+
+    <link th:href="@{https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css}" rel="stylesheet">
+
+
     <!-- modernizr css -->
     <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
 </head>
@@ -127,27 +131,14 @@
                     </form>
                 </div>
                 <div class="tab-pane" id="entries">
-                    <table class="table table-hover table-striped">
+                    <table id="example" class="display" style="width:100%">
                         <thead>
-                            <tr>
-                                <th>Competition</th>
-                                <th>Ticket</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="userTicket: ${userTickets}">
-                            <td>
-                                <div class="col-lg-4">
-                                    <span th:text="${userTicket.compName}"></span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="col-lg-8">
-                                    <span th:text="${userTicket.tickets}"></span>
-                                </div>
-                            </td>
+                        <tr>
+                            <th></th>
+                            <th>Competition</th>
+                            <th>status</th>
                         </tr>
-                        </tbody>
+                        </thead>
                     </table>
                 </div>
             </div>
@@ -257,5 +248,7 @@
 <script th:src="@{/js/plugins.js}"></script>
 <!-- main js -->
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/js/myProfile.js}"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import com.gwtw.spring.domain.*;
 import com.gwtw.spring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -69,41 +70,51 @@ public class NavigationController {
             modelAndView.addObject("houseNumber", user.getHouseNumber());
             modelAndView.addObject("streetName", user.getStreetName());
             modelAndView.addObject("postcode", user.getPostcode());
-            //Entry stuff
-            List<UserTicket> userTickets = userTicketRepository.getAllByUserId(String.valueOf(user.getId()));
-            Map<String,ArrayList<Integer>> uniqueComps = new java.util.HashMap<>(Map.of());
-            List<Entry> entries = Lists.newArrayList();
-            for(UserTicket ticket : userTickets){
-                ArrayList<Integer> list;
-                if(uniqueComps.containsKey(ticket.getCompId())){
-                    // if the key has already been used,
-                    // we'll just grab the array list and add the value to it
-                    list = uniqueComps.get(ticket.getCompId());
-                    list.add(ticket.getTicket());
-                    list.sort(Comparator.naturalOrder());
-                } else {
-                    // if the key hasn't been used yet,
-                    // we'll create a new ArrayList<String> object, add the value
-                    // and put it in the array list with the new key
-                    list = new ArrayList<Integer>();
-                    list.add(ticket.getTicket());
-                    uniqueComps.put(ticket.getCompId(), list);
-                }
-            }
-
-            for(Map.Entry<String,ArrayList<Integer>> uniqueComp : uniqueComps.entrySet()){
-                Entry entry = new Entry();
-                Long compIdInt = Long.valueOf(uniqueComp.getKey());
-                Competition competition = competitionRepository.getCompetitionById(compIdInt);
-                entry.setCompId(uniqueComp.getKey());
-                entry.setCompName(competition.getHeading());
-                entry.setTickets(uniqueComp.getValue());
-                entries.add(entry);
-            }
-            modelAndView.addObject("userTickets", entries);
+            modelAndView.setViewName("myProfile");
+        } else {
+            modelAndView.addObject("LoginDto", new LoginDto());
+            modelAndView.setViewName("login");
         }
-        modelAndView.setViewName("myProfile");
+
         return modelAndView;
+    }
+
+    @RequestMapping(value="/gettodos")
+    public @ResponseBody List<Entry> getTodos(Model model, HttpServletRequest request) {
+        User user = userRepository.getUsersByEmail(getEmail(request)).get(0);
+        //Entry stuff
+        List<UserTicket> userTickets = userTicketRepository.getAllByUserId(String.valueOf(user.getId()));
+        Map<String,ArrayList<Integer>> uniqueComps = new java.util.HashMap<>(Map.of());
+        List<Entry> entries = Lists.newArrayList();
+        for(UserTicket ticket : userTickets){
+            ArrayList<Integer> list;
+            if(uniqueComps.containsKey(ticket.getCompId())){
+                // if the key has already been used,
+                // we'll just grab the array list and add the value to it
+                list = uniqueComps.get(ticket.getCompId());
+                list.add(ticket.getTicket());
+                list.sort(Comparator.naturalOrder());
+            } else {
+                // if the key hasn't been used yet,
+                // we'll create a new ArrayList<String> object, add the value
+                // and put it in the array list with the new key
+                list = new ArrayList<Integer>();
+                list.add(ticket.getTicket());
+                uniqueComps.put(ticket.getCompId(), list);
+            }
+        }
+
+        for(Map.Entry<String,ArrayList<Integer>> uniqueComp : uniqueComps.entrySet()){
+            Entry entry = new Entry();
+            Long compIdInt = Long.valueOf(uniqueComp.getKey());
+            Competition competition = competitionRepository.getCompetitionById(compIdInt);
+            entry.setCompId(uniqueComp.getKey());
+            entry.setOpen(competition.getOpen());
+            entry.setCompName(competition.getHeading());
+            entry.setTickets(uniqueComp.getValue());
+            entries.add(entry);
+        }
+        return entries;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

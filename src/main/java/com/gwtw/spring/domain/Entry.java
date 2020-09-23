@@ -6,6 +6,7 @@ public class Entry {
     private String compName;
     private String compId;
     private List<Integer> tickets;
+    private int open;
 
     public List<Integer> getTickets() {
         return tickets;
@@ -29,5 +30,13 @@ public class Entry {
 
     public void setCompId(String compId) {
         this.compId = compId;
+    }
+
+    public int getOpen() {
+        return open;
+    }
+
+    public void setOpen(int open) {
+        this.open = open;
     }
 }
