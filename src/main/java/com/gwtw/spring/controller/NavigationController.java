@@ -2,7 +2,9 @@ package com.gwtw.spring.controller;
 
 import com.google.cloud.Timestamp;
 import com.google.common.collect.Lists;
+import com.gwtw.spring.DTO.ForgotPasswordDto;
 import com.gwtw.spring.DTO.LoginDto;
+import com.gwtw.spring.DTO.ResetPasswordDto;
 import com.gwtw.spring.DTO.UserDto;
 import com.gwtw.spring.domain.*;
 import com.gwtw.spring.repository.*;
@@ -29,6 +31,8 @@ public class NavigationController {
     QuestionRepository questionRepository;
     @Autowired
     UserTicketRepository userTicketRepository;
+    @Autowired
+    UserPasswordResetRepository userPasswordResetRepository;
 
     @RequestMapping("/")
     public ModelAndView index(ModelAndView modelAndView, HttpServletRequest request) {
@@ -113,6 +117,39 @@ public class NavigationController {
             modelAndView.addObject("LoginDto", new LoginDto());
             modelAndView.setViewName("login");
         }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
+    public ModelAndView forgotPassword(ModelAndView modelAndView, HttpServletRequest request) {
+        if(isUserLoggedIn(request)) {
+            modelAndView.addObject("loggedIn", "true");
+            List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
+            modelAndView.addObject("featuredCompetitions", competitionList);
+            modelAndView.setViewName("index");
+        } else {
+            modelAndView.addObject("ForgotPasswordDto", new ForgotPasswordDto());
+            modelAndView.setViewName("forgotPassword");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/reset", method = RequestMethod.GET)
+    public ModelAndView resetPassword(ModelAndView modelAndView, HttpServletRequest request, @RequestParam("token") String token) {
+
+        UserPasswordReset upr = userPasswordResetRepository.getUserPasswordResetByToken(token);
+        if(upr != null){
+            modelAndView.addObject("ResetPasswordDto", new ResetPasswordDto(token));
+            modelAndView.setViewName("resetPassword");
+        } else {
+            modelAndView.addObject("ResetPasswordDto", new ResetPasswordDto(token));
+            modelAndView.addObject("errorMessage", "Invalid password reset token");
+            modelAndView.setViewName("resetPassword");
+        }
+
+        modelAndView.addObject("ResetPasswordDto", new ResetPasswordDto(token));
+        modelAndView.setViewName("resetPassword");
+
         return modelAndView;
     }
 

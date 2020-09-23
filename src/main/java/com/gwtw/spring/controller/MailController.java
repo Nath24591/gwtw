@@ -64,4 +64,19 @@ public class MailController {
             e.printStackTrace();
         }
     }
+
+    public void createPasswordResetEmail(String to, String subject, String recipientName, String token) {
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("recipientName", recipientName);
+        templateModel.put("token", token);
+
+        try {
+            emailSenderService.sendMessageUsingFreemarkerTemplate(
+                    to,
+                    subject,
+                    templateModel, "forgot-password.ftl");
+        } catch (IOException | TemplateException | MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 }

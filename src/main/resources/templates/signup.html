@@ -24,6 +24,16 @@
 
     <!-- modernizr css -->
     <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+    <script>
+        function check(input) {
+            if (input.value != document.getElementById('msg_subject').value) {
+                input.setCustomValidity('Password Must be Matching.');
+            } else {
+                // input is valid -- reset the error message
+                input.setCustomValidity('');
+            }
+        }
+    </script>
 </head>
 <body data-spy="scroll" data-target="#navbar-example">
 <!--[if lt IE 8]>
@@ -77,7 +87,7 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <input type="password" id="cmsg_subject" class="form-control" th:field="*{matchingPassword}"
                                                placeholder="Confirm Password" required
-                                               data-error="Please re-confirm your password">
+                                               data-error="Please re-confirm your password" oninput="check(this)">
                                     </div>
                                     <h3 class="login-title text-center">Address</h3>
                                     <div class="col-md-12 col-sm-12 col-xs-12">
