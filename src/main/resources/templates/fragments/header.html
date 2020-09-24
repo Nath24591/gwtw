@@ -56,13 +56,8 @@
                                 <ul class="nav navbar-nav navbar-right">
                                     <li><a class="pages" href="/">Home</a></li>
                                     <li><a class="pages" href="about.html">About</a></li>
-                                    <li><a class="pages" href="#">Results</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="results.html">Results</a></li>
-                                            <li><a href="latest-win.html">Latest Winners</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="pages" href="/currentcomps">Live</a></li>
+                                    <li><a class="pages" href="/results">Results</a></li>
+                                    <li><a class="pages" href="/currentcomps">Competitions</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -89,12 +84,7 @@
                                 <li th:if="${loggedIn == null}"><a class="pages" href="/login">Login</a></li>
                                 <li><a class="pages" href="/">Home</a></li>
                                 <li><a class="pages" href="about.html">About</a></li>
-                                <li><a class="pages" href="#">Results</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="results.html">Results</a></li>
-                                        <li><a href="latest-win.html">Latest Winner</a></li>
-                                    </ul>
-                                </li>
+                                <li><a class="pages" href="/results">Results</a></li>
                                 <li><a class="pages" href="/currentcomps">Live</a></li>
                             </ul>
                         </nav>
