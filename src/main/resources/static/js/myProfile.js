@@ -26,7 +26,7 @@ $(document).ready( function () {
             { "data": { "open": "open" },
                 render: function (data) {
                     if(data.won == 1 && data.claimed == 0){
-                        return "Won - <a class=\"ticket-btn\" href=\"/claimprize?comp="+data.compId+"\">Claim!</a>";
+                        return "Won - <a class=\"ticket-btn\" href=\"/claim?id="+data.compId+"\">Claim!</a>";
                     }
                     if(data.won == 1 && data.claimed == 1){
                         return "Won - Claimed";
