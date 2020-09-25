@@ -33,6 +33,24 @@
                 input.setCustomValidity('');
             }
         }
+
+        function checkDob(input) {
+            let DOB = input.value;
+            let today = new Date();
+            let birthDate = new Date(DOB);
+            let age = today.getFullYear() - birthDate.getFullYear();
+            let m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            console.log("age is: " + age);
+            if (age < 18) {
+                input.setCustomValidity('You must be over 18 to sign up');
+            } else {
+                // input is valid -- reset the error message
+                input.setCustomValidity('');
+            }
+        }
     </script>
 </head>
 <body data-spy="scroll" data-target="#navbar-example">
@@ -72,12 +90,12 @@
                                                required data-error="Please enter your name">
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <input type="text" id="contact" class="form-control" placeholder="Your Number" th:field="*{contactNumber}"
-                                               required data-error="Please enter your contact number">
+                                        <input type="tel" id="contact" class="form-control" placeholder="07777777777" th:field="*{contactNumber}"
+                                               required data-error="Please enter your contact number" pattern="[0-9]{11}">
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <input type="text" id="dob" class="form-control" placeholder="Your Date Of Birth" th:field="*{dateOfBirth}"
-                                               required data-error="Please enter your date of birth">
+                                        <input type="date" id="dob" class="form-control" placeholder="DD/MM/YYYY" th:field="*{dateOfBirth}"
+                                               data-error="Please enter your date of birth" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" oninput="checkDob(this)">
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <input type="password" id="msg_subject" class="form-control" th:field="*{password}"
@@ -114,21 +132,6 @@
                                         <button type="submit" id="submit" class="slide-btn login-btn">Signup</button>
                                         <div id="msgSubmit" class="h3 text-center hidden"></div>
                                         <div class="clearfix"></div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                                        <div class="clear"></div>
-                                        <div class="separetor text-center"><span>Or with signup</span></div>
-                                        <div class="sign-icon">
-                                            <ul>
-                                                <li><a class="facebook" href="#"><i class="fa fa-facebook-square"></i>Facebook</a>
-                                                </li>
-                                                <li><a class="twitter" href="#"><i class="fa fa-twitter-square"></i>twitter</a>
-                                                </li>
-                                                <li><a class="google" href="#"><i class="fa fa-google-plus-square"></i>google</a>
-                                                </li>
-                                            </ul>
-                                            <div class="acc-not">have an account? <a th:href="@{login}">Login</a></div>
-                                        </div>
                                     </div>
                                 </form>
                             </div>

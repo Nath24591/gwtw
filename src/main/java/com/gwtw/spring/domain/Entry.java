@@ -7,6 +7,8 @@ public class Entry {
     private String compId;
     private List<Integer> tickets;
     private int open;
+    private int won;
+    private int claimed;
 
     public List<Integer> getTickets() {
         return tickets;
@@ -38,5 +40,21 @@ public class Entry {
 
     public void setOpen(int open) {
         this.open = open;
+    }
+
+    public int getWon() {
+        return won;
+    }
+
+    public void setWon(int won) {
+        this.won = won;
+    }
+
+    public int getClaimed() {
+        return claimed;
+    }
+
+    public void setClaimed(int claimed) {
+        this.claimed = claimed;
     }
 }

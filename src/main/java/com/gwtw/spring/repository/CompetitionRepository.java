@@ -12,7 +12,7 @@ import java.util.List;
 public interface CompetitionRepository extends DatastoreRepository<Competition, Long> {
     List<Competition> getCompetitionByRemainingIsGreaterThan(int remaining);
 
-    @Query("SELECT * FROM competitions WHERE remaining > @remaining_val order by remaining desc limit 5")
+    @Query("SELECT * FROM competitions WHERE remaining > @remaining_val order by remaining asc limit 5")
     List<Competition> getCompetitionsForHomePage(@Param("remaining_val")int remaining);
 
     Competition getCompetitionByRemainingIs(int remaining);

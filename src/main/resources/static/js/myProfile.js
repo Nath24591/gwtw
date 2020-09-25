@@ -10,7 +10,7 @@ function format ( d ) {
 
 $(document).ready( function () {
     let table = $('#example').DataTable({
-        "sAjaxSource": "/gettodos",
+        "sAjaxSource": "/getentries",
         "sAjaxDataProp": "",
         "order": [[ 0, "asc" ]],
         "bFilter": false,
@@ -25,11 +25,17 @@ $(document).ready( function () {
             { "data": "compName"},
             { "data": { "open": "open" },
                 render: function (data) {
+                    if(data.won == 1 && data.claimed == 0){
+                        return "Won - <a class=\"ticket-btn\" href=\"/claimprize?comp="+data.compId+"\">Claim!</a>";
+                    }
+                    if(data.won == 1 && data.claimed == 1){
+                        return "Won - Claimed";
+                    }
                     if(data.open == 1){
                         return "Ongoing";
                     }
                     if(data.open == 0){
-                        return "Closed";
+                        return "Lost";
                     }
                 }
             },

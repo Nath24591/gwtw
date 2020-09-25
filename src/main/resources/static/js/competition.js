@@ -126,6 +126,8 @@ $(".answerClick").on('click', function() {
                 document.querySelector(".result-message").classList.remove("hidden");
                 $("#submit").attr("disabled", true);
                 document.querySelector("button").disabled = true;
+                $("#selectedNumbersModal").html($("#selectedNumbers").html());
+                $('#paymentSuccessModal').modal('show');
             };
 // Show the customer the error from Stripe if their card fails to charge
             var showError = function (errorMsgText) {

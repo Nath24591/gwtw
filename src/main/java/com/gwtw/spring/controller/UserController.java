@@ -133,6 +133,8 @@ public class UserController {
     public ModelAndView processLogout(ModelAndView  modelAndView, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute("email");
+        List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
+        modelAndView.addObject("featuredCompetitions", competitionList);
         modelAndView.setViewName("index");
         return modelAndView;
     }

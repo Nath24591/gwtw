@@ -1,9 +1,8 @@
 <!doctype html>
-<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Competition</title>
+    <title>Claim prize</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -59,58 +58,13 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="breadcrumb text-center">
                     <div class="section-headline text-center">
-                        <h3>Competition</h3>
+                        <h3>Claim</h3>
                     </div>
                     <ul>
                         <li class="home-bread">Home</li>
-                        <li>Competition</li>
+                        <li>Claim</li>
                     </ul>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" id="questionModalTitle">Competition Question</h5>
-            </div>
-            <div class="modal-body">
-                <h2 class="text-center" th:text="${question.question}"></h2>
-                    <div th:each="entry : ${question.answers}">
-                        <div class="radio" style="margin-left:50px;">
-                            <input type="radio" style="max-width: 20px;" class="custom-control-input text-center" name="answer" th:id="${entry.key}" th:value="${entry.value}">
-                            <label style="margin-top: 10px;" for="${entry.key}" th:text="${entry.key}"></label>
-                        </div>
-                    </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success answerClick" data-dismiss="modal">Submit Answer</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="paymentSuccessModal" tabindex="-1" role="dialog" aria-labelledby="questionModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" id="paymentSuccessTitle">Thank you for your payment</h5>
-            </div>
-            <div class="modal-body">
-                <h2 class="text-center" th:text="${comp.heading}" ></h2>
-                <div class="self-number">
-                    <div class="self-ticket text-center">
-                        <span>Your entries :</span>
-                        <ul id="selectedNumbersModal" class="self-number"></ul>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a class="ticket-btn" href="/currentcomps">View other competitions</a>
             </div>
         </div>
     </div>
@@ -129,49 +83,35 @@
             </div>
         </div>
         <div class="row">
-            <div class="lottery-content">
-                <!-- Single Lottery area  -->
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="single-lottery">
-                        <div class="auto-number">
-                            <div class="text-center win-money">Select your tickets </div>
-                            <div class="number-all text-center deviceSizing">
-                                <ul class="number-serial">
-                                    <li th:each="availableTicket: ${availableTickets}"><a href="#" class="select-num" th:text="${availableTicket.ticket}"></a></li>
-                                </ul>
-                            </div>
-                            <div class="self-number">
-                                <div class="self-ticket text-center">
-                                    <span>Your Selected Tickets :</span>
-                                    <ul id="selectedNumbers" class="self-number">
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="lottery-top">
-                                <span class="base-cost hidden" th:text="${comp.price}"></span>
-                                <span class="win-money">£0.00</span>
-                                <div class="text-center stripeDeviceSizing hidden">
-                                    <form id="payment-form">
-                                        <div id="card-element"><!--Stripe.js injects the Card Element--></div>
-                                        <button id="submit">
-                                            <div class="spinner hidden" id="spinner"></div>
-                                            <span id="button-text">Pay</span>
-                                        </button>
-                                        <p id="card-error" role="alert"></p>
-                                        <p class="result-message hidden">
-                                            Payment succeeded, You will receive email confirmation shortly
-                                        </p>
-                                    </form>
-                                </div>
-
-                                <div class="hideButton">
-                                    <button type="button" class="buy-ticket-btn btn btn-success" style="max-width: 150px;" data-toggle="modal" data-target="#questionModal">Buy Now</button>
-                                    <p class="buyText">Clicking buy now locks in your tickets for purchase.</p>
-                                </div>
-                            </div>
-                        </div>
+            <div th:if="${confirmationMessage}" class="alert alert-success"
+                 role="alert" th:text=${confirmationMessage}></div>
+            <div th:if="${errorMessage}"
+                 class="alert alert-danger" role="alert"
+                 th:text="${errorMessage}"></div>
+            <div th:if="${errorMessage == null and confirmationMessage == null}" class="contact-inner">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="contact-single">
+                        <h3>Claim prize</h3>
+                        <p> Click here to claim the prize you won - it will be posted to you within 5 working days of your claim.</p>
+                        <form th:action="@{/claim}" method="POST" style="border:none; box-shadow: unset">
+                            <input  type="hidden" id="compId" name="compId" th:value="${comp.id}">
+                            <input type="hidden" id="email" name="email" th:value="${loggedInEmail}">
+                            <input  type="hidden" id="prizeorcash" name="prizeorcash" th:value="prize">
+                            <input class="slide-btn login-btn" type="submit" value="Claim prize">
+                        </form>
                     </div>
-                    <!-- Single Lottery area  -->
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="contact-single">
+                        <h3>Claim money value - £(moneyValueHere)</h3>
+                        <p> Click here to claim money value of your prize, you will be contacted to give us your preferred method of payment and money will be transferred within 5 working days.</p>
+                        <form th:action="@{/claim}" method="POST" style="border:none; box-shadow: unset">
+                            <input  type="hidden" id="compId" name="compId" th:value="${comp.id}">
+                            <input  type="hidden" id="email" name="email" th:value="${loggedInEmail}">
+                            <input  type="hidden" id="prizeorcash" name="prizeorcash" th:value="cash">
+                            <input class="slide-btn login-btn" type="submit" value="Claim cash">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
