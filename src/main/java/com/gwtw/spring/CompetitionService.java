@@ -9,6 +9,7 @@ import com.gwtw.spring.repository.UserRepository;
 import com.gwtw.spring.repository.UserTicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gcp.data.datastore.core.DatastoreTemplate;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Service
+@EnableScheduling
 public class CompetitionService {
 
     @Autowired
