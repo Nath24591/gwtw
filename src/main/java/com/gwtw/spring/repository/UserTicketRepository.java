@@ -10,7 +10,8 @@ import java.util.List;
 public interface UserTicketRepository  extends DatastoreRepository<UserTicket, Long> {
     List<UserTicket> getAllByUserId(String userId);
 
-    List<UserTicket> getAllByCompId(String compId);
+    UserTicket getByUserIdAndCompIdAndWinning(String userId, String compId, Integer winning);
 
+    List<UserTicket> getAllByCompId(String compId);
 }
 
