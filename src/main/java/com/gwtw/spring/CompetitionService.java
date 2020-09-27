@@ -1,5 +1,6 @@
 package com.gwtw.spring;
 
+import com.google.cloud.Timestamp;
 import com.gwtw.spring.controller.MailController;
 import com.gwtw.spring.domain.Competition;
 import com.gwtw.spring.domain.User;
@@ -49,6 +50,7 @@ public class CompetitionService {
 
             // close competition
             competition.setOpen(0);
+            competition.setDrawnDate(Timestamp.now());
             datastoreTemplate.save(competition);
 
             //close all user tickets for that competition

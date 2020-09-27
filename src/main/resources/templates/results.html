@@ -1,15 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Current Competitions</title>
+    <title>GWTW - Results</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="img/logo/favicon.ico">
 
+    <!-- all css here -->
     <!-- bootstrap v3.3.6 css -->
     <!--    <link rel="stylesheet" th:href="css/bootstrap.min.css">-->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -34,9 +35,14 @@
     <!-- modernizr css -->
     <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
 </head>
-
 <body>
+
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
 <div th:insert="fragments/header :: header"></div>
+<!-- Start Bottom Header -->
 <div class="page-area">
     <div class="breadcumb-overlay"></div>
     <div class="container">
@@ -44,63 +50,54 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="breadcrumb text-center">
                     <div class="section-headline text-center">
-                        <h3>Current Competitions</h3>
+                        <h3>Lottery Results</h3>
                     </div>
                     <ul>
                         <li class="home-bread">Home</li>
-                        <li>Competitions</li>
+                        <li>Lottery Results</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Start Blog area -->
-<div class="blog-area area-padding-2">
+<!-- END Header -->
+<!--Start payment-history area -->
+<div class="payment-history-area fix area-padding">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="section-headline text-center">
-                    <h3>Current Open Competitions</h3>
-                    <p>Check out all of our current competitions below!</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="blog-grid home-blog">
-                <!-- Start single blog -->
-                <div th:each="competition: ${competitions}" class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-blog">
-                        <div class="ticket-image text-center">
-                            <img th:src="${competition.image}" alt="">
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-category">
-                                <span th:text="${competition.heading}"></span>
-                            </div>
-                            <div class="blog-meta">
-                                        <span class="admin-type">
-                                            <i class="fas fa-pound-sign"></i>
-                                            <span th:text="${competition.price}"></span>
-                                        </span>
-                                <span class="comments-type">
-                                            <i class="fas fa-ticket-alt"></i>
-                                            <span th:text="${competition.remaining}"></span>
-                                         <div class="pull-right">
-                                            <a class="ticket-btn"
-                                               th:href="@{'/comp?id=' + ${competition.id}}">Enter Now</a>
-                                        </div>
-                                </span>
-                            </div>
+                <div class="deposite-content">
+                    <div class="diposite-box">
+                        <div class="deposite-table">
+                            <table>
+                                <tr>
+                                    <th>Competition</th>
+                                    <th>Draw Date</th>
+                                    <th>Winning Number</th>
+                                    <th>Status</th>
+                                </tr>
+                                <th:block th:each="closedCompetition: ${closedCompetitions}">
+                                    <tr>
+                                        <td th:text="${closedCompetition.competition.heading}"></td>
+                                        <td th:text="${closedCompetition.competition.drawnDate}"></td>
+                                        <td>
+                                            <ul class="self-number">
+                                                <li><a href="#" th:text="${closedCompetition.winningNumber}"></a></li>
+                                            </ul>
+                                        </td>
+                                        <td th:text="${closedCompetition.status}"></td>
+                                    </tr>
+                                </th:block>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End row -->
     </div>
 </div>
-<!-- End Blog area -->
+<!-- End payment-history area -->
 <!-- Start Footer Area -->
 <footer class="footer-1">
     <div class="footer-area">
@@ -181,24 +178,23 @@
 
 <!-- all js here -->
 
-<script th:src="@{/js/competition.js}"></script>
 <!-- jquery latest version -->
-<script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
+<script src="js/vendor/jquery-1.12.4.min.js"></script>
 <!-- bootstrap js -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<script src="js/bootstrap.min.js"></script>
 <!-- owl.carousel js -->
-<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script src="js/owl.carousel.min.js"></script>
 <!-- magnific js -->
-<script th:src="@{/js/magnific.min.js}"></script>
+<script src="js/magnific.min.js"></script>
 <!-- wow js -->
-<script th:src="@{/js/wow.min.js}"></script>
+<script src="js/wow.min.js"></script>
 <!-- meanmenu js -->
-<script th:src="@{/js/jquery.meanmenu.js}"></script>
+<script src="js/jquery.meanmenu.js"></script>
 <!-- Form validator js -->
-<script th:src="@{/js/form-validator.min.js}"></script>
+<script src="js/form-validator.min.js"></script>
 <!-- plugins js -->
-<script th:src="@{/js/plugins.js}"></script>
+<script src="js/plugins.js"></script>
 <!-- main js -->
-<script th:src="@{/js/main.js}"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

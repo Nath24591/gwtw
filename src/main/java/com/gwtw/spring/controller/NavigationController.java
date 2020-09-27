@@ -48,6 +48,35 @@ public class NavigationController {
         return modelAndView;
     }
 
+    @RequestMapping("/results")
+    public ModelAndView results(ModelAndView modelAndView, HttpServletRequest request) {
+        if(isUserLoggedIn(request)){
+            modelAndView.addObject("loggedIn", "true");
+        }
+        List<CompetitionResultsDto> competitionResultsDtos = Lists.newArrayList();
+        //get closed competitions
+        List<Competition> closedCompetitions = competitionRepository.getCompetitionsByOpenCustom();
+        for(Competition closedComp : closedCompetitions){
+            CompetitionResultsDto competitionResultsDto = new CompetitionResultsDto();
+            competitionResultsDto.setCompetition(closedComp);
+            //get winning number
+            int winningNumber = userTicketRepository.getByWinningAndCompId(1,String.valueOf(closedComp.getId())).getTicket();
+            competitionResultsDto.setWinningNumber(winningNumber);
+            String status = "Unclaimed";
+            if(closedComp.getClaimed() == 1){
+                status = "Claimed";
+            }
+            competitionResultsDto.setStatus(status);
+
+            competitionResultsDtos.add(competitionResultsDto);
+
+
+        }
+        modelAndView.addObject("closedCompetitions", competitionResultsDtos);
+        modelAndView.setViewName("results");
+        return modelAndView;
+    }
+
     @RequestMapping("/faq")
     public ModelAndView faq(ModelAndView modelAndView, HttpServletRequest request) {
         if(isUserLoggedIn(request)){
@@ -228,6 +257,10 @@ public class NavigationController {
     @RequestMapping(value = "/claim", method = RequestMethod.POST)
     public ModelAndView processResetForm(@ModelAttribute("ClaimDto") ClaimDto claimDto, ModelAndView  modelAndView, HttpServletRequest request){
         //Does user already have an account for this email?
+        if(isUserLoggedIn(request)) {
+            modelAndView.addObject("loggedIn", "true");
+            modelAndView.addObject("loggedInEmail", getEmail(request));
+        }
         User user = userRepository.getUsersByEmail(claimDto.getEmail()).get(0);
         UserTicket userTicket = userTicketRepository.getByUserIdAndCompIdAndWinning(String.valueOf(user.getId()), claimDto.getCompId(), 1);
         if (userTicket == null) {

@@ -12,6 +12,8 @@ public interface UserTicketRepository  extends DatastoreRepository<UserTicket, L
 
     UserTicket getByUserIdAndCompIdAndWinning(String userId, String compId, Integer winning);
 
+    UserTicket getByWinningAndCompId(Integer winning, String compId);
+
     List<UserTicket> getAllByCompId(String compId);
 }
 

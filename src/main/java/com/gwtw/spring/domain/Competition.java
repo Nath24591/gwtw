@@ -1,5 +1,6 @@
 package com.gwtw.spring.domain;
 
+import com.google.cloud.Timestamp;
 import org.springframework.cloud.gcp.data.datastore.core.mapping.Entity;
 import org.springframework.cloud.gcp.data.datastore.core.mapping.Unindexed;
 import org.springframework.data.annotation.Id;
@@ -27,6 +28,8 @@ public class Competition {
 
     private int claimed;
 
+    private Timestamp drawnDate;
+
     public Competition() {
 
     }
@@ -41,6 +44,7 @@ public class Competition {
         this.remaining = remaining;
         this.open = 1;
         this.claimed = 0;
+        this.drawnDate = Timestamp.now();
     }
 
     public Long getId() {
@@ -113,5 +117,13 @@ public class Competition {
 
     public void setClaimed(int claimed) {
         this.claimed = claimed;
+    }
+
+    public Timestamp getDrawnDate() {
+        return drawnDate;
+    }
+
+    public void setDrawnDate(Timestamp drawnDate) {
+        this.drawnDate = drawnDate;
     }
 }

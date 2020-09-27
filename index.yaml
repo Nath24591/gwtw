@@ -4,3 +4,9 @@ indexes:
   properties:
     - name: competitionId
     - name: reservedTime
+    
+- kind: competitions
+  properties:
+  - name: open
+  - name: drawnDate
+    direction: desc

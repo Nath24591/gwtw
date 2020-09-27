@@ -12,10 +12,10 @@
                                 <td align="center" valign="top"><img src="https://www.gonewiththewin.co.uk/img/logo/gwtwlogo.png" alt="logo" width="160" height="50" /></td>
                             </tr>
                             <tr>
-                                <td align="center" valign="top">Hi ${recipientName}! The competition for ${compHeader} has been drawn!</td>
+                                <td align="center" valign="top">Hi ${recipientName}! The competition for ${compHeader} has been drawn! Check your profile entries to see if you have won!</td>
                             </tr>
                             <tr>
-                                <td align="center" valign="top">Visit our <a href="https://www.gonewiththewin.co.uk/results">website</a> to see the result!</td>
+                                <td align="center" valign="top">Visit our <a href="https://www.gonewiththewin.co.uk/results">Results page</a> to see the result!</td>
                             </tr>
                             </tbody>
                         </table>
