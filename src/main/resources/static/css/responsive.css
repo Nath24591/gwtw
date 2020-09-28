@@ -254,7 +254,7 @@
     overflow-x: auto;
 }    
 .deposite-table {
-    min-width: 1000px;
+    min-width: 600px;
 }     
 .contact-page .contact-form {
     margin-top: 0px;
@@ -303,12 +303,7 @@
 }    
 .intro-area-2 .intro-content {
     margin-top: -80px;
-}    
-    
-    
-    
-    
-	
+}
 }
 
 /* small mobile :320px. */
@@ -397,7 +392,7 @@
     overflow-x: auto;
 }    
 .deposite-table {
-    min-width: 1000px;
+    min-width: 350px;
 }    
 .deposite-content tr:nth-child(even){
     width: 1000px; 

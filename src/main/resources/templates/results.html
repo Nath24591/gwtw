@@ -63,7 +63,7 @@
 </div>
 <!-- END Header -->
 <!--Start payment-history area -->
-<div class="payment-history-area fix area-padding">
+<div class="payment-history-area fix area-padding hidden-xs">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -80,13 +80,45 @@
                                 <th:block th:each="closedCompetition: ${closedCompetitions}">
                                     <tr>
                                         <td th:text="${closedCompetition.competition.heading}"></td>
-                                        <td th:text="${closedCompetition.competition.drawnDate}"></td>
+                                        <td th:text="${#dates.format(closedCompetition.competition.drawnDate, 'dd-MMM-yyyy')}"></td>
                                         <td>
                                             <ul class="self-number">
                                                 <li><a href="#" th:text="${closedCompetition.winningNumber}"></a></li>
                                             </ul>
                                         </td>
                                         <td th:text="${closedCompetition.status}"></td>
+                                    </tr>
+                                </th:block>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End payment-history area -->
+<!--Start payment-history area -->
+<div class="payment-history-area fix area-padding hidden-lg hidden-md hidden-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="deposite-content">
+                    <div class="diposite-box">
+                        <div class="deposite-table">
+                            <table>
+                                <tr>
+                                    <th>Competition</th>
+                                    <th>Winning Number</th>
+                                </tr>
+                                <th:block th:each="closedCompetition: ${closedCompetitions}">
+                                    <tr>
+                                        <td th:text="${closedCompetition.competition.heading}"></td>
+                                        <td>
+                                            <ul class="self-number">
+                                                <li><a href="#" th:text="${closedCompetition.winningNumber}"></a></li>
+                                            </ul>
+                                        </td>
                                     </tr>
                                 </th:block>
                             </table>
