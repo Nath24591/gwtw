@@ -1,5 +1,6 @@
 package com.gwtw.spring.controller;
 
+import com.gwtw.spring.CompetitionComponent;
 import com.gwtw.spring.DTO.ForgotPasswordDto;
 import com.gwtw.spring.DTO.LoginDto;
 import com.gwtw.spring.DTO.ResetPasswordDto;
@@ -35,12 +36,14 @@ public class UserController {
     UserPasswordResetRepository userPasswordResetRepository;
     @Autowired
     MailController mailController;
+    @Autowired
+    CompetitionComponent competitionComponent;
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ModelAndView processRegistrationForm(@ModelAttribute("UserDto")UserDto userDto, ModelAndView  modelAndView, HttpServletRequest request){
         //Does user already have an account for this email?
-        List<User> existingUsers = userRepository.getUsersByEmail(userDto.getEmail());
-        if(existingUsers.size() > 0) {
+        User existingUsers = userRepository.getUserByEmail(userDto.getEmail().toLowerCase());
+        if(existingUsers != null) {
             modelAndView.addObject("errorMessage", "An account is already registered with this email address!");
             modelAndView.setViewName("signup");
             return modelAndView;
@@ -52,11 +55,11 @@ public class UserController {
         String salt = PasswordUtils.getSalt(30);
         String encryptedPassword = PasswordUtils.generateSecurePassword(userDto.getPassword(), salt);
 
-        List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
+        List<Competition> competitionList = competitionComponent.getCompetitionsForHomePage();
         modelAndView.addObject("featuredCompetitions", competitionList);
         modelAndView.addObject("loggedIn", "true");
         modelAndView.setViewName("index");
-        User u = new User(null,userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getContactNumber(), userDto.getDateOfBirth(), userDto.getHouseNumber(), userDto.getStreetName(), userDto.getPostcode(), encryptedPassword, salt);
+        User u = new User(null,userDto.getFirstName(), userDto.getLastName(), userDto.getEmail().toLowerCase(), userDto.getContactNumber(), userDto.getDateOfBirth(), userDto.getHouseNumber(), userDto.getStreetName(), userDto.getPostcode(), encryptedPassword, salt);
         this.datastoreTemplate.save(u);
         mailController.createRegistrationEmail(u.getEmail(),"Thank you for registering", u.getFirstName());
         return modelAndView;
@@ -64,43 +67,39 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView processLoginForm(@ModelAttribute("LoginDto") LoginDto loginDto, ModelAndView  modelAndView, HttpServletRequest request) {
-        List<User> existingUsers = userRepository.getUsersByEmail(loginDto.getEmail());
+        User existingUser = userRepository.getUserByEmail(loginDto.getEmail().toLowerCase());
         HttpSession session = request.getSession();
-        if(existingUsers.size() > 0){
-            User user = existingUsers.get(0);
-            boolean passwordsMatch = PasswordUtils.verifyUserPassword(loginDto.getPassword(), user.getPassword(), user.getSalt());
+        if(existingUser != null){
+            boolean passwordsMatch = PasswordUtils.verifyUserPassword(loginDto.getPassword(), existingUser.getPassword(), existingUser.getSalt());
             //check password matches
             if(passwordsMatch){
-                session.setAttribute("email", user.getEmail());
+                session.setAttribute("email", existingUser.getEmail());
                 modelAndView.addObject("loggedIn", "true");
-                List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
+                List<Competition> competitionList =competitionComponent.getCompetitionsForHomePage();
                 modelAndView.addObject("featuredCompetitions", competitionList);
                 modelAndView.setViewName("index");
-                return modelAndView;
             } else {
                 modelAndView.addObject("errorMessage", "Wrong email or password");
                 modelAndView.setViewName("login");
-                return modelAndView;
             }
         } else {
             modelAndView.addObject("errorMessage", "Wrong email or password");
             modelAndView.setViewName("login");
-            return modelAndView;
         }
+        return modelAndView;
     }
 
     @RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
     public ModelAndView processForgotPasswordForm(@ModelAttribute("ForgotPasswordDto") ForgotPasswordDto forgotPasswordDto, ModelAndView  modelAndView, HttpServletRequest request){
         //Does user already have an account for this email?
-        List<User> existingUsers = userRepository.getUsersByEmail(forgotPasswordDto.getEmail());
-        if(existingUsers.size() == 1) {
-            User user = existingUsers.get(0);
+        User existingUser = userRepository.getUserByEmail(forgotPasswordDto.getEmail());
+        if(existingUser != null) {
             String token = generateRandomString();
             UserPasswordReset upr = new UserPasswordReset();
-            upr.setEmail(user.getEmail());
+            upr.setEmail(existingUser.getEmail());
             upr.setToken(token);
             this.datastoreTemplate.save(upr);
-            mailController.createPasswordResetEmail(user.getEmail(),"Password reset request", user.getFirstName(), token);
+            mailController.createPasswordResetEmail(existingUser.getEmail(),"Password reset request", existingUser.getFirstName(), token);
             modelAndView.addObject("confirmationMessage", "A password reset link has been emailed to you");
         } else {
             modelAndView.addObject("errorMessage", "There isn't an account under that email on our system");
@@ -113,15 +112,14 @@ public class UserController {
     public ModelAndView processResetForm(@ModelAttribute("ResetPasswordDto") ResetPasswordDto resetPasswordDto, ModelAndView  modelAndView, HttpServletRequest request){
         //Does user already have an account for this email?
         UserPasswordReset upr = userPasswordResetRepository.getUserPasswordResetByToken(resetPasswordDto.getToken());
-        List<User> existingUsers = userRepository.getUsersByEmail(upr.getEmail());
-        if(existingUsers.size() == 1) {
-            User user = existingUsers.get(0);
+        User existingUser = userRepository.getUserByEmail(upr.getEmail());
+        if(existingUser != null) {
             // Generate Salt. The generated value can be stored in DB.
             String salt = PasswordUtils.getSalt(30);
             String encryptedPassword = PasswordUtils.generateSecurePassword(resetPasswordDto.getPassword(), salt);
-            user.setPassword(encryptedPassword);
-            user.setSalt(salt);
-            this.datastoreTemplate.save(user);
+            existingUser.setPassword(encryptedPassword);
+            existingUser.setSalt(salt);
+            this.datastoreTemplate.save(existingUser);
             this.datastoreTemplate.delete(upr);
             modelAndView.addObject("confirmationMessage", "You have successfully set your password, please log in using your new details.");
         }
@@ -133,7 +131,7 @@ public class UserController {
     public ModelAndView processLogout(ModelAndView  modelAndView, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute("email");
-        List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
+        List<Competition> competitionList = competitionComponent.getCompetitionsForHomePage();
         modelAndView.addObject("featuredCompetitions", competitionList);
         modelAndView.setViewName("index");
         return modelAndView;
