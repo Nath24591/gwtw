@@ -21,7 +21,9 @@ $(".answerClick").on('click', function() {
             };
 
 // A reference to Stripe.js initialized with your real test publishable API key.
-            var stripe = Stripe("pk_test_51HEZBIHmruxLRvNC6e3b1flQJYEXSqHT0k8J0WpXOZ3sZ2a1dhqw1lYYg2C709GVBG1A7An8eCWlCx0BJNynBeNF00T0ykFsvS");
+            let liveKey = "pk_live_51HEZBIHmruxLRvNCpt82MAdJ6DUR8YwRnGe9GkdFnEgcVmn8UvBHqdgIruEQQx8mu8xD8WhCqlAx1hLr3OHvdZ4X00SIZyYZpc";
+            let testKey = "pk_test_51HEZBIHmruxLRvNC6e3b1flQJYEXSqHT0k8J0WpXOZ3sZ2a1dhqw1lYYg2C709GVBG1A7An8eCWlCx0BJNynBeNF00T0ykFsvS";
+            let stripe = Stripe(liveKey);
 // Disable the button until we have Stripe set up on the page
             document.querySelector("button").disabled = true;
             fetch("/create-payment-intent", {
@@ -41,7 +43,7 @@ $(".answerClick").on('click', function() {
                             color: "#32325d",
                             fontFamily: 'Arial, sans-serif',
                             fontSmoothing: "antialiased",
-                            fontSize: "16px",
+                            fontSize: "14px",
                             "::placeholder": {
                                 color: "#32325d"
                             }

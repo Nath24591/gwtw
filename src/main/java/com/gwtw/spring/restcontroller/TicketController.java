@@ -39,7 +39,7 @@ public class TicketController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> reserveTicket(@PathVariable(value = "id") String id, @RequestBody TicketUpdateDto ticketUpdateDto){
 
-        String response = "";
+        String response;
         Integer ticketInt = Integer.parseInt(ticketUpdateDto.getTicketNumber());
 
         CompetitionTicket ticketToUpdate = competitionTicketRepository.getCompetitionTicketByCompetitionIdAndTicket(id,ticketInt);
@@ -80,7 +80,7 @@ public class TicketController {
         String response = "";
         List<String> tickets = purchaseTicketsDto.getTickets();
         String email = purchaseTicketsDto.getEmail();
-        User user = userRepository.getUsersByEmail(email).get(0);
+        User user = userRepository.getUserByEmail(email);
         List<UserTicket> userTickets = Lists.newArrayList();
         Competition currentComp = competitionRepository.getCompetitionById(Long.valueOf(id));
         currentComp.setRemaining(currentComp.getRemaining()-tickets.size());

@@ -49,7 +49,7 @@ public class PaymentServer {
         }
         Long compIdInt = Long.valueOf(compId);
         Competition competition = competitionRepository.getCompetitionById(compIdInt);
-        double paymentPrice = Double.valueOf(competition.getPrice()) * 100;
+        double paymentPrice = Double.parseDouble(competition.getPrice()) * 100;
 
 
         // Replace this constant with a calculation of the order's amount
@@ -59,7 +59,9 @@ public class PaymentServer {
     }
 
     public String createPaymentIntent(HttpServletRequest request) throws StripeException, IOException {
-        Stripe.apiKey = "sk_test_51HEZBIHmruxLRvNCdxF1LgOalemnx9QscmmZvuWBB3MpZKYFQem3Sui2gmqGLyqr0chc4sY8tTYIbtsh2BydKtgs004DnlbCw5";
+        String liveKey = "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";
+        String testKey = "sk_test_51HEZBIHmruxLRvNCdxF1LgOalemnx9QscmmZvuWBB3MpZKYFQem3Sui2gmqGLyqr0chc4sY8tTYIbtsh2BydKtgs004DnlbCw5";
+        Stripe.apiKey = liveKey;
         String test = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         CreatePayment postBody = gson.fromJson(test, CreatePayment.class);
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()

@@ -50,6 +50,23 @@ public class MailController {
         }
     }
 
+    public void createSupportEmail(String to, String subject, String recipientName, String email, String content) {
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("recipientName", recipientName);
+        templateModel.put("email", email);
+        templateModel.put("content", content);
+
+        try {
+            emailSenderService.sendMessageUsingFreemarkerTemplate(
+                    to,
+                    subject,
+                    templateModel, "support.ftl");
+        } catch (IOException | TemplateException | MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void createCompetitionClosedEmail(String to, String subject, String recipientName, String compHeading) {
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("recipientName", recipientName);

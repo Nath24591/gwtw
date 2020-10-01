@@ -13,6 +13,9 @@ public class CompetitionDto {
     private int startingTickets;
     @NotNull
     private String image;
+    @NotNull
+    private String cost;
+
 
     public String getHeading() {
         return heading;
@@ -52,5 +55,13 @@ public class CompetitionDto {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 }

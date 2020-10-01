@@ -4,7 +4,6 @@ import com.sun.istack.NotNull;
 
 public class ForgotPasswordDto {
 
-
     @NotNull
     private String email;
 

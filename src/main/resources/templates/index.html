@@ -1,10 +1,20 @@
 <!doctype html>
-<html class="no-js" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html class="no-js" lang="en">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179324437-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-179324437-1');
+    </script>
+
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>GoneWithTheWin</title>
-    <meta name="description" content="">
+    <title>GoneWithTheWin - competitions</title>
+    <meta name="description" content="Win great competition prizes for cheap prices!">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- favicon -->
@@ -12,28 +22,28 @@
 
     <!-- all css here -->
     <!-- bootstrap v3.3.6 css -->
-<!--    <link rel="stylesheet" th:href="css/bootstrap.min.css">-->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>@charset "UTF-8";html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}header,nav{display:block}a{background-color:transparent}img{border:0}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:10px}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}a{color:#337ab7;text-decoration:none}img{vertical-align:middle}h2,h3,h4,h6{font-family:inherit;font-weight:500;line-height:1.1;color:inherit}h2,h3{margin-top:20px;margin-bottom:10px}h4,h6{margin-top:10px;margin-bottom:10px}h2{font-size:30px}h3{font-size:24px}h4{font-size:18px}h6{font-size:12px}p{margin:0 0 10px}.text-center{text-align:center}ul{margin-top:0;margin-bottom:10px}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.row{margin-left:-15px;margin-right:-15px}.col-md-12,.col-md-3,.col-md-4,.col-md-8,.col-md-9,.col-sm-12,.col-sm-3,.col-sm-4,.col-sm-8,.col-sm-9,.col-xs-12{position:relative;min-height:1px;padding-left:15px;padding-right:15px}.col-xs-12{float:left}.col-xs-12{width:100%}@media (min-width:768px){.col-sm-12,.col-sm-3,.col-sm-4,.col-sm-8,.col-sm-9{float:left}.col-sm-12{width:100%}.col-sm-9{width:75%}.col-sm-8{width:66.66666667%}.col-sm-4{width:33.33333333%}.col-sm-3{width:25%}}@media (min-width:992px){.col-md-12,.col-md-3,.col-md-4,.col-md-8,.col-md-9{float:left}.col-md-12{width:100%}.col-md-9{width:75%}.col-md-8{width:66.66666667%}.col-md-4{width:33.33333333%}.col-md-3{width:25%}}.collapse{display:none}.nav{margin-bottom:0;padding-left:0;list-style:none}.nav>li{position:relative;display:block}.nav>li>a{position:relative;display:block;padding:10px 15px}.navbar{position:relative;min-height:50px;margin-bottom:20px;border:1px solid transparent}@media (min-width:768px){.navbar{border-radius:4px}}.navbar-collapse{overflow-x:visible;padding-right:15px;padding-left:15px;border-top:1px solid transparent;-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.1);-webkit-overflow-scrolling:touch}@media (min-width:768px){.navbar-collapse{width:auto;border-top:0;-webkit-box-shadow:none;box-shadow:none}.navbar-collapse.collapse{display:block!important;height:auto!important;padding-bottom:0;overflow:visible!important}}.navbar-brand{float:left;padding:15px 15px;font-size:18px;line-height:20px;height:50px}.navbar-brand>img{display:block}.navbar-nav>li>a{padding-top:10px;padding-bottom:10px;line-height:20px}@media (min-width:768px){.navbar-nav{float:left;margin:0}.navbar-nav>li{float:left}.navbar-nav>li>a{padding-top:15px;padding-bottom:15px}}@media (min-width:768px){.navbar-right{float:right!important;margin-right:-15px}}.navbar-default{background-color:#f8f8f8;border-color:#e7e7e7}.navbar-default .navbar-nav>li>a{color:#777}.navbar-default .navbar-collapse{border-color:#e7e7e7}.container:after,.container:before,.nav:after,.nav:before,.navbar-collapse:after,.navbar-collapse:before,.navbar:after,.navbar:before,.row:after,.row:before{content:" ";display:table}.container:after,.nav:after,.navbar-collapse:after,.navbar:after,.row:after{clear:both}@-ms-viewport{width:device-width}@media (max-width:767px){.hidden-xs{display:none!important}}@media (min-width:768px) and (max-width:991px){.hidden-sm{display:none!important}}@media (min-width:992px) and (max-width:1199px){.hidden-md{display:none!important}}@media (min-width:1200px){.hidden-lg{display:none!important}}@-webkit-keyframes fadeInUp{0%{opacity:0;-webkit-transform:translateY(20px);transform:translateY(20px)}100%{opacity:1;-webkit-transform:translateY(0);transform:translateY(0)}}@keyframes fadeInUp{0%{opacity:0;-webkit-transform:translateY(20px);-ms-transform:translateY(20px);transform:translateY(20px)}100%{opacity:1;-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}.fadeInUp{-webkit-animation-name:fadeInUp;animation-name:fadeInUp}.mobile-menu-area{background:#fff none repeat scroll 0 0}@font-face{font-family:FontAwesome;src:url(fonts/fontawesome-webfont.eot?v=4.5.0);src:url(fonts/fontawesome-webfont.eot?#iefix&v=4.5.0) format('embedded-opentype'),url(fonts/fontawesome-webfont.woff2?v=4.5.0) format('woff2'),url(fonts/fontawesome-webfont.woff?v=4.5.0) format('woff'),url(fonts/fontawesome-webfont.ttf?v=4.5.0) format('truetype'),url(fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular) format('svg');font-weight:400;font-style:normal}.fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.fa-envelope:before{content:"\f0e0"}.fa{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1}.fa-envelope:before{content:"\f0e0"}@font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:400;font-display:block;src:url(webfonts/fa-regular-400.eot);src:url(webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(webfonts/fa-regular-400.woff2) format("woff2"),url(webfonts/fa-regular-400.woff) format("woff"),url(webfonts/fa-regular-400.ttf) format("truetype"),url(webfonts/fa-regular-400.svg#fontawesome) format("svg")}@font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:900;font-display:block;src:url(webfonts/fa-solid-900.eot);src:url(webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(webfonts/fa-solid-900.woff2) format("woff2"),url(webfonts/fa-solid-900.woff) format("woff"),url(webfonts/fa-solid-900.ttf) format("truetype"),url(webfonts/fa-solid-900.svg#fontawesome) format("svg")}.fa{font-family:"Font Awesome 5 Free"}.fa{font-weight:900}@font-face{font-family:themify;src:url(fonts/themify.eot);src:url(fonts/themify.eot?#iefix) format('embedded-opentype'),url(fonts/themify.woff) format('woff'),url(fonts/themify.ttf) format('truetype'),url(fonts/themify.svg) format('svg');font-weight:400;font-style:normal}body,html{height:100%}img{max-width:100%;height:auto}p{margin:0 0 15px;color:#4a5f80}h2,h3,h4,h6{font-family:Nunito,sans-serif;margin:0 0 15px;color:#29446e;font-weight:700}h2{font-size:38px;line-height:44px}h3{font-size:30px;line-height:38px}h4{font-size:24px;line-height:34px}h6{font-size:16px;line-height:26px}a{text-decoration:none}body{color:#4a5f80;font-family:Nunito,sans-serif;font-size:16px;text-align:left;overflow-x:hidden;line-height:26px}ul{list-style:outside none none;margin:0;padding:0}.navbar-collapse{padding-left:0}.bg-color{background:#f6f6f6}.area-padding{padding:100px 0 70px}.area-padding-2{padding:35px 0 70px}.section-headline{padding-bottom:40px;position:relative}.section-headline h3{font-size:40px;text-transform:capitalize;line-height:48px;color:#29446e}.section-headline p{max-width:560px;font-size:17px;margin:0 auto}.topbar-left ul li{display:inline-block}.topbar-area{background:#2c2a68}.topbar-left ul li a{color:#dbeee1;display:block;margin-right:20px;padding:11px 0;text-decoration:none;font-size:15px;letter-spacing:.6px}.topbar-left ul li a i{color:#dbeee1;font-size:16px;padding-right:7px}.topbar-left ul li:last-child a{margin-right:0}.topbar-right{float:right!important}.topbar-right ul li{display:inline-block;position:relative}.topbar-right>ul>li>a{color:#dbeee1;display:block;padding:12px 30px 10px 0;position:relative;font-size:15px}.topbar-right>ul>li>a::after{color:#dbeee1;content:"\e64b";font-family:themify;font-size:12px;position:absolute;right:15px;top:13px}.topbar-right>ul>li:last-child a::after{display:none}.topbar-right>ul>li:last-child a{padding-right:0}.topbar-right img{margin-right:5px}.header-one{position:absolute;top:0;left:0;width:100%;height:auto;z-index:999}.header-area{background:rgba(255,255,255,.9)}.logo{display:block}.logo a{display:inline-block;height:auto;padding:25px 0}.main-menu ul.navbar-nav li{float:left;position:relative}.main-menu ul.navbar-nav li a{color:#29446e;font-size:16px;font-weight:700;padding:40px 15px;text-transform:uppercase;position:relative}.main-menu>ul.navbar-nav>li>a::before{position:absolute;content:"";left:16px;top:0;border:1px solid #1fc157;width:0;opacity:0}.navbar{border:medium none;margin-bottom:0}.navbar-default{background:rgba(0,0,0,0) none repeat scroll 0 0}.pages{position:relative}.navbar.navbar-default{float:right}.header-right-link{float:right;width:170px;padding:37px 0;margin-left:40px;text-align:right}.mobile-menu-area{background:#fff none repeat scroll 0 0;padding:10px 0}.intro-home{position:relative;overflow:hidden;z-index:1}.intro-home::after{position:absolute;left:0;top:0;height:100%;width:100%;background:url(/../img/background/bg1.png);background-repeat:no-repeat;background-position:top center;background-size:cover;content:"";opacity:.95}.intro-content{position:absolute;z-index:2;top:50%;left:0;width:100%;height:auto;margin-top:-80px}.slider-content{position:relative}.best-title{font-size:18px;color:#1fc157;display:inline-block;margin-bottom:20px;text-transform:uppercase}.layer-1 h2{color:#29446e;font-size:44px;font-weight:700;line-height:54px;max-width:640px;margin-bottom:20px;letter-spacing:1px;text-transform:uppercase}.layer-2 p{font-size:19px;letter-spacing:.5px;color:#4a5f80;max-width:640px}.ready-btn{border:1px solid #1fc157;background:#1fc157;color:#fff;display:inline-block;font-size:20px;font-weight:700;margin-top:20px;padding:12px 30px;text-align:center;text-transform:capitalize;border-radius:3px}.how-to-area{padding:100px 0 100px}.all-how{margin-bottom:60px}.single-how{text-align:center;z-index:1;overflow:hidden;padding:40px 30px;border-radius:5px;background:#fff;position:relative}.how-wel{padding:20px 0 0}.how-img{display:inline-block}.big-icon img{border-radius:5px;width:100px;height:100px}.how-content p{margin-bottom:0}.how-content h4{display:inline-block;font-size:24px;margin-bottom:0;padding:0 0 10px;font-weight:600}.single-how.first-item,.single-how.thired-item{position:relative;top:60px}.h-number{position:absolute;left:15px;top:15px;line-height:40px;color:#ccc;z-index:2;font-size:40px;font-weight:700;opacity:.5}.single-ticket{border:1px solid #f5f5f5;position:relative;display:block;overflow:hidden;padding:40px 20px;text-align:center;background:#fff;border-radius:3px;margin-bottom:30px}.ticket-rate{position:absolute;left:0;top:10px;background:#e62e7c;color:#fff;font-weight:600;font-size:18px;padding:2px 15px;line-height:26px;border-radius:0 3px 3px 0}.lettery-carousel .col-md-4{width:100%}.win-money{display:block;font-size:20px;margin-bottom:15px;text-transform:uppercase;font-weight:700}.ticket-image{display:block}.ticket-image img{border-radius:50%;margin-bottom:20px;width:140px!important;height:140px;margin:0 auto 30px}@media (min-width:992px) and (max-width:1269px){.intro-area{float:none;width:100%;height:100%;min-height:600px}.bg-wrapper,.bg-wrapper img{width:100%;height:100%;min-height:600px;object-fit:cover}.intro-content{margin-top:-70px}.layer-1 h2{font-size:34px;line-height:42px;max-width:500px}.layer-2 p{font-size:15px;max-width:500px}.header-right-link{margin-left:10px;width:120px}.main-menu ul.navbar-nav li a{font-size:15px;padding:40px 12px}}@media (min-width:768px) and (max-width:991px){.logo a{padding:15px 0}.header-right-link{width:85px;margin-left:4px;padding:25px 0}.intro-area{float:none;width:100%;height:100%;min-height:400px}.bg-wrapper,.bg-wrapper img{width:100%;height:100%;min-height:400px;object-fit:cover}.layer-1 h2{font-size:28px;line-height:38px;max-width:380px;margin-bottom:10px}.layer-2 p{font-size:15px;line-height:24px;max-width:400px;margin-bottom:0}.intro-content{margin-top:-50px}.main-menu ul.navbar-nav li a{font-size:13px;padding:30px 7px}.main-menu>ul.navbar-nav>li>a::before{left:9px}.section-headline h3{font-size:34px;line-height:40px}.topbar-left ul li a{margin-right:10px}.ready-btn{font-size:16px;padding:8px 14px}.ticket-rate{top:0}.single-ticket{padding:40px 20px 30px}.single-how{padding:40px 15px}.how-content h4{font-size:22px}}@media (max-width:767px){.container{width:400px}.logo{height:inherit;left:10px;padding:0;position:absolute;top:0;z-index:999999;max-width:130px}.logo a{padding:0}.intro-area{float:none;width:100%;height:100%;min-height:620px}.bg-wrapper,.bg-wrapper img{width:100%;height:100%;min-height:620px;object-fit:cover}.bg-wrapper img{display:none}.intro-content{margin-top:-100px}.layer-1 h2{font-size:24px;line-height:38px;margin-bottom:15px}.best-title{font-size:15px}.layer-2 p{font-size:16px;line-height:26px;margin-bottom:10px}.topbar-right{float:none}.topbar-left ul li a{margin-right:5px;padding:11px 0 0;font-size:14px}.topbar-right>ul>li>a{color:#c2d4f8;display:block;padding:10px 30px 10px 0;position:relative}.section-headline h3{font-size:28px;line-height:38px}.ticket-image img{width:120px!important;height:120px}.single-how.first-item,.single-how.thired-item{top:0}.single-how{margin-bottom:30px}.how-to-area{padding:100px 0 70px}.ticket-rate{top:0}.single-ticket{padding:40px 20px}}@media only screen and (min-width:480px) and (max-width:767px){.container{width:450px}}</style>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" media="print" onload="this.media='all'">
     <!-- owl.carousel css -->
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.transitions.css}">
+    <link rel="stylesheet" href="/css/owl.carousel.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/owl.transitions.css" media="print" onload="this.media='all'">
     <!-- Animate css -->
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="/css/animate.css" media="print" onload="this.media='all'">
     <!-- meanmenu css -->
-    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
+    <link rel="stylesheet" href="/css/meanmenu.min.css" media="print" onload="this.media='all'">
     <!-- font-awesome css -->
-    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
-    <link rel="stylesheet" th:href="@{/css/all.min.css}">
-    <link rel="stylesheet" th:href="@{/css/themify-icons.css}">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/all.min.css" mediaAccept-Encoding="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/themify-icons.css" media="print" onload="this.media='all'">
     <!-- magnific css -->
-    <link rel="stylesheet" th:href="@{/css/magnific.min.css}">
+    <link rel="stylesheet" href="/css/magnific.min.css" media="print" onload="this.media='all'">
     <!-- style css -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'">
     <!-- responsive css -->
-    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" href="/css/responsive.css" media="print" onload="this.media='all'">
 
     <!-- modernizr css -->
-    <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+
 </head>
 <body>
 
@@ -45,7 +55,7 @@
 <!-- Start Slider Area -->
 <div class="intro-area intro-home">
     <div class="bg-wrapper">
-        <img th:src="@{/img/background/bg1.png}" alt="">
+        <img src="/img/background/bg1.png" alt="">
     </div>
     <div class="intro-content">
         <div class="slider-content">
@@ -63,7 +73,7 @@
                         </div>
                         <!-- layer 3 -->
                         <div class="layer-3 wow fadeInUp" data-wow-delay="0.7s">
-                            <a href="/currentcomps" class="ready-btn left-btn" >Play Now</a>
+                            <a href="/current-competitions" class="ready-btn left-btn" >Play Now</a>
                         </div>
                     </div>
                 </div>
@@ -95,7 +105,7 @@
                         <div class="how-wel">
                             <div class="how-content">
                                 <h4>Pick your competition!</h4>
-                                <p>Pick the competition you would like to enter</p>
+                                <p>Pick the competition you would like to enter.</p>
                             </div>
                         </div>
                     </div>
@@ -218,8 +228,8 @@
                             <h4>Support</h4>
                             <ul class="footer-list">
                                 <li><a href="/faq">FAQ</a></li>
-                                <li><a href="#">Support</a></li>
-                                <li><a href="#">Terms & Condition</a></li>
+                                <li><a href="/support">Support</a></li>
+                                <!--                                    <li><a href="#">Terms & Condition</a></li>-->
                             </ul>
                         </div>
                     </div>
@@ -249,22 +259,58 @@
 <!-- all js here -->
 
 <!-- jquery latest version -->
-<script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
+<script src="/js/vendor/modernizr-2.8.3.min.js"></script>
+
+<script src="/js/vendor/jquery-1.12.4.min.js"></script>
 <!-- bootstrap js -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<script src="/js/bootstrap.min.js"></script>
 <!-- owl.carousel js -->
-<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script src="/js/owl.carousel.min.js"></script>
 <!-- magnific js -->
-<script th:src="@{/js/magnific.min.js}"></script>
+<script src="/js/magnific.min.js"></script>
 <!-- wow js -->
-<script th:src="@{/js/wow.min.js}"></script>
+<script src="/js/wow.min.js"></script>
 <!-- meanmenu js -->
-<script th:src="@{/js/jquery.meanmenu.js}"></script>
+<script src="/js/jquery.meanmenu.js"></script>
 <!-- Form validator js -->
-<script th:src="@{/js/form-validator.min.js}"></script>
+<script src="/js/form-validator.min.js"></script>
 <!-- plugins js -->
-<script th:src="@{/js/plugins.js}"></script>
+<script src="/js/plugins.js"></script>
 <!-- main js -->
-<script th:src="@{/js/main.js}"></script>
+<script src="/js/main.js"></script>
+
+
+<noscript><link rel="stylesheet" href="/css/bootstrap.min.css"></noscript>
+
+
+<noscript><link rel="stylesheet" href="/css/owl.carousel.css"></noscript>
+
+
+<noscript><link rel="stylesheet" href="/css/owl.transitions.css"></noscript>
+
+
+<noscript><link rel="stylesheet" href="/css/animate.css"></noscript>
+
+
+<noscript><link rel="stylesheet" href="/css/meanmenu.min.css"></noscript>
+
+
+<noscript><link rel="stylesheet" href="/css/font-awesome.min.css"></noscript>
+
+
+<noscript><link rel="stylesheet" href="/css/all.min.css"></noscript>
+
+
+<noscript><link rel="stylesheet" href="/css/themify-icons.css"></noscript>
+
+
+<noscript><link rel="stylesheet" href="/css/magnific.min.css"></noscript>
+
+
+<noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+
+
+<noscript><link rel="stylesheet" href="/css/responsive.css"></noscript>
+
 </body>
 </html>

@@ -1,14 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Current Competitions</title>
+    <title>GWTW - Results</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/logo/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../static/img/logo/favicon.ico">
 
     <!-- bootstrap v3.3.6 css -->
     <!--    <link rel="stylesheet" th:href="css/bootstrap.min.css">-->
@@ -31,12 +31,17 @@
     <!-- responsive css -->
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
+
+    <link th:href="@{https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css}" rel="stylesheet">
+
+
     <!-- modernizr css -->
     <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
 </head>
 
 <body>
 <div th:insert="fragments/header :: header"></div>
+<!-- Start Bottom Header -->
 <div class="page-area">
     <div class="breadcumb-overlay"></div>
     <div class="container">
@@ -44,63 +49,61 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="breadcrumb text-center">
                     <div class="section-headline text-center">
-                        <h3>Current Competitions</h3>
+                        <h3>Support</h3>
                     </div>
                     <ul>
                         <li class="home-bread">Home</li>
-                        <li>Competitions</li>
+                        <li>Support</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Start Blog area -->
-<div class="blog-area area-padding-2">
+<!-- END Header -->
+<!-- Start contact Area -->
+<div class="contact-page area-padding-2">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="section-headline text-center">
-                    <h3>Current Open Competitions</h3>
-                    <p>Check out all of our current competitions below!</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="blog-grid home-blog">
-                <!-- Start single blog -->
-                <div th:each="competition: ${competitions}" class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-blog">
-                        <div class="ticket-image text-center">
-                            <img th:src="${competition.image}" alt="">
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-category">
-                                <span th:text="${competition.heading}"></span>
+                <div class="contact-form">
+                    <div class="row">
+                        <div th:if="${confirmationMessage}" class="alert alert-success"
+                             role="alert" th:text=${confirmationMessage}></div>
+                        <div th:if="${errorMessage}"
+                             class="alert alert-danger" role="alert"
+                             th:text="${errorMessage}"></div>
+                        <form action="#" id="contactForm" method="POST" th:action="@{/support}" class="contact-form" th:object="${SupportDto}">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="name" class="form-control" placeholder="Name" required data-error="Please enter your name" th:value="${firstName}" th:field="*{name}">
+                                <div class="help-block with-errors"></div>
                             </div>
-                            <div class="blog-meta">
-                                        <span class="admin-type">
-                                            <i class="fas fa-pound-sign"></i>
-                                            <span th:text="${competition.price}"></span>
-                                        </span>
-                                <span class="comments-type">
-                                            <i class="fas fa-ticket-alt"></i>
-                                            <span th:text="${competition.remaining}"></span>
-                                         <div class="pull-right">
-                                            <a class="ticket-btn"
-                                               th:href="@{'/comp?id=' + ${competition.id}}">Enter Now</a>
-                                        </div>
-                                </span>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="email" class="email form-control" id="email" placeholder="Email" required data-error="Please enter your email" th:value="${loggedInEmail}" th:field="*{email}">
+                                <div class="help-block with-errors"></div>
                             </div>
-                        </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input type="text" id="msg_subject" class="form-control" placeholder="Subject" required data-error="Please enter your message subject" th:field="*{subject}">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <textarea id="message" rows="7" placeholder="Message" class="form-control" required data-error="Write your message" th:field="*{content}"></textarea>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                <button type="submit" id="submit" class="contact-btn">Submit</button>
+                                <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+            <!-- End contact Form -->
         </div>
-        <!-- End row -->
     </div>
 </div>
-<!-- End Blog area -->
+<!-- End Contact Area -->
 <!-- Start Footer Area -->
 <footer class="footer-1">
     <div class="footer-area">
@@ -151,8 +154,8 @@
                             <h4>Support</h4>
                             <ul class="footer-list">
                                 <li><a href="/faq">FAQ</a></li>
-                                <li><a href="#">Support</a></li>
-                                <li><a href="#">Terms & Condition</a></li>
+                                <li><a href="/support">Support</a></li>
+                                <!--                                    <li><a href="#">Terms & Condition</a></li>-->
                             </ul>
                         </div>
                     </div>
@@ -177,11 +180,9 @@
     </div>
     <!-- End Footer Bottom Area -->
 </footer>
+    <!-- End Footer Bottom Area -->
 <!-- End Footer Area -->
-
 <!-- all js here -->
-
-<script th:src="@{/js/competition.js}"></script>
 <!-- jquery latest version -->
 <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
 <!-- bootstrap js -->
@@ -200,5 +201,7 @@
 <script th:src="@{/js/plugins.js}"></script>
 <!-- main js -->
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/js/myProfile.js}"></script>
 </body>
 </html>

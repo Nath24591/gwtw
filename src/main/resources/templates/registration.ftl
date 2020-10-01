@@ -15,7 +15,7 @@
                                 <td align="center" valign="top">Hi ${recipientName}! Thank you for signing up. Best of luck from everyone at GoneWithTheWin!</td>
                             </tr>
                             <tr>
-                                <td align="center" valign="top">See our list of current competitions <a href="https://www.gonewiththewin.co.uk/currentcomps">here</a> </td>
+                                <td align="center" valign="top">See our list of current competitions <a href="https://www.gonewiththewin.co.uk/current-competitions">here</a> </td>
                             </tr>
                             </tbody>
                         </table>

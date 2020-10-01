@@ -1,0 +1,3 @@
+user-agent: *
+disallow: /admin/
+sitemap: https://www.gonewiththewin.co.uk/sitemap.xml

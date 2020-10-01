@@ -14,7 +14,7 @@ public class Question {
 
     private String question;
 
-    private Map<String, Boolean> answers = new HashMap<String, Boolean>();
+    private Map<String, Boolean> answers = new HashMap<>();
 
 
 

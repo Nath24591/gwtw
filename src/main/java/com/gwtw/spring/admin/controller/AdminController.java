@@ -48,28 +48,24 @@ public class AdminController {
 
     @RequestMapping(value = "/adminLogin", method = RequestMethod.POST)
     public ModelAndView processAdminLoginForm(@ModelAttribute("LoginDto") LoginDto loginDto, ModelAndView  modelAndView, HttpServletRequest request) {
-        List<User> existingUsers = userRepository.getUsersByEmail(loginDto.getEmail());
+        User existingUser = userRepository.getUserByEmail(loginDto.getEmail());
         HttpSession session = request.getSession();
-        if(existingUsers.size() > 0){
-            User user = existingUsers.get(0);
-
-            boolean passwordsMatch = PasswordUtils.verifyUserPassword(loginDto.getPassword(), user.getPassword(), user.getSalt());
+        if(existingUser != null){
+            boolean passwordsMatch = PasswordUtils.verifyUserPassword(loginDto.getPassword(), existingUser.getPassword(), existingUser.getSalt());
             //check password matches
-            if(passwordsMatch && user.getIsAdmin() == 1){
-                session.setAttribute("email", user.getEmail());
+            if(passwordsMatch && existingUser.getIsAdmin() == 1){
+                session.setAttribute("email", existingUser.getEmail());
                 session.setAttribute("admin", "true");
                 modelAndView.setViewName("admin");
-                return modelAndView;
             } else {
                 modelAndView.addObject("errorMessage", "Wrong email or password or you're not a admin");
                 modelAndView.setViewName("adminLogin");
-                return modelAndView;
             }
         } else {
             modelAndView.addObject("errorMessage", "Wrong email or password or you're not a admin");
             modelAndView.setViewName("adminLogin");
-            return modelAndView;
         }
+        return modelAndView;
     }
 
     @RequestMapping("/addCompetitions")
@@ -92,7 +88,7 @@ public class AdminController {
         modelAndView.addObject("CompetitionDto", new CompetitionDto());
         modelAndView.addObject("confirmationMessage", "Competition Added!");
         modelAndView.setViewName("addCompetitions");
-        Competition c = new Competition(null, competitionDto.getImage(), competitionDto.getHeading(), competitionDto.getDescription(), competitionDto.getPrice(), competitionDto.getStartingTickets(), competitionDto.getStartingTickets());
+        Competition c = new Competition(null, competitionDto.getImage(), competitionDto.getHeading(), competitionDto.getDescription(), competitionDto.getPrice(), competitionDto.getStartingTickets(), competitionDto.getStartingTickets(), competitionDto.getCost());
         this.datastoreTemplate.save(c);
 
         LocalDateTime fifteenMinutesAgo = LocalDateTime.now().minusMinutes(15);
@@ -131,7 +127,7 @@ public class AdminController {
         modelAndView.addObject("QuestionDto", new QuestionDto());
         modelAndView.addObject("confirmationMessage", "Question Added!");
         modelAndView.setViewName("addQuestion");
-        Map<String, Boolean> answers = new HashMap<String, Boolean>();
+        Map<String, Boolean> answers = new HashMap<>();
         answers.put(questionDto.getWrongAnswer1(), false);
         answers.put(questionDto.getWrongAnswer2(), false);
         answers.put(questionDto.getWrongAnswer3(), false);

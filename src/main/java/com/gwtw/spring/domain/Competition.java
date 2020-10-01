@@ -20,6 +20,8 @@ public class Competition {
 
     private String price;
 
+    private String cost;
+
     private int remaining;
 
     private int startingTickets;
@@ -34,7 +36,7 @@ public class Competition {
 
     }
 
-    public Competition(Long id,String image, String heading, String description, String price, int startingTickets, int remaining) {
+    public Competition(Long id,String image, String heading, String description, String price, int startingTickets, int remaining, String cost) {
         this.id = id;
         this.heading = heading;
         this.description = description;
@@ -45,6 +47,7 @@ public class Competition {
         this.open = 1;
         this.claimed = 0;
         this.drawnDate = Timestamp.now();
+        this.cost = cost;
     }
 
     public Long getId() {
@@ -125,5 +128,13 @@ public class Competition {
 
     public void setDrawnDate(Timestamp drawnDate) {
         this.drawnDate = drawnDate;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 }

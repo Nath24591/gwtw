@@ -1,6 +1,5 @@
 package com.gwtw.spring.repository;
 
-import com.google.cloud.Timestamp;
 import com.gwtw.spring.domain.Competition;
 import org.springframework.cloud.gcp.data.datastore.repository.DatastoreRepository;
 import org.springframework.cloud.gcp.data.datastore.repository.query.Query;

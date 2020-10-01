@@ -56,7 +56,7 @@
                                 <ul class="nav navbar-nav navbar-right">
                                     <li><a class="pages" href="/">Home</a></li>
                                     <li><a class="pages" href="/results">Results</a></li>
-                                    <li><a class="pages" href="/currentcomps">Competitions</a></li>
+                                    <li><a class="pages" href="/current-competitions">Competitions</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -79,11 +79,11 @@
                         <nav id="dropdown">
                             <ul>
                                 <li th:if="${loggedIn != null}"><a class="pages" href="/myProfile">Profile</a></li>
-                                <li th:if="${loggedIn != null}"><a class="pages" href="/logout">Logout</a></li>
                                 <li th:if="${loggedIn == null}"><a class="pages" href="/login">Login</a></li>
                                 <li><a class="pages" href="/">Home</a></li>
                                 <li><a class="pages" href="/results">Results</a></li>
-                                <li><a class="pages" href="/currentcomps">Competitions</a></li>
+                                <li><a class="pages" href="/current-competitions">Competitions</a></li>
+                                <li th:if="${loggedIn != null}"><a class="pages" href="/logout">Logout</a></li>
                             </ul>
                         </nav>
                     </div>

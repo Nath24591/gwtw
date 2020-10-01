@@ -49,7 +49,7 @@
                             <div class="row">
                                 <form id="contactForm" method="POST" th:action="@{/login}" th:object="${LoginDto}" class="log-form">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <input type="text" id="email" class="form-control" placeholder="Email" th:field="*{email}"
+                                        <input type="email" id="email" class="form-control" placeholder="Email" th:field="*{email}"
                                                required data-error="Please enter your email">
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">

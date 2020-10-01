@@ -4,8 +4,6 @@ import com.google.cloud.Timestamp;
 import org.springframework.cloud.gcp.data.datastore.core.mapping.Entity;
 import org.springframework.data.annotation.Id;
 
-import java.util.List;
-
 @Entity(name = "competition_tickets")
 public class CompetitionTicket {
     @Id
