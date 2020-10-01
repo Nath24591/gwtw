@@ -2,14 +2,13 @@ package com.gwtw.spring.controller;
 
 import com.google.cloud.Timestamp;
 import com.google.common.collect.Lists;
+import com.gwtw.spring.CompetitionComponent;
 import com.gwtw.spring.DTO.*;
-import com.gwtw.spring.PasswordUtils;
 import com.gwtw.spring.domain.*;
 import com.gwtw.spring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gcp.data.datastore.core.DatastoreTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.*;
+
+import static org.springframework.http.MediaType.*;
 
 @Controller
 public class NavigationController {
@@ -35,6 +36,10 @@ public class NavigationController {
     UserPasswordResetRepository userPasswordResetRepository;
     @Autowired
     DatastoreTemplate datastoreTemplate;
+    @Autowired
+    MailController mailController;
+    @Autowired
+    CompetitionComponent competitionComponent;
 
     @RequestMapping("/")
     public ModelAndView index(ModelAndView modelAndView, HttpServletRequest request) {
@@ -42,9 +47,49 @@ public class NavigationController {
             modelAndView.addObject("loggedIn", "true");
         }
         //get current competitions to list as "featured" on home page
-        List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
+        List<Competition> competitionList = competitionComponent.getCompetitionsForHomePage();
         modelAndView.addObject("featuredCompetitions", competitionList);
         modelAndView.setViewName("index");
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "/sitemap.xml", produces = APPLICATION_XML_VALUE)
+    public ModelAndView sitemap(ModelAndView modelAndView) {
+        modelAndView.setViewName("sitemap.xml");
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "/robots.txt", produces = TEXT_PLAIN_VALUE)
+    public ModelAndView robots(ModelAndView modelAndView) {
+        modelAndView.setViewName("robots.txt");
+        return modelAndView;
+    }
+
+    @RequestMapping("/support")
+    public ModelAndView support(ModelAndView modelAndView, HttpServletRequest request) {
+        if(isUserLoggedIn(request)){
+            modelAndView.addObject("loggedIn", "true");
+        }
+
+        User user = userRepository.getUserByEmail(getEmail(request));
+        if (user != null) {
+            modelAndView.addObject("loggedInEmail", getEmail(request));
+            modelAndView.addObject("firstName", user.getFirstName());
+        }
+        modelAndView.addObject("SupportDto", new SupportDto());
+
+        modelAndView.setViewName("support");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/support", method = RequestMethod.POST)
+    public ModelAndView processSupportForm(@ModelAttribute("SupportDto") SupportDto supportDto, ModelAndView modelAndView, HttpServletRequest request) {
+        //Does user already have an account for this email?
+
+        modelAndView.addObject("confirmationMessage", "Your support request has been raised, you will be contacted on the email supplied shortly. - In the meantime, please check if your question is on the FAQ page");
+
+        mailController.createSupportEmail("gwtwcomp@gmail.com","Support request", supportDto.getName(), supportDto.getEmail(), supportDto.getContent());
+        modelAndView.setViewName("support");
         return modelAndView;
     }
 
@@ -67,10 +112,7 @@ public class NavigationController {
                 status = "Claimed";
             }
             competitionResultsDto.setStatus(status);
-
             competitionResultsDtos.add(competitionResultsDto);
-
-
         }
         modelAndView.addObject("closedCompetitions", competitionResultsDtos);
         modelAndView.setViewName("results");
@@ -91,7 +133,7 @@ public class NavigationController {
         if(isUserLoggedIn(request)){
             modelAndView.addObject("loggedIn", "true");
             //Profile stuff
-            User user = userRepository.getUsersByEmail(getEmail(request)).get(0);
+            User user = userRepository.getUserByEmail(getEmail(request));
             modelAndView.addObject("firstName", user.getFirstName());
             modelAndView.addObject("lastName", user.getLastName());
             modelAndView.addObject("email", user.getEmail());
@@ -110,8 +152,8 @@ public class NavigationController {
     }
 
     @RequestMapping(value="/getentries")
-    public @ResponseBody List<Entry> getEntries(Model model, HttpServletRequest request) {
-        User user = userRepository.getUsersByEmail(getEmail(request)).get(0);
+    public @ResponseBody List<Entry> getEntries(HttpServletRequest request) {
+        User user = userRepository.getUserByEmail(getEmail(request));
         //Entry stuff
         List<UserTicket> userTickets = userTicketRepository.getAllByUserId(String.valueOf(user.getId()));
         Map<String,ArrayList<Integer>> uniqueComps = new java.util.HashMap<>(Map.of());
@@ -132,7 +174,7 @@ public class NavigationController {
                 // if the key hasn't been used yet,
                 // we'll create a new ArrayList<String> object, add the value
                 // and put it in the array list with the new key
-                list = new ArrayList<Integer>();
+                list = new ArrayList<>();
                 list.add(ticket.getTicket());
                 uniqueComps.put(ticket.getCompId(), list);
             }
@@ -162,7 +204,7 @@ public class NavigationController {
     public ModelAndView login(ModelAndView modelAndView, HttpServletRequest request) {
         if(isUserLoggedIn(request)) {
             modelAndView.addObject("loggedIn", "true");
-            List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
+            List<Competition> competitionList = competitionComponent.getCompetitionsForHomePage();
             modelAndView.addObject("featuredCompetitions", competitionList);
             modelAndView.setViewName("index");
         } else {
@@ -176,7 +218,7 @@ public class NavigationController {
     public ModelAndView forgotPassword(ModelAndView modelAndView, HttpServletRequest request) {
         if(isUserLoggedIn(request)) {
             modelAndView.addObject("loggedIn", "true");
-            List<Competition> competitionList = competitionRepository.getCompetitionsForHomePage(0);
+            List<Competition> competitionList = competitionComponent.getCompetitionsForHomePage();
             modelAndView.addObject("featuredCompetitions", competitionList);
             modelAndView.setViewName("index");
         } else {
@@ -188,15 +230,10 @@ public class NavigationController {
 
     @RequestMapping(value = "/reset", method = RequestMethod.GET)
     public ModelAndView resetPassword(ModelAndView modelAndView, HttpServletRequest request, @RequestParam("token") String token) {
-
         UserPasswordReset upr = userPasswordResetRepository.getUserPasswordResetByToken(token);
-        if(upr != null){
-            modelAndView.addObject("ResetPasswordDto", new ResetPasswordDto(token));
-            modelAndView.setViewName("resetPassword");
-        } else {
-            modelAndView.addObject("ResetPasswordDto", new ResetPasswordDto(token));
+        modelAndView.addObject("ResetPasswordDto", new ResetPasswordDto(token));
+        if (upr == null) {
             modelAndView.addObject("errorMessage", "Invalid password reset token");
-            modelAndView.setViewName("resetPassword");
         }
 
         modelAndView.addObject("ResetPasswordDto", new ResetPasswordDto(token));
@@ -239,13 +276,12 @@ public class NavigationController {
                 modelAndView.addObject("errorMessage", "You have already claimed for this competition.");
             }
             //Did this user win this competition?
-            User user = userRepository.getUsersByEmail(getEmail(request)).get(0);
+            User user = userRepository.getUserByEmail(getEmail(request));
             UserTicket userTicket = userTicketRepository.getByUserIdAndCompIdAndWinning(String.valueOf(user.getId()), compId, 1);
             modelAndView.addObject("comp", competition);
             if (userTicket == null) {
                 modelAndView.addObject("errorMessage", "You have not won this competition!");
             }
-            //modelAndView.addObject("ClaimDto", new ClaimDto());
             modelAndView.setViewName("claim");
         } else {
             modelAndView.addObject("LoginDto", new LoginDto());
@@ -261,7 +297,7 @@ public class NavigationController {
             modelAndView.addObject("loggedIn", "true");
             modelAndView.addObject("loggedInEmail", getEmail(request));
         }
-        User user = userRepository.getUsersByEmail(claimDto.getEmail()).get(0);
+        User user = userRepository.getUserByEmail(claimDto.getEmail());
         UserTicket userTicket = userTicketRepository.getByUserIdAndCompIdAndWinning(String.valueOf(user.getId()), claimDto.getCompId(), 1);
         if (userTicket == null) {
             modelAndView.addObject("errorMessage", "This is not your competition win to claim.");
@@ -287,7 +323,6 @@ public class NavigationController {
             modelAndView.addObject("comp", competition);
         }
 
-
         modelAndView.setViewName("claim");
         return modelAndView;
     }
@@ -302,8 +337,8 @@ public class NavigationController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/currentcomps", method = RequestMethod.GET)
-    public ModelAndView currentComps(ModelAndView modelAndView, HttpServletRequest request) {
+    @RequestMapping(value = "/current-competitions", method = RequestMethod.GET)
+    public ModelAndView currentCompetitions(ModelAndView modelAndView, HttpServletRequest request) {
         if(isUserLoggedIn(request)){
             modelAndView.addObject("loggedIn", "true");
         }
@@ -312,7 +347,7 @@ public class NavigationController {
         List<Competition> competitionList = competitionRepository.getCompetitionByRemainingIsGreaterThan(0);
         modelAndView.addObject("competitions", competitionList);
 
-        modelAndView.setViewName("currentcomps");
+        modelAndView.setViewName("current-competitions");
         return modelAndView;
     }
 
