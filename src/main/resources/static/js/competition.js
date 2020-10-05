@@ -202,7 +202,13 @@ $('.select-num').click( function() {
             timeout: 600000,
             data: JSON.stringify(object),
             complete: function (data) {
-                if(data.responseText === "reserved"){
+                if(data.responseText === "sold"){
+                    let domToUpdate = $('.select-num').filter(function() {
+                        return $(this).text() === object["ticketNumber"];
+                    });
+                    $(domToUpdate).addClass("hidden");
+                    basicSwal("error", "Sorry ticket number " + object["ticketNumber"] + " has already been sold!");
+                } else if(data.responseText === "reserved"){
                     let domToUpdate = $('.select-num').filter(function() {
                         return $(this).text() === object["ticketNumber"];
                     });

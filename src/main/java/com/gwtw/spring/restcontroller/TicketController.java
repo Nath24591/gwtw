@@ -45,10 +45,11 @@ public class TicketController {
         CompetitionTicket ticketToUpdate = competitionTicketRepository.getCompetitionTicketByCompetitionIdAndTicket(id,ticketInt);
         LocalDateTime fifteenMinutesAgo = LocalDateTime.now().minusMinutes(15);
         Timestamp timestamp = Timestamp.of(java.sql.Timestamp.valueOf(fifteenMinutesAgo));
-        if(ticketToUpdate.getReservedTime().compareTo(timestamp) > 0){
+        if(ticketToUpdate == null){
+            response = "sold";
+        } else if(ticketToUpdate.getReservedTime().compareTo(timestamp) > 0){
             response = "reserved";
             //ticket is reserved
-            System.out.println("this condition");
         } else {
             response = "success";
             ticketToUpdate.setReservedTime(Timestamp.now());
@@ -93,6 +94,7 @@ public class TicketController {
             userTicket.setTicket(Integer.parseInt(ticketNum));
             userTicket.setOpen(1);
             userTicket.setWinning(0);
+            userTicket.setFree(0);
             userTicket.setPurchasedTime(Timestamp.now());
             userTickets.add(userTicket);
             CompetitionTicket ticketToDelete = competitionTicketRepository.getCompetitionTicketByCompetitionIdAndTicket(id,Integer.parseInt(ticketNum));

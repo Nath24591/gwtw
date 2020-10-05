@@ -21,6 +21,16 @@ public class UserTicket {
 
     private Timestamp purchasedTime;
 
+    private int free;
+
+    public int getFree() {
+        return free;
+    }
+
+    public void setFree(int free) {
+        this.free = free;
+    }
+
     public Long getId() {
         return id;
     }

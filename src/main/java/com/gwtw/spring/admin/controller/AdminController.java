@@ -3,13 +3,14 @@ package com.gwtw.spring.admin.controller;
 import com.google.cloud.Timestamp;
 import com.google.common.collect.Lists;
 import com.gwtw.spring.DTO.CompetitionDto;
+import com.gwtw.spring.DTO.GiveTicketDto;
 import com.gwtw.spring.DTO.LoginDto;
 import com.gwtw.spring.DTO.QuestionDto;
 import com.gwtw.spring.PasswordUtils;
-import com.gwtw.spring.domain.Competition;
-import com.gwtw.spring.domain.CompetitionTicket;
-import com.gwtw.spring.domain.Question;
-import com.gwtw.spring.domain.User;
+import com.gwtw.spring.controller.MailController;
+import com.gwtw.spring.domain.*;
+import com.gwtw.spring.repository.CompetitionRepository;
+import com.gwtw.spring.repository.CompetitionTicketRepository;
 import com.gwtw.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gcp.data.datastore.core.DatastoreTemplate;
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Controller
 public class AdminController {
@@ -32,6 +34,12 @@ public class AdminController {
     DatastoreTemplate datastoreTemplate;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CompetitionRepository competitionRepository;
+    @Autowired
+    CompetitionTicketRepository competitionTicketRepository;
+    @Autowired
+    MailController mailController;
 
     @RequestMapping("/admin")
     public ModelAndView index(ModelAndView modelAndView, HttpServletRequest request) {
@@ -74,6 +82,91 @@ public class AdminController {
         if(isUserAdmin(request)){
             modelAndView.addObject("CompetitionDto", new CompetitionDto());
             modelAndView.setViewName("addCompetitions");
+        } else {
+            modelAndView.addObject("LoginDto", new LoginDto());
+            modelAndView.setViewName("adminLogin");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping("/giveTicket")
+    public ModelAndView giveTicket(ModelAndView modelAndView, HttpServletRequest request) {
+        //if an admin, set view to giveTickets else set to admin login
+        if(isUserAdmin(request)){
+            modelAndView.addObject("GiveTicketDto", new GiveTicketDto());
+            List<User> users = Lists.newArrayList();
+            for(User user : userRepository.findAll()){
+                users.add(user);
+            }
+
+            List<Competition> competitions = Lists.newArrayList();
+            competitions.addAll(competitionRepository.getCompetitionByRemainingIsGreaterThan(0));
+
+            modelAndView.addObject("competitions", competitions);
+            modelAndView.addObject("users", users);
+            modelAndView.setViewName("giveTicket");
+
+        } else {
+            modelAndView.addObject("LoginDto", new LoginDto());
+            modelAndView.setViewName("adminLogin");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/giveTicket", method = RequestMethod.POST)
+    public ModelAndView processTicketForm(@ModelAttribute("GiveTicketDto") GiveTicketDto giveTicketDto, ModelAndView modelAndView, HttpServletRequest request) {
+        //if an admin, set view to giveTickets else set to admin login
+        if(isUserAdmin(request)){
+            //get user to give ticket
+            List<User> users = Lists.newArrayList();
+            for(User user : userRepository.findAll()){
+                users.add(user);
+            }
+            User user = userRepository.getUserByEmail(giveTicketDto.getEmail());
+
+            //get competition to get ticket from
+            Competition competition = competitionRepository.getCompetitionById(Long.valueOf(giveTicketDto.getCompetitionId()));
+
+            //get available tickets for competition
+            LocalDateTime currentTime = LocalDateTime.now().minusMinutes(15);
+            Timestamp timestamp = Timestamp.of(java.sql.Timestamp.valueOf(currentTime));
+            List<CompetitionTicket> availableTickets = competitionTicketRepository.getAllByCompetitionIdAndReservedTimeIsLessThan(giveTicketDto.getCompetitionId(), timestamp);
+
+            //Remove 1 from competition
+            competition.setRemaining(competition.getRemaining()-1);
+            datastoreTemplate.save(competition);
+
+            //Select random ticket
+            Random rand = new Random();
+            CompetitionTicket ticket = availableTickets.get(rand.nextInt(availableTickets.size()));
+
+            //create the user ticket
+            UserTicket userTicket = new UserTicket();
+            userTicket.setCompId(giveTicketDto.getCompetitionId());
+            userTicket.setUserId(String.valueOf(user.getId()));
+            userTicket.setTicket(ticket.getTicket());
+            userTicket.setOpen(1);
+            userTicket.setWinning(0);
+            userTicket.setFree(1);
+            userTicket.setPurchasedTime(Timestamp.now());
+            //Delete ticket from competition tickets
+            CompetitionTicket ticketToDelete = competitionTicketRepository.getCompetitionTicketByCompetitionIdAndTicket(giveTicketDto.getCompetitionId(),ticket.getTicket());
+            datastoreTemplate.delete(ticketToDelete);
+
+            //add ticket to user
+            datastoreTemplate.save(userTicket);
+
+            //Email free entry confirmation
+            mailController.createFreeEntryConfirmationEmail(user.getEmail(), "You have been given a free entry", user.getFirstName(), competition.getHeading(), userTicket.getTicket().toString());
+
+            List<Competition> competitions = Lists.newArrayList();
+            competitions.addAll(competitionRepository.getCompetitionByRemainingIsGreaterThan(0));
+
+            modelAndView.addObject("confirmationMessage", "You have given " + user.getFirstName() + " 1 free entry to " + competition.getHeading() + ", their ticket number is: " + ticket.getTicket());
+            modelAndView.addObject("competitions", competitions);
+            modelAndView.addObject("users", users);
+            modelAndView.setViewName("giveTicket");
+
         } else {
             modelAndView.addObject("LoginDto", new LoginDto());
             modelAndView.setViewName("adminLogin");

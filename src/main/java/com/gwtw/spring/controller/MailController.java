@@ -35,6 +35,23 @@ public class MailController {
         }
     }
 
+    public void createFreeEntryConfirmationEmail(String to, String subject, String recipientName, String compHeader, String ticket) {
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("recipientName", recipientName);
+        templateModel.put("compHeader", compHeader);
+        templateModel.put("tickets", ticket);
+
+        try {
+            emailSenderService.sendMessageUsingFreemarkerTemplate(
+                    to,
+                    subject,
+                    templateModel,"free-entry.ftl");
+        } catch (IOException | TemplateException | MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void createRegistrationEmail(String to, String subject, String recipientName) {
 
         Map<String, Object> templateModel = new HashMap<>();

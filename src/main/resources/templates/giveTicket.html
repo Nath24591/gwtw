@@ -69,36 +69,28 @@
                 <div class="row">
                     <div class="competition-form">
                         <br>
-                        <h4 class="text-center">Add Competition</h4>
+                        <h4 class="text-center">Give free ticket</h4>
                         <br>
+                        <div th:if="${confirmationMessage}" class="alert alert-success"
+                             role="alert" th:text=${confirmationMessage}></div>
+                        <div th:if="${errorMessage}"
+                             class="alert alert-danger" role="alert"
+                             th:text="${errorMessage}"></div>
                         <div class="row">
-                            <form action="#" id="addCompetition" method="POST" th:action="@{/addCompetitions}" th:object="${CompetitionDto}">
+                            <form action="#" id="addQuestion" method="POST" th:action="@{/giveTicket}" th:object="${GiveTicketDto}">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label for="heading" style="min-width: 100px;">Heading</label>
-                                    <input id="heading" type="text" th:field="*{heading}">
+                                    <select class="form-control" th:field="*{email}"  id="dropOperator">
+                                        <option value="0">Select user</option>
+                                        <option th:each="user : ${users}" th:value="${user.email}" th:text="${user.email}"></option>
+                                    </select>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label for="description" style="min-width: 100px;">Description</label>
-                                    <input id="description" type="text" th:field="*{description}">
+                                    <select class="form-control" th:field="*{competitionId}"  id="dropComp">
+                                        <option value="0">Select Competition</option>
+                                        <option th:each="competition : ${competitions}" th:value="${competition.id}" th:text="${competition.heading}"></option>
+                                    </select>
                                 </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label for="price" style="min-width: 100px;">Price</label>
-                                    <input id="price" step="0.01" type="number" th:field="*{price}">
-                                </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label for="cost" style="min-width: 100px;">Cost</label>
-                                    <input id="cost" type="text" th:field="*{cost}">
-                                </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label for="startingTickets" style="min-width: 100px;">Tickets</label>
-                                    <input id="startingTickets" type="number" th:field="*{startingTickets}">
-                                </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <label for="file" style="min-width: 100px;">Image: </label>
-                                    <input id="file" type="file" >
-                                    <input id="base64" type="text" th:field="*{image}"/>
-                                </div>
-                                <button class="btn btn-primary btn-block">Add Competition</button>
+                                <button class="btn btn-primary btn-block">Give Ticket</button>
                             </form>
                         </div>
                     </div>
