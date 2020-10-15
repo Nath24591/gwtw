@@ -281,3 +281,31 @@ function basicSwal(type, title) {
         title: title
     })
 }
+
+$('#sortComp').on('change', function () {
+    window.location.href = window.location.href.split('?')[0]+ '?sort=' + $(this).val();
+});
+
+$( document ).ready(function() {
+    let getUrlParameter = function getUrlParameter(sParam) {
+        let sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+
+    let sort = getUrlParameter('sort');
+    if(sort !== undefined) {
+        $("#sortComp").val(sort);
+    } else {
+        $("#sortComp").val("lessrem");
+    }
+});

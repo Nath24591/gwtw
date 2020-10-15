@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link th:href="@{https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
@@ -108,45 +108,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-bar mr-1"></i>
-                                Ticket sales per month
-                            </div>
-                            <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                        </div>
-                    </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <select class="form-control" id="dropComp">
+                        <option value="0">Select Competition</option>
+                        <option th:each="competition : ${competitions}" th:value="${competition.id}" th:text="${competition.heading}"></option>
+                    </select>
                 </div>
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fas fa-table mr-1"></i>
-                        DataTable Example
+                        <p id="tableheading">Select a competition to view tickets</p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>Email</th>
+                                    <th>Tickets</th>
+                                    <th>Ticket Count</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                </tr>
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -165,11 +146,26 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/scripts.js}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script th:src="@{/js/demo/chart-area-demo.js}"></script>
-<script th:src="@{/js/demo/chart-bar-demo.js}"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-<script th:src="@{/js/demo/datatables-demo.js}"></script>
+<script th:src="@{https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js}"></script>
+
+<script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
+<!-- bootstrap js -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- owl.carousel js -->
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<!-- magnific js -->
+<script th:src="@{/js/magnific.min.js}"></script>
+<!-- wow js -->
+<script th:src="@{/js/wow.min.js}"></script>
+<!-- meanmenu js -->
+<script th:src="@{/js/jquery.meanmenu.js}"></script>
+<!-- Form validator js -->
+<script th:src="@{/js/form-validator.min.js}"></script>
+<!-- plugins js -->
+<script th:src="@{/js/plugins.js}"></script>
+<!-- main js -->
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/js/admin.js}"></script>
 </body>
 </html>

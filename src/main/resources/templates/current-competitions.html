@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>GoneWithTheWin | Current Competitions</title>
+    <title>GoneWithTheWin - Competitions</title>
     <meta name="description" content="Win great competition prizes for cheap prices!">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -64,6 +64,12 @@
                 <div class="section-headline text-center">
                     <h3>Current Open Competitions</h3>
                     <p>Check out all of our current competitions below!</p>
+                    <select style="max-width:50%; margin: auto;text-align:center;" class="form-control" id="sortComp">
+                        <option value="lessrem">Lowest tickets remaining</option>
+                        <option value="highrem">Highest tickets remaining</option>
+                        <option value="lowprice">Lowest price</option>
+                        <option value="highprice">Highest price</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -181,7 +187,7 @@
 <!-- End Footer Area -->
 
 <!-- all js here -->
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/competition.js}"></script>
 <!-- jquery latest version -->
 <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>

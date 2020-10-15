@@ -12,21 +12,17 @@ import com.gwtw.spring.domain.*;
 import com.gwtw.spring.repository.CompetitionRepository;
 import com.gwtw.spring.repository.CompetitionTicketRepository;
 import com.gwtw.spring.repository.UserRepository;
+import com.gwtw.spring.repository.UserTicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gcp.data.datastore.core.DatastoreTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 public class AdminController {
@@ -40,11 +36,16 @@ public class AdminController {
     CompetitionTicketRepository competitionTicketRepository;
     @Autowired
     MailController mailController;
+    @Autowired
+    UserTicketRepository userTicketRepository;
 
     @RequestMapping("/admin")
     public ModelAndView index(ModelAndView modelAndView, HttpServletRequest request) {
         //if an admin, set view to admin else set to admin login
         if(isUserAdmin(request)){
+            List<Competition> competitions = Lists.newArrayList();
+            competitions.addAll(competitionRepository.getCompetitionByRemainingIsGreaterThan(0));
+            modelAndView.addObject("competitions", competitions);
             modelAndView.setViewName("admin");
         } else {
             modelAndView.addObject("LoginDto", new LoginDto());
@@ -64,6 +65,9 @@ public class AdminController {
             if(passwordsMatch && existingUser.getIsAdmin() == 1){
                 session.setAttribute("email", existingUser.getEmail());
                 session.setAttribute("admin", "true");
+                List<Competition> competitions = Lists.newArrayList();
+                competitions.addAll(competitionRepository.getCompetitionByRemainingIsGreaterThan(0));
+                modelAndView.addObject("competitions", competitions);
                 modelAndView.setViewName("admin");
             } else {
                 modelAndView.addObject("errorMessage", "Wrong email or password or you're not a admin");
@@ -172,6 +176,43 @@ public class AdminController {
             modelAndView.setViewName("adminLogin");
         }
         return modelAndView;
+    }
+
+    @RequestMapping(value="/getallentries")
+    public @ResponseBody
+    List<EntryCount> getAllEntries(@RequestParam("id") String compId) {
+            //Entry stuff
+            Competition competition = competitionRepository.getCompetitionById(Long.valueOf(compId));
+            List<UserTicket> userTickets = userTicketRepository.getAllByCompId(compId);
+            Map<String, ArrayList<Integer>> uniqueComps = new java.util.HashMap<>(Map.of());
+            List<EntryCount> entries = Lists.newArrayList();
+            for (UserTicket ticket : userTickets) {
+                ArrayList<Integer> list;
+                if (uniqueComps.containsKey(ticket.getUserId())) {
+                    // if the key has already been used,
+                    // we'll just grab the array list and add the value to it
+                    list = uniqueComps.get(ticket.getUserId());
+                    list.add(ticket.getTicket());
+                    list.sort(Comparator.naturalOrder());
+                } else {
+                    // if the key hasn't been used yet,
+                    // we'll create a new ArrayList<String> object, add the value
+                    // and put it in the array list with the new key
+                    list = new ArrayList<>();
+                    list.add(ticket.getTicket());
+                    uniqueComps.put(ticket.getUserId(), list);
+                }
+            }
+
+            for (Map.Entry<String, ArrayList<Integer>> uniqueComp : uniqueComps.entrySet()) {
+                EntryCount entryCount = new EntryCount();
+                User user = userRepository.getUserById(Long.valueOf(uniqueComp.getKey()));
+                entryCount.setEmail(user.getEmail());
+                entryCount.setTickets(uniqueComp.getValue());
+                entryCount.setCount(uniqueComp.getValue().size());
+                entries.add(entryCount);
+            }
+        return entries;
     }
 
     @RequestMapping(value = "/addCompetitions", method = RequestMethod.POST)
