@@ -8,12 +8,15 @@ import com.gwtw.spring.domain.*;
 import com.gwtw.spring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gcp.data.datastore.core.DatastoreTemplate;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -338,13 +341,28 @@ public class NavigationController {
     }
 
     @RequestMapping(value = "/current-competitions", method = RequestMethod.GET)
-    public ModelAndView currentCompetitions(ModelAndView modelAndView, HttpServletRequest request) {
+    public ModelAndView currentCompetitions(ModelAndView modelAndView, HttpServletRequest request,
+                                            @RequestParam(defaultValue = "lessrem") String sort) {
         if(isUserLoggedIn(request)){
             modelAndView.addObject("loggedIn", "true");
         }
-
         //get current competitons from database and add as array object
         List<Competition> competitionList = competitionRepository.getCompetitionByRemainingIsGreaterThan(0);
+        switch(sort){
+            case "lessrem":
+                competitionList.sort(Comparator.comparingInt(Competition::getRemaining));
+                break;
+            case "highrem":
+                competitionList.sort((c1, c2) -> Integer.compare(c2.getRemaining(), c1.getRemaining()));
+                break;
+            case "lowprice":
+                competitionList.sort(Comparator.comparing(Competition::getPrice));
+                break;
+            case "highprice":
+                competitionList.sort((a, b) -> b.getPrice().compareTo(a.getPrice()));
+                break;
+        }
+
         modelAndView.addObject("competitions", competitionList);
 
         modelAndView.setViewName("current-competitions");
